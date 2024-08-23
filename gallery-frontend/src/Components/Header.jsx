@@ -6,6 +6,7 @@ import {
   getHeaders,
   isAuthenticated,
   isAuthenticatedUser,
+  removeAllCookies,
 } from "../services/auth";
 import UserDropdown from "./UserDropdown";
 // import { useAuth } from "oidc-react";
@@ -20,6 +21,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 // import * as jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 function Header() {
   let navigate = useNavigate();
@@ -57,6 +59,9 @@ function Header() {
 
     iframe.onload = () => {
       document.body.removeChild(iframe);
+      localStorage.clear();
+      removeAllCookies();
+
       navigate("/", { state: { isLoggedOut: true } });
     };
     setLoading(false);

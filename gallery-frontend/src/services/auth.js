@@ -1,4 +1,5 @@
 import { oidcConfig } from "../config/config";
+import Cookies from "js-cookie";
 
 export const isAuthenticatedUser = () => {
   const token = localStorage.getItem("token");
@@ -20,6 +21,26 @@ export const getHeaders = () => {
     // "Access-Control-Allow-Origin": "https://tutorial.infrabyte.com.au",
   };
   return headers;
+};
+
+export const removeAllCookies = () => {
+  const allCookies = Cookies.get();
+  const identityServerCookies = [
+    "idsrv.session",
+    "idsrv",
+    ".AspNetCore.Antiforgery.cdV5uW_Ejgc",
+    ".AspNetCore.Identity.Application",
+    "ARRAffinitySameSite",
+    "ARRAffinity",
+  ];
+
+  identityServerCookies.forEach((cookieName) => {
+    Cookies.remove(cookieName, { path: '/' });
+    Cookies.remove(cookieName, { path: '/', domain: oidcConfig.hostUrl});
+  });
+  Object.keys(allCookies).forEach((cookieName) => {
+    Cookies.remove(cookieName);
+  });
 };
 
 // export const handleLogout = async () => {

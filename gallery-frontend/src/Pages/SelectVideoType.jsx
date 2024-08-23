@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import UserDropdown from "../Components/UserDropdown";
-import { isAuthenticatedUser } from "../services/auth";
+import { isAuthenticatedUser, removeAllCookies } from "../services/auth";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
 import { oidcConfig } from "../config/config";
+import Cookies from "js-cookie";
 
 function SelectVideoType() {
   let navigate = useNavigate();
@@ -82,6 +83,8 @@ function SelectVideoType() {
 
     iframe.onload = () => {
       document.body.removeChild(iframe);
+      localStorage.clear();
+      removeAllCookies();
       navigate("/", { state: { isLoggedOut: true } });
     };
 
