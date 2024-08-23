@@ -228,7 +228,7 @@ const ThumbnailGrid = ({
                   </Accordion.Header>
 
                   <Accordion.Body>
-                    <h6 className="mt-0 mb-3">{category.description}</h6>
+                    <h6 className="mt-0 mb-3">{category.description===`null`?'': category.description}</h6>
                     <div className="video-list w-100">
                       {category.videoTutorials.map((thumbnail, index) =>
                         !showUpdate && thumbnail.isPrivate === true ? (

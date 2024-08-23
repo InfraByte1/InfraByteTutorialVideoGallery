@@ -233,32 +233,37 @@ const VideoFormUpdatePage = () => {
     //    fileName: video.name,
     // };
     var emptyGuid = "00000000-0000-0000-0000-000000000000";
-    if (videos.length === 0) {
-      setError("Please upload at least one video before submitting.");
-      return;
-    }
+    // if (videos.length === 0) {
+    //   setError("Please upload at least one video before submitting.");
+    //   return;
+    // }
 
-    var videoDetail = [];
-    videoDetails.forEach((v, i) => {
-      videoDetail.push({ Title: v.title, Thumbnail: v.thumbnailFile });
-    });
+    // var videoDetail = [];
+    // videoDetails.forEach((v, i) => {
+    //   videoDetail.push({ Title: v.title, Thumbnail: v.thumbnailFile });
+    // });
     const formData = new FormData();
     // formData.append("Title", title);
     formData.append("Tags", [tags]);
     formData.append("Category", categorySelected);
     formData.append("SubCategory", subcategory);
-    formData.append("Description", description);
+    formData.append("Description", description === "null" ? "" : description);
     formData.append("VideoType", videoType);
-    formData.append("VideoTitle ", title);
+    formData.append("VideoTitle", title);
 
     // formData.append("VideoDetails", videoDetail);
     // console.log("video files");
 
-    var videosReq = [...oldVideoDetails, ...videoDetails];
+    var videosReq =
+      videoDetails.length != 0
+        ? [...oldVideoDetails, ...videoDetails]
+        : oldVideoDetails;
+
     // videoDetails.forEach((video, index) => {
     //     formData.append(`VideoDetails[${index}].Title`, video.title);
     //     formData.append(`VideoDetails[${index}].Thumbnail`, video.thumbnailFile);
     //   });
+
     videosReq.forEach((video, index) => {
       formData.append(`VideoDetails[${index}].Title`, video.title);
       formData.append(`VideoDetails[${index}].Thumbnail`, video.thumbnailFile);
@@ -275,15 +280,16 @@ const VideoFormUpdatePage = () => {
       console.log(video.videoUrl);
     });
 
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
     // videoDetails.forEach((video, index) => {
     //   formData.append(`VideoFiles[${index}].TutorialId`, null);
     //   formData.append(`VideoFiles[${index}].VideoFile`, video.videoUrl);
     //   console.log(video.videoUrl);
     // });
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
     try {
       const response = await axios.post(
         updateJobBookingTutorials.toString(),
