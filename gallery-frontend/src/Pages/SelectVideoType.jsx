@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import UserDropdown from "../Components/UserDropdown";
-import { handleLogout, isAuthenticatedUser } from "../services/auth";
+import { isAuthenticatedUser } from "../services/auth";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
+import { oidcConfig } from "../config/config";
 
 function SelectVideoType() {
   let navigate = useNavigate();
@@ -57,6 +58,37 @@ function SelectVideoType() {
       window.location.href = "/";
     }
   }, []);
+
+  const handleLogout = async () => {
+    // auth.signOut();
+    // window.location.href = `${getAuthorizationUrl}?client_id=${oidcConfig.clientId}&redirect_uri=${oidcConfig.redirectUri}&response_type=${oidcConfig.response_type}&scope=${oidcConfig.scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+    const idTokenFound = localStorage.getItem("id_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("token");
+    const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
+    // if (idTokenFound) {
+
+    //   window.location.href = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
+    // } else {
+    //   window.location.href = oidcConfig.postLogoutRedirectUri;
+    // }
+    // navigate("/", { replace: true });
+
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = logoutUrl;
+    document.body.appendChild(iframe);
+
+    iframe.onload = () => {
+      document.body.removeChild(iframe);
+      navigate("/", { state: { isLoggedOut: true } });
+    };
+
+    // navigate("/", { replace: true });
+
+    // window.location.href = "/";
+  };
   return (
     <div className="home-container ">
       <div className="home-page home-bg-container">

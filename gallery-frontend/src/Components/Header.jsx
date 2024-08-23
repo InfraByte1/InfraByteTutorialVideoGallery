@@ -57,7 +57,7 @@ function Header() {
 
     iframe.onload = () => {
       document.body.removeChild(iframe);
-      navigate("/", { replace: true });
+      navigate("/", { state: { isLoggedOut: true } });
     };
     setLoading(false);
     // navigate("/", { replace: true });
@@ -150,12 +150,8 @@ function Header() {
             <Nav.Link as={Link} to="/videos">
               Home
             </Nav.Link>
-            <Nav.Link href="/videos/web">
-              Web
-            </Nav.Link>
-            <Nav.Link href="/videos/mobile">
-              Mobile
-            </Nav.Link>
+            <Nav.Link href="/videos/web">Web</Nav.Link>
+            <Nav.Link href="/videos/mobile">Mobile</Nav.Link>
           </Nav>
           <Form
             className="d-flex justify-content-end mt-2 mb-2"

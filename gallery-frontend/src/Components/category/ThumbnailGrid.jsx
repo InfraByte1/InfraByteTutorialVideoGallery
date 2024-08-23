@@ -244,7 +244,7 @@ const ThumbnailGrid = ({
                             {thumbnail.thumbnailName != null ? (
                               <img
                                 src={`${thumbnail.thumbnailPath}/${thumbnail.thumbnailName}`}
-                                alt={thumbnail.fileName}
+                                alt={thumbnail.thumbnailName}
                                 className="thumbnail"
                                 // onClick={() => playVideo(thumbnail.filePath)}
                               />

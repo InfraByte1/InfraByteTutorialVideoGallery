@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import LoginPage from "./LoginPage";
 // import { useAuth } from "oidc-react";
@@ -15,6 +15,8 @@ function Homepage() {
   // const auth = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const isLoggedOut = location.state?.isLoggedOut || false;
 
   // if (auth.isLoading) {
   //   return <div>Loading...</div>;
@@ -45,7 +47,10 @@ function Homepage() {
   useEffect(() => {
     if (document.referrer === "") {
     } else {
-      login();
+      if (isLoggedOut) {
+      } else {
+        login();
+      }
     }
   }, []);
 

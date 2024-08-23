@@ -25,7 +25,7 @@ const Loading = () => {
     if (code) {
       // console.log("Authorization code:", code);
 
-      localStorage.setItem("code", code);
+      // localStorage.setItem("code", code);
       getToken(code);
     } else {
       setLoading(false);
@@ -88,7 +88,7 @@ const Loading = () => {
 
         //if admins then true
         if (
-          roles.includes("Admin") ||
+          // roles.includes("Admin") ||
           roles.includes("System Admin") ||
           roles.includes("Super Admin")
         ) {

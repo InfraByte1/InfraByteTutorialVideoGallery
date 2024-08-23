@@ -178,9 +178,9 @@ const VideoFormUpdatePage = () => {
     if (tags.length === 0) {
       formErrors.tags = "Please provide tags";
     }
-    if (videoDetails.length === 0) {
-      formErrors.videoDetails = "Please select your video(s)";
-    }
+    // if (videoDetails.length === 0) {
+    //   formErrors.videoDetails = "Please select your video(s)";
+    // }
     if (!title) {
       formErrors.title = "Please enter video title";
     }
@@ -213,9 +213,8 @@ const VideoFormUpdatePage = () => {
       }
     });
 
-    if (!isTitleValid) {
+    if (videoDetails.length != 0 && !isTitleValid) {
       toast.info("Title is required for all videos");
-      // alert("Title is required for all videos");
       return;
     }
 
@@ -609,7 +608,6 @@ const VideoFormUpdatePage = () => {
                     id="video-upload"
                     accept="video/mp4"
                     onChange={handleFileChange}
-                    required
                     multiple
                   />
                   {errors.videoDetails && (
@@ -674,7 +672,8 @@ const VideoFormUpdatePage = () => {
                                 value={video.isPrivate}
                                 onChange={(event) => {
                                   setIsPrivate(event.target.checked);
-                                  videoDetails[index].isPrivate= !video.isPrivate;
+                                  videoDetails[index].isPrivate =
+                                    !video.isPrivate;
 
                                   handleIsPrivateChange(index, !isPrivate);
                                 }}
@@ -783,7 +782,8 @@ const VideoFormUpdatePage = () => {
                                 label={`isPrivate`}
                                 value={video.isPrivate}
                                 onChange={(event) => {
-                                  oldVideoDetails[index].isPrivate= !video.isPrivate;
+                                  oldVideoDetails[index].isPrivate =
+                                    !video.isPrivate;
 
                                   handleIsPrivateChange(index, !isPrivate);
                                 }}
