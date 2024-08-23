@@ -30,10 +30,14 @@ const ThumbnailGrid = ({
 
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
+
+  const [videoTitle, setVideoTitle] = useState("");
+
   const navigate = useNavigate();
 
   const playVideo = (url, fileName) => {
     setVideoUrl(url);
+    setVideoTitle(fileName);
     toast.info(`Now Playing: ${fileName}`);
   };
 
@@ -131,7 +135,7 @@ const ThumbnailGrid = ({
           <>
             {yourVideosData && (
               <>
-                <h3 className="mt-5 mb-3">{selectedItem.subCategory}</h3>
+                <h2 className="mt-5 mb-3">{selectedItem.subCategory}</h2>
                 <h6 className="mt-5 mb-3">{selectedItem.description}</h6>
                 <center>
                   <div className="thumbnails">
@@ -191,6 +195,9 @@ const ThumbnailGrid = ({
             )}
 
             <h3 className="mt-5 mb-3">{selectedItem.category}</h3>
+            {videoTitle && (
+              <h5 className="mt-3 mb-3">Now Playing: {videoTitle}</h5>
+            )}
             <Accordion defaultActiveKey="default">
               <ToastContainer />
               {loadingData && (
@@ -212,7 +219,7 @@ const ThumbnailGrid = ({
                     id={category.videoTitle}
                   >
                     <div className="d-flex align-items-center justify-content-between w-100">
-                      <h6 className="mt-0 mb-1">{category.videoTitle}</h6>
+                      <h5 className="mt-0 mb-1">{category.videoTitle}</h5>
                       {showUpdate && (
                         <a
                           onClick={() =>
@@ -228,7 +235,11 @@ const ThumbnailGrid = ({
                   </Accordion.Header>
 
                   <Accordion.Body>
-                    <h6 className="mt-0 mb-3">{category.description===`null`?'': category.description}</h6>
+                    <h6 className="mt-0 mb-3 mx-2">
+                      {category.description === `null`
+                        ? ""
+                        : category.description}
+                    </h6>
                     <div className="video-list w-100">
                       {category.videoTutorials.map((thumbnail, index) =>
                         !showUpdate && thumbnail.isPrivate === true ? (

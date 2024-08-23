@@ -33,7 +33,9 @@ const CategoryAccordion = ({
     }, null);
 
     var reqData = {
-      category: selectedCategory ?? "Dashboard",
+      category:
+        selectedCategory ??
+        (videoType === "web" ? "Dashboard" : "Driver Portal"),
       subCategory: item.title,
       videoType: videoType,
     };
@@ -166,7 +168,6 @@ const CategoryAccordion = ({
                         if (setSelectedSubCategory != null) {
                           setSelectedSubCategory(item.title);
                         }
-                      
                       }}
                       className={
                         selectedItem != null && selectedItem.id == item.id
