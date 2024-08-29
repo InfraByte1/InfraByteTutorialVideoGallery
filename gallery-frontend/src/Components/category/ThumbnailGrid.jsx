@@ -84,8 +84,12 @@ const ThumbnailGrid = ({
     try {
       var token = localStorage.getItem("token");
       var reqData = {
-        category: selectedCategory ?? "Dashboard",
-        subCategory: selectedSubCategory,
+        category:
+          selectedCategory ??
+          (videoType === "web" ? "Dashboard" : "Driver Portal"),
+        subCategory:
+          selectedSubCategory ??
+          (videoType === "web" ? "Dashboard" : "Driver Portal"),
         videoType: videoType,
         videoTitle: selectedTitle,
       };
@@ -94,7 +98,7 @@ const ThumbnailGrid = ({
         headers: getHeaders(),
       });
       if (response) {
-        navigate("/edit/video", { state: response.data });
+        navigate(`/edit/video/${videoType}`, { state: response.data });
         toast.info("Your video is fetched");
       }
     } catch (err) {
@@ -112,6 +116,7 @@ const ThumbnailGrid = ({
           Your browser does not support the video tag.
         </video>
       </div>
+      {videoTitle && <h5 className="mt-3 mb-3">Now Playing: {videoTitle}</h5>}
 
       <div className={`thumbnail-grid ${isMobile ? "mobile-list" : ""}`}>
         {isMobile && (
@@ -195,9 +200,7 @@ const ThumbnailGrid = ({
             )}
 
             <h3 className="mt-5 mb-3">{selectedItem.category}</h3>
-            {videoTitle && (
-              <h5 className="mt-3 mb-3">Now Playing: {videoTitle}</h5>
-            )}
+
             <Accordion defaultActiveKey="default">
               <ToastContainer />
               {loadingData && (

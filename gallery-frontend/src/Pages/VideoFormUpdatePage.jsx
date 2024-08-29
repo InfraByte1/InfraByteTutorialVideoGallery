@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import { category } from "../data/category";
@@ -17,6 +17,7 @@ import { mobileCategory } from "../data/mobile_category";
 const VideoFormUpdatePage = () => {
   const location = useLocation();
   const item = location.state;
+  const { videoTypeState } = useParams();
 
   const [title, setTitle] = useState(item.subCategories[0].videoTitle);
   const [description, setDescription] = useState(
@@ -41,8 +42,10 @@ const VideoFormUpdatePage = () => {
   const [subcategory, setSubcategory] = useState(item.subCategory);
   const [subcategories, setSubcategories] = useState([]);
 
-  const [videoType, setVideoType] = useState("web");
-  var [data, setData] = useState(category);
+  const [videoType, setVideoType] = useState(videoTypeState);
+  var [data, setData] = useState(
+    videoTypeState === "web" ? category : mobileCategory
+  );
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
 

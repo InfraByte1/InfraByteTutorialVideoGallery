@@ -22,8 +22,6 @@ import { isAuthenticatedUser } from "./services/auth";
 import VideoFormUpdatePage from "./Pages/VideoFormUpdatePage";
 
 const AppRoute = () => {
- 
- 
   return (
     <Routes>
       <Route exact path="/" element={<Homepage />} />
@@ -68,7 +66,7 @@ const AppRoute = () => {
         }
       />
       <Route
-        path="/edit/video"
+        path="/edit/video/:videoTypeState"
         element={
           <>
             {" "}
