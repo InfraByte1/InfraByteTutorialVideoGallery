@@ -9,6 +9,7 @@ import { getAuthorizationUrl, loginUrl, oidcConfig } from "../config/config";
 import Cookies from "js-cookie";
 import { generateCodeChallenge, generateCodeVerifier } from "../config/pkce";
 import Loading from "../Components/Loading";
+import { removeAllCookies } from "../services/auth";
 
 function Homepage() {
   let navigate = useNavigate();
@@ -44,10 +45,24 @@ function Homepage() {
     window.location.href = `${getAuthorizationUrl}?client_id=${oidcConfig.clientId}&redirect_uri=${oidcConfig.redirectUri}&response_type=${oidcConfig.response_type}&scope=${oidcConfig.scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
   };
 
+  const logout = async () => {
+    const idTokenFound = localStorage.getItem("id_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("token");
+    const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
+
+    window.location.href = logoutUrl;
+  };
+
   useEffect(() => {
     if (document.referrer === "") {
+      // if came from different page
+      removeAllCookies();
+      logout();
     } else {
       if (isLoggedOut) {
+        //if came to this page after logout
       } else {
         login();
       }

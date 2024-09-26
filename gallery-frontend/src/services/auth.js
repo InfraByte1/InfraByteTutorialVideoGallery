@@ -25,6 +25,7 @@ export const getHeaders = () => {
 
 export const removeAllCookies = () => {
   const allCookies = Cookies.get();
+  localStorage.clear();
   const identityServerCookies = [
     "idsrv.session",
     "idsrv",
@@ -32,11 +33,12 @@ export const removeAllCookies = () => {
     ".AspNetCore.Identity.Application",
     "ARRAffinitySameSite",
     "ARRAffinity",
+    "pkce_code_verifier",
   ];
 
   identityServerCookies.forEach((cookieName) => {
-    Cookies.remove(cookieName, { path: '/' });
-    Cookies.remove(cookieName, { path: '/', domain: oidcConfig.hostUrl});
+    Cookies.remove(cookieName, { path: "/" });
+    Cookies.remove(cookieName, { path: "/", domain: oidcConfig.hostUrl });
   });
   Object.keys(allCookies).forEach((cookieName) => {
     Cookies.remove(cookieName);
