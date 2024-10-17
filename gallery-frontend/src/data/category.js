@@ -290,6 +290,26 @@ export const category = [
               },
             ],
           },
+          {
+            id: 17,
+            title: "Inquiry System",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 18,
+            title: "Car Referral",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
         ],
       },
     ],
@@ -694,8 +714,39 @@ export const category = [
               },
             ],
           },
+          {
+            id: 49,
+            title: "Car Inquiry Setting",
+            thumbnails: [],
+          },
         ],
       },
     ],
   },
+  // {
+  //   categoryId: 9,
+  //   categoryName: "Referrals",
+  //   subcategories: [
+  //     {
+  //       subcategoryId: 9,
+  //       subcategoryName: "Referrals",
+  //       items: [
+  //         {
+  //           id: 50,
+  //           title: "Referral Code",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 7",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //             {
+  //               title: "Thumbnail 8",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

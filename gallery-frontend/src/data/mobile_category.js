@@ -410,14 +410,36 @@ export const mobileCategory = [
   },
   {
     categoryId: 9,
-    categoryName: "User Profile",
+    categoryName: "Vehicle Inspection",
     subcategories: [
       {
         subcategoryId: 9,
-        subcategoryName: "User Profile",
+        subcategoryName: "Vehicle Inspection",
         items: [
           {
             id: 38,
+            title: "Vehicle Inspection",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    categoryId: 10,
+    categoryName: "User Profile",
+    subcategories: [
+      {
+        subcategoryId: 10,
+        subcategoryName: "User Profile",
+        items: [
+          {
+            id: 39,
             title: "User Profile",
             thumbnails: [
               {

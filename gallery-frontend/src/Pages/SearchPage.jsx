@@ -19,9 +19,11 @@ const SearchPage = () => {
 
   const [videoUrl, setVideoUrl] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
+  const [videoTitle, setVideoTitle] = useState("");
 
   const playVideo = (url, fileName) => {
     setVideoUrl(url);
+    setVideoTitle(fileName);
     toast.info(`Now Playing: ${fileName}`);
   };
 
@@ -70,6 +72,8 @@ const SearchPage = () => {
           Your browser does not support the video tag.
         </video>
       </div>
+      {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>}
+
       {loading && (
         <span>
           <div className="loading-spinner"></div>

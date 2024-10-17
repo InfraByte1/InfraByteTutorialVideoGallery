@@ -58,12 +58,13 @@ function Homepage() {
   useEffect(() => {
     if (document.referrer === "") {
       // if came from different page
-      removeAllCookies();
-      logout();
+    
     } else {
       if (isLoggedOut) {
         //if came to this page after logout
       } else {
+        removeAllCookies();
+        logout();
         login();
       }
     }

@@ -116,7 +116,7 @@ const ThumbnailGrid = ({
           Your browser does not support the video tag.
         </video>
       </div>
-      {videoTitle && <h5 className="mt-3 mb-3">Now Playing: {videoTitle}</h5>}
+      {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>}
 
       <div className={`thumbnail-grid ${isMobile ? "mobile-list" : ""}`}>
         {isMobile && (
