@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Card, Button } from "react-bootstrap";
 import "../../Assets/Css/CategoryAccordion.css";
 import { getJobTutorialsByCategorySubCategory } from "../../config/config";
@@ -19,6 +19,18 @@ const CategoryAccordion = ({
   const [selectedItem, setSelectedAccordionItem] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 769);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleSelect = async (itemId) => {
     setLoading(true);
@@ -84,7 +96,7 @@ const CategoryAccordion = ({
   if (yourVideosData != null) {
     return (
       <Accordion defaultActiveKey="default">
-        <ToastContainer />
+        {isMobile && <ToastContainer />}
         {yourVideosData.map((category) => (
           <Accordion.Item
             eventKey={category.category.toString()}
@@ -131,7 +143,7 @@ const CategoryAccordion = ({
   }
   return (
     <Accordion defaultActiveKey="0">
-      <ToastContainer />
+         {isMobile && <ToastContainer />}
       {data.map((category) => (
         <Accordion.Item
           eventKey={category.categoryId.toString()}

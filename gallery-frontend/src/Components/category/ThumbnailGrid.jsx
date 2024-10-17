@@ -110,6 +110,7 @@ const ThumbnailGrid = ({
 
   return (
     <>
+      <ToastContainer />
       <div className="video-player">
         <video controls autoPlay key={videoUrl}>
           <source src={videoUrl} type="video/mp4" />
@@ -202,7 +203,7 @@ const ThumbnailGrid = ({
             <h3 className="mt-5 mb-3">{selectedItem.category}</h3>
 
             <Accordion defaultActiveKey="default">
-              <ToastContainer />
+              {isMobile && <ToastContainer />}
               {loadingData && (
                 <span>
                   <div className="loading-spinner"></div>

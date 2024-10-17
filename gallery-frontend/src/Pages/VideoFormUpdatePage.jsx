@@ -682,9 +682,9 @@ const VideoFormUpdatePage = () => {
                                 onChange={(event) => {
                                   setIsPrivate(event.target.checked);
                                   videoDetails[index].isPrivate =
-                                    !video.isPrivate;
+                                    !event.target.value;
 
-                                  handleIsPrivateChange(index, !isPrivate);
+                                  handleIsPrivateChange(index, videoDetails[index].isPrivate);
                                 }}
                               />
                             </Form.Group>
@@ -794,7 +794,7 @@ const VideoFormUpdatePage = () => {
                                   oldVideoDetails[index].isPrivate =
                                     !video.isPrivate;
 
-                                  handleIsPrivateChange(index, !isPrivate);
+                                  handleIsPrivateChange(index, oldVideoDetails[index].isPrivate);
                                 }}
                               />
                             </Form.Group>
