@@ -43,12 +43,10 @@ const CategoryAccordion = ({
       }
       return acc;
     }, null);
-
+    var category = videoType === "web" ? "Dashboard" : "Driver Portal";
     var reqData = {
-      category:
-        selectedCategory ??
-        (videoType === "web" ? "Dashboard" : "Driver Portal"),
-      subCategory: item.title,
+      category: selectedCategory ?? category,
+      subCategory: selectedCategory == null ? category : item.title,
       videoType: videoType,
     };
     var resData;
@@ -74,6 +72,12 @@ const CategoryAccordion = ({
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (setCategorySelected != null || setCategorySelected === undefined) {
+      handleSelect(1);
+    }
+  }, []);
 
   const handleYourVideo = async (subCategory) => {
     var item = yourVideosData.reduce((acc, category) => {
@@ -143,7 +147,7 @@ const CategoryAccordion = ({
   }
   return (
     <Accordion defaultActiveKey="0">
-         {isMobile && <ToastContainer />}
+      {isMobile && <ToastContainer />}
       {data.map((category) => (
         <Accordion.Item
           eventKey={category.categoryId.toString()}

@@ -48,6 +48,7 @@ exports.oidcConfig = {
   response_type: "code",
   scope: "openid profile email jobbookingapi offline_access",
   hostUrl: hostUrl,
+  secretCrypt: "video-infrabyte-tutorial",
   // state:getState(),
   // code_challenge: getCodeChallenge(),
   // code_challenge_method:'S256'

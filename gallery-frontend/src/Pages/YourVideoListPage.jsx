@@ -45,13 +45,19 @@ const YourVideoListsPage = () => {
 
   const handleVideoTypeChange = (e) => {
     const selectedType = e.target.value;
-    setVideoType(selectedType);
+
     if (selectedType != undefined) {
       if (selectedType == "web") {
         setData(category);
       } else {
         setData(mobileCategory);
       }
+
+      // var videoTitle = selectedType === "web" ? "Dashboard" : "Driver Portal";
+      setSelectedCategory(null);
+      setSelectedSubCategory(null);
+      setSelectedItem(null);
+      setVideoType(selectedType);
     }
   };
 
@@ -106,7 +112,7 @@ const YourVideoListsPage = () => {
                 handleShow={handleShow}
                 showUpdate={true}
                 selectedCategory={selectedCategory}
-                selectedSubCategory= {selectedSubCategory}
+                selectedSubCategory={selectedSubCategory}
               />
             </div>
           </Col>

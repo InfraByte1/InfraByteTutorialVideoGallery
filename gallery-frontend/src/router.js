@@ -80,7 +80,16 @@ const AppRoute = () => {
         exact
         element={
           <>
-            <Header /> <SearchPage />
+            <Header /> <SearchPage isFromShare={false} />
+          </>
+        }
+      />
+
+      <Route
+        path="/video/:query"
+        element={
+          <>
+            <Header /> <SearchPage isFromShare={true} />
           </>
         }
       />

@@ -7,8 +7,10 @@ import ThumbnailGrid from "../Components/category/ThumbnailGrid";
 import noThumbnail from "../Assets/images/no_thumbnail.jpg";
 import PlayButtonOverlay from "../Components/category/PlayButtonOverlay";
 import { toast, ToastContainer } from "react-toastify";
+import CryptoJS from "crypto-js";
+import { oidcConfig } from "../config/config";
 
-const SearchPage = () => {
+const SearchPage = ({ isFromShare }) => {
   const location = useLocation();
   var [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,13 +47,27 @@ const SearchPage = () => {
     try {
       setLoading(true);
       if (query != undefined) {
-        const response = await axios.get(
-          `${getJobsTutorialByTags}?tags=${query}`,
-          {
-            headers: getHeaders(),
-          }
-        );
-        setData(response.data);
+        if (isFromShare) {
+          var title = CryptoJS.AES.decrypt(
+            decodeURIComponent(query),
+            oidcConfig.secretCrypt
+          ).toString(CryptoJS.enc.Utf8);
+          const response = await axios.get(
+            `${getJobsTutorialByTags}?tags=${title}`,
+            {
+              headers: getHeaders(),
+            }
+          );
+          setData(response.data);
+        } else {
+          const response = await axios.get(
+            `${getJobsTutorialByTags}?tags=${query}`,
+            {
+              headers: getHeaders(),
+            }
+          );
+          setData(response.data);
+        }
       }
 
       setLoading(false);

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import PlayButtonOverlay from "./PlayButtonOverlay";
 import { Accordion, Button, Container, Modal } from "react-bootstrap";
 import noThumbnail from "../../Assets/images/no_thumbnail.jpg";
+import { FaShareAlt } from "react-icons/fa";
+import CryptoJS from "crypto-js";
 
 import "../../Assets/Css/ThumbnailGrid.css";
 import { deleteOneVideo } from "../../services/video";
@@ -32,6 +34,30 @@ const ThumbnailGrid = ({
   const [loadingData, setLoadingData] = useState(false);
 
   const [videoTitle, setVideoTitle] = useState("");
+
+  const [copied, setCopied] = useState(false);
+
+  const copyUrlToClipboard = (title) => {
+    if (!title) return;
+    if (!loading) {
+      const encrypted = CryptoJS.AES.encrypt(
+        videoTitle,
+        oidcConfig.secretCrypt
+      ).toString();
+      const urlSafeEncryptedUrl = encodeURIComponent(encrypted);
+
+      const url = `${oidcConfig.hostUrl}/video/${urlSafeEncryptedUrl}`;
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy the text to clipboard: ", err);
+        });
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -181,18 +207,35 @@ const ThumbnailGrid = ({
                               Delete
                             </a>
                           </div>
-                          <PlayButtonOverlay
-                            onClick={() =>
-                              playVideo(thumbnail.filePath, thumbnail.title)
-                            }
-                          />
+                          <PlayButtonOverlay />
                         </div>
-                        <h2 className="thumbnail-title">{thumbnail.title}</h2>
+                        <h2
+                          className="thumbnail-title"
+                          onClick={() =>
+                            playVideo(thumbnail.filePath, thumbnail.title)
+                          }
+                        >
+                          {thumbnail.title}
+                        </h2>
                         {thumbnail.videoStatus && (
                           <div className="new-container">
                             {thumbnail.videoStatus ?? ""}
                           </div>
                         )}
+
+                        <div className="thumbnail-overlay ">
+                          <button
+                            onClick={() => copyUrlToClipboard(thumbnail.title)}
+                            style={styles.shareButton}
+                          >
+                            <FaShareAlt style={styles.icon} />{" "}
+                          </button>
+                          {copied && (
+                            <span style={styles.copiedMessage}>
+                              Video URL Copied!
+                            </span>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -249,31 +292,44 @@ const ThumbnailGrid = ({
                         !showUpdate && thumbnail.isPrivate === true ? (
                           <></>
                         ) : (
-                          <div
-                            key={index}
-                            className="video-item"
-                            onClick={() =>
-                              playVideo(thumbnail.filePath, thumbnail.subTitle)
-                            }
-                          >
+                          <div key={index} className="video-item">
                             {thumbnail.thumbnailName != null ? (
                               <img
                                 src={`${thumbnail.thumbnailPath}/${thumbnail.thumbnailName}`}
                                 alt={thumbnail.thumbnailName}
                                 className="thumbnail"
-                                // onClick={() => playVideo(thumbnail.filePath)}
+                                onClick={() =>
+                                  playVideo(
+                                    thumbnail.filePath,
+                                    thumbnail.subTitle
+                                  )
+                                }
                               />
                             ) : (
                               <img
                                 src={noThumbnail}
                                 alt="No image"
                                 className="thumbnail "
-                                // onClick={() => playVideo(thumbnail.filePath)}
+                                onClick={() =>
+                                  playVideo(
+                                    thumbnail.filePath,
+                                    thumbnail.subTitle
+                                  )
+                                }
                               /> // <video src={thumbnail.filePath} className="thumbnail-image" onClick={() => playVideo(thumbnail.filePath)}></video>
                             )}
 
                             <div className="video-details">
-                              <h2>{thumbnail.subTitle}</h2>
+                              <h2
+                                onClick={() =>
+                                  playVideo(
+                                    thumbnail.filePath,
+                                    thumbnail.subTitle
+                                  )
+                                }
+                              >
+                                {thumbnail.subTitle}
+                              </h2>
                               {/* <p>{}</p> */}
                               {thumbnail.videoStatus && (
                                 <div className="new-container">
@@ -299,6 +355,20 @@ const ThumbnailGrid = ({
                                       </span>
                                     )}
                                   </>
+                                )}
+
+                                <button
+                                  onClick={() =>
+                                    copyUrlToClipboard(category.videoTitle)
+                                  }
+                                  style={styles.shareButton}
+                                >
+                                  <FaShareAlt style={styles.icon} />{" "}
+                                </button>
+                                {copied && (
+                                  <span style={styles.copiedMessage}>
+                                    Video URL Copied!
+                                  </span>
                                 )}
                               </div>
                             </div>
@@ -438,6 +508,28 @@ const ThumbnailGrid = ({
       </div>
     </>
   );
+};
+
+const styles = {
+  shareButton: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "orange",
+    border: "none",
+    color: "white",
+    padding: "5px",
+    fontSize: "16px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginTop: "8px",
+  },
+  icon: {
+    marginRight: "0px",
+  },
+  copiedMessage: {
+    marginLeft: "00px",
+    color: "green",
+  },
 };
 
 export default ThumbnailGrid;

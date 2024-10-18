@@ -226,42 +226,42 @@ export const category = [
             thumbnails: [],
           },
           {
-            id: 49,
+            id: 8,
             title: "Tow Records",
             thumbnails: [],
           },
           {
-            id: 8,
+            id: 3,
             title: "Auctions",
             thumbnails: [],
           },
           {
-            id: 9,
+            id: 10,
             title: "Jobs",
             thumbnails: [],
           },
           {
-            id: 10,
+            id: 11,
             title: "Quotes",
             thumbnails: [],
           },
           {
-            id: 11,
+            id: 12,
             title: "Locked Jobs",
             thumbnails: [],
           },
           {
-            id: 12,
+            id: 13,
             title: "Office Drop-Offs",
             thumbnails: [],
           },
           {
-            id: 13,
+            id: 14,
             title: "Ppsr Lockups",
             thumbnails: [],
           },
           {
-            id: 14,
+            id: 15,
             title: "Unresolved Jobs",
             thumbnails: [
               {
@@ -271,7 +271,7 @@ export const category = [
             ],
           },
           {
-            id: 15,
+            id: 16,
             title: "Vin/Rego Decoder",
             thumbnails: [
               {
@@ -281,7 +281,7 @@ export const category = [
             ],
           },
           {
-            id: 16,
+            id: 17,
             title: "Website Enquiries",
             thumbnails: [
               {
@@ -291,7 +291,7 @@ export const category = [
             ],
           },
           {
-            id: 17,
+            id: 18,
             title: "Inquiry System",
             thumbnails: [
               {
@@ -301,7 +301,7 @@ export const category = [
             ],
           },
           {
-            id: 18,
+            id: 19,
             title: "Car Referral",
             thumbnails: [
               {
@@ -323,7 +323,7 @@ export const category = [
         subcategoryName: "Off. Inventory",
         items: [
           {
-            id: 19,
+            id: 20,
             title: "Con. Exp. Type",
             thumbnails: [
               {
@@ -337,7 +337,7 @@ export const category = [
             ],
           },
           {
-            id: 20,
+            id: 21,
             title: "Off. Customers",
             thumbnails: [
               {
@@ -347,7 +347,7 @@ export const category = [
             ],
           },
           {
-            id: 21,
+            id: 22,
             title: "Off. Sales",
             thumbnails: [
               {
@@ -357,7 +357,7 @@ export const category = [
             ],
           },
           {
-            id: 22,
+            id: 23,
             title: "Cust. Statement",
             thumbnails: [
               {
@@ -367,7 +367,7 @@ export const category = [
             ],
           },
           {
-            id: 23,
+            id: 24,
             title: "Bulk Payment",
             thumbnails: [
               {
@@ -377,7 +377,7 @@ export const category = [
             ],
           },
           {
-            id: 24,
+            id: 25,
             title: "Cash Flow",
             thumbnails: [
               {
@@ -387,7 +387,7 @@ export const category = [
             ],
           },
           {
-            id: 25,
+            id: 26,
             title: "Offshore Storage",
             thumbnails: [
               {
@@ -409,7 +409,7 @@ export const category = [
         subcategoryName: "Reports",
         items: [
           {
-            id: 26,
+            id: 27,
             title: "Form 1",
             thumbnails: [
               {
@@ -423,7 +423,7 @@ export const category = [
             ],
           },
           {
-            id: 27,
+            id: 28,
             title: "Form 3A",
             thumbnails: [
               {
@@ -433,7 +433,7 @@ export const category = [
             ],
           },
           {
-            id: 28,
+            id: 29,
             title: "Form 5",
             thumbnails: [
               {
@@ -443,7 +443,7 @@ export const category = [
             ],
           },
           {
-            id: 29,
+            id: 30,
             title: "Form 6",
             thumbnails: [
               {
@@ -453,7 +453,7 @@ export const category = [
             ],
           },
           {
-            id: 30,
+            id: 31,
             title: "Job Status",
             thumbnails: [
               {
@@ -463,7 +463,7 @@ export const category = [
             ],
           },
           {
-            id: 31,
+            id: 32,
             title: "Non-Accidental Towing Record",
             thumbnails: [
               {
@@ -485,7 +485,7 @@ export const category = [
         subcategoryName: "Scrap Metal Collection",
         items: [
           {
-            id: 32,
+            id: 33,
             title: "Truck Loads",
             thumbnails: [
               {
@@ -499,7 +499,7 @@ export const category = [
             ],
           },
           {
-            id: 33,
+            id: 34,
             title: "Outside Customer",
             thumbnails: [
               {
@@ -521,7 +521,7 @@ export const category = [
         subcategoryName: "Settings",
         items: [
           {
-            id: 34,
+            id: 35,
             title: "Account Manager",
             thumbnails: [
               {
@@ -535,7 +535,7 @@ export const category = [
             ],
           },
           {
-            id: 35,
+            id: 36,
             title: "Auto Parts",
             thumbnails: [
               {
@@ -545,7 +545,7 @@ export const category = [
             ],
           },
           {
-            id: 36,
+            id: 37,
             title: "Branch Offices",
             thumbnails: [
               {
@@ -555,7 +555,7 @@ export const category = [
             ],
           },
           {
-            id: 37,
+            id: 38,
             title: "Clients",
             thumbnails: [
               {
@@ -565,7 +565,7 @@ export const category = [
             ],
           },
           {
-            id: 38,
+            id: 39,
             title: "Dismantle Types",
             thumbnails: [
               {
@@ -575,7 +575,7 @@ export const category = [
             ],
           },
           {
-            id: 39,
+            id: 40,
             title: "Driver Truck Assignment",
             thumbnails: [
               {
@@ -585,7 +585,7 @@ export const category = [
             ],
           },
           {
-            id: 40,
+            id: 41,
             title: "Scrap Metal Type",
             thumbnails: [
               {
@@ -595,7 +595,7 @@ export const category = [
             ],
           },
           {
-            id: 41,
+            id: 42,
             title: "Service Areas",
             thumbnails: [
               {
@@ -605,7 +605,7 @@ export const category = [
             ],
           },
           {
-            id: 42,
+            id: 43,
             title: "LogIn Register",
             thumbnails: [
               {
@@ -615,7 +615,7 @@ export const category = [
             ],
           },
           {
-            id: 43,
+            id: 44,
             title: "Offshore Branch",
             thumbnails: [
               {
@@ -625,7 +625,7 @@ export const category = [
             ],
           },
           {
-            id: 44,
+            id: 45,
             title: "Trucks",
             thumbnails: [
               {
@@ -635,7 +635,7 @@ export const category = [
             ],
           },
           {
-            id: 45,
+            id: 46,
             title: "Vehicle Parts Criteria",
             thumbnails: [
               {
@@ -645,22 +645,8 @@ export const category = [
             ],
           },
           {
-            id: 46,
-            title: "Account Manager",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-          {
             id: 47,
-            title: "Change Logs",
+            title: "Account Manager",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -674,7 +660,7 @@ export const category = [
           },
           {
             id: 48,
-            title: "RedBook Car Makes",
+            title: "Change Logs",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -688,7 +674,7 @@ export const category = [
           },
           {
             id: 49,
-            title: "Car Parts List",
+            title: "RedBook Car Makes",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -702,7 +688,7 @@ export const category = [
           },
           {
             id: 50,
-            title: "Car Pricing Setting",
+            title: "Car Parts List",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -716,6 +702,20 @@ export const category = [
           },
           {
             id: 51,
+            title: "Car Pricing Setting",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 52,
             title: "Car Inquiry Setting",
             thumbnails: [],
           },
@@ -732,7 +732,7 @@ export const category = [
   //       subcategoryName: "Referrals",
   //       items: [
   //         {
-  //           id: 52,
+  //           id: 53,
   //           title: "Referral Code",
   //           thumbnails: [
   //             {
