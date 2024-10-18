@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getHeaders } from "../services/auth";
-import { getJobsTutorialByTags } from "../config/config";
+import { getJobsTutorialById, getJobsTutorialByTags } from "../config/config";
 import axios from "axios";
 import ThumbnailGrid from "../Components/category/ThumbnailGrid";
 import noThumbnail from "../Assets/images/no_thumbnail.jpg";
@@ -46,19 +46,20 @@ const SearchPage = ({ isFromShare }) => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      var responseData;
       if (query != undefined) {
         if (isFromShare) {
-          var title = CryptoJS.AES.decrypt(
+          var videoId = CryptoJS.AES.decrypt(
             decodeURIComponent(query),
             oidcConfig.secretCrypt
           ).toString(CryptoJS.enc.Utf8);
           const response = await axios.get(
-            `${getJobsTutorialByTags}?tags=${title}`,
+            `${getJobsTutorialById}/${videoId}`,
             {
               headers: getHeaders(),
             }
           );
-          setData(response.data);
+          responseData = response.data;
         } else {
           const response = await axios.get(
             `${getJobsTutorialByTags}?tags=${query}`,
@@ -66,7 +67,11 @@ const SearchPage = ({ isFromShare }) => {
               headers: getHeaders(),
             }
           );
-          setData(response.data);
+          responseData = response.data;
+        }
+        setData(responseData);
+        if (responseData != null) {
+          playVideo(responseData[0].filePath, responseData[0].subTitle);
         }
       }
 

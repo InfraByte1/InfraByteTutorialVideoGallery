@@ -37,6 +37,7 @@ exports.updateJobBookingTutorials = `${apiBaseUrl}v6.1/BookingTutorial/UpdateJob
 
 exports.tutorialUpload = `${apiBaseUrl}v6.1/BookingTutorial/UploadJobBookingTutorialFiles`;
 exports.getJobsTutorialByTags = `${apiBaseUrl}v6.1/BookingTutorial/GetJobTutorialByTags`;
+exports.getJobsTutorialById = `${apiBaseUrl}v6.1/BookingTutorial/GetJobTutorialById`;
 
 exports.tokenPayload = () => {};
 

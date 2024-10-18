@@ -37,11 +37,11 @@ const ThumbnailGrid = ({
 
   const [copied, setCopied] = useState(false);
 
-  const copyUrlToClipboard = (title) => {
-    if (!title) return;
+  const copyUrlToClipboard = (videoId) => {
+    if (!videoId) return;
     if (!loading) {
       const encrypted = CryptoJS.AES.encrypt(
-        videoTitle,
+        videoId,
         oidcConfig.secretCrypt
       ).toString();
       const urlSafeEncryptedUrl = encodeURIComponent(encrypted);
@@ -225,7 +225,7 @@ const ThumbnailGrid = ({
 
                         <div className="thumbnail-overlay ">
                           <button
-                            onClick={() => copyUrlToClipboard(thumbnail.title)}
+                            onClick={() => copyUrlToClipboard(thumbnail.id)}
                             style={styles.shareButton}
                           >
                             <FaShareAlt style={styles.icon} />{" "}
@@ -359,7 +359,7 @@ const ThumbnailGrid = ({
 
                                 <button
                                   onClick={() =>
-                                    copyUrlToClipboard(category.videoTitle)
+                                    copyUrlToClipboard(thumbnail.id)
                                   }
                                   style={styles.shareButton}
                                 >
