@@ -224,15 +224,26 @@ const ThumbnailGrid = ({
                         )}
 
                         <div className="thumbnail-overlay ">
-                          <button
-                            onClick={() => copyUrlToClipboard(thumbnail.id)}
-                            style={styles.shareButton}
-                          >
-                            <FaShareAlt style={styles.icon} />{" "}
-                          </button>
+                          {
+                            <button
+                              onClick={
+                                thumbnail.isPrivate === true
+                                  ? null
+                                  : () => copyUrlToClipboard(thumbnail.id)
+                              }
+                              style={
+                                thumbnail.isPrivate === true
+                                  ? styles.disabledButton
+                                  : styles.shareButton
+                              }
+                            >
+                              <FaShareAlt style={styles.icon} />{" "}
+                            </button>
+                          }
+
                           {copied && (
                             <span style={styles.copiedMessage}>
-                              Video URL Copied!
+                              Video Link Copied!
                             </span>
                           )}
                         </div>
@@ -357,17 +368,25 @@ const ThumbnailGrid = ({
                                   </>
                                 )}
 
-                                <button
-                                  onClick={() =>
-                                    copyUrlToClipboard(thumbnail.id)
-                                  }
-                                  style={styles.shareButton}
-                                >
-                                  <FaShareAlt style={styles.icon} />{" "}
-                                </button>
+                                {
+                                  <button
+                                    onClick={
+                                      thumbnail.isPrivate === true
+                                        ? null
+                                        : () => copyUrlToClipboard(thumbnail.id)
+                                    }
+                                    style={
+                                      thumbnail.isPrivate === true
+                                        ? styles.disabledButton
+                                        : styles.shareButton
+                                    }
+                                  >
+                                    <FaShareAlt style={styles.icon} />{" "}
+                                  </button>
+                                }
                                 {copied && (
                                   <span style={styles.copiedMessage}>
-                                    Video URL Copied!
+                                    Video Link Copied!
                                   </span>
                                 )}
                               </div>
@@ -522,6 +541,18 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     marginTop: "8px",
+  },
+  disabledButton: {
+    display: "flex",
+    alignItems: "center",
+    border: "none",
+    color: "white",
+    padding: "5px",
+    fontSize: "16px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginTop: "8px",
+    backgroundColor: "red",
   },
   icon: {
     marginRight: "0px",

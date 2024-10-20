@@ -678,13 +678,16 @@ const VideoFormUpdatePage = () => {
                                 type={"checkbox"}
                                 id={`isPrivate`}
                                 label={`isPrivate`}
-                                value={video.isPrivate}
+                                checked={video.isPrivate}
+                                // value={video.isPrivate}
                                 onChange={(event) => {
-                                  setIsPrivate(event.target.checked);
-                                  videoDetails[index].isPrivate =
-                                    !event.target.value;
+                                  const isChecked = event.target.checked;
+                                  setIsPrivate(isChecked);
+                                  // videoDetails[index].isPrivate =
+                                  //   !event.target.value;
+                                  videoDetails[index].isPrivate = isChecked;
 
-                                  handleIsPrivateChange(index, videoDetails[index].isPrivate);
+                                  handleIsPrivateChange(index, isChecked);
                                 }}
                               />
                             </Form.Group>
@@ -789,12 +792,16 @@ const VideoFormUpdatePage = () => {
                                 type={"checkbox"}
                                 id={`isPrivate`}
                                 label={`isPrivate`}
+                                checked={video.isPrivate}
                                 value={video.isPrivate}
                                 onChange={(event) => {
-                                  oldVideoDetails[index].isPrivate =
-                                    !video.isPrivate;
+                                  const isChecked = event.target.checked;
 
-                                  handleIsPrivateChange(index, oldVideoDetails[index].isPrivate);
+                                  // oldVideoDetails[index].isPrivate =
+                                  //   !video.isPrivate;
+                                  oldVideoDetails[index].isPrivate = isChecked;
+
+                                  handleIsPrivateChange(index, isChecked);
                                 }}
                               />
                             </Form.Group>

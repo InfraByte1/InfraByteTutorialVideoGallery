@@ -205,7 +205,6 @@ const VideoFormPage = () => {
     formData.append("Description", description);
     formData.append("VideoType", videoType);
     formData.append("VideoTitle", title);
-   
 
     // formData.append("VideoDetails", videoDetail);
     // console.log("video files");
@@ -595,11 +594,19 @@ const VideoFormPage = () => {
                                 type={"checkbox"}
                                 id={`isPrivate`}
                                 label={`isPrivate`}
-                                value={video.isPrivate}
+                                checked={video.isPrivate}
+                                // value={video.isPrivate}
                                 onChange={(event) => {
-                                  setIsPrivate(event.target.checked);
-                                  videoDetails[index].isPrivate= !video.isPrivate;
-                                  handleIsPrivateChange(index, videoDetails[index].isPrivate);
+                                  const isChecked = event.target.checked;
+                                  setIsPrivate(isChecked);
+                                  // videoDetails[index].isPrivate =
+                                  //   !event.target.value;
+                                  videoDetails[index].isPrivate = isChecked;
+
+                                  handleIsPrivateChange(index, isChecked);
+                                  // setIsPrivate(event.target.checked);
+                                  // videoDetails[index].isPrivate= !video.isPrivate;
+                                  // handleIsPrivateChange(index, videoDetails[index].isPrivate);
                                 }}
                               />
                             </Form.Group>
