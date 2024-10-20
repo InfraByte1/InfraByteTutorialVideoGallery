@@ -1,35 +1,112 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import LoginPage from "./LoginPage";
+// import { useAuth } from "oidc-react";
+import logo from "../Assets/images/nonon.png";
+import { getAuthorizationUrl, loginUrl, oidcConfig } from "../config/config";
+import Cookies from "js-cookie";
+import { generateCodeChallenge, generateCodeVerifier } from "../config/pkce";
+import Loading from "../Components/Loading";
+import { removeAllCookies } from "../services/auth";
 
 function Homepage() {
+  let navigate = useNavigate();
+  // const auth = useAuth();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const isLoggedOut = location.state?.isLoggedOut || false;
+
+  // if (auth.isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (auth.error) {
+  //   return <div>Error: {auth.error.message}</div>;
+  // }
+
+  // if (auth.isAuthenticated) {
+  //   return <div>Welcome, {auth.user.profile.name}!</div>;
+  // }
+
+  // const handleLogin = () => {
+  //   setIsLoading(true);
+  //   var result = auth.signIn();
+  // };
+
+  const login = async () => {
+    const codeVerifier = generateCodeVerifier(128);
+    const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+    Cookies.set("pkce_code_verifier", codeVerifier);
+
+    window.location.href = `${getAuthorizationUrl}?client_id=${oidcConfig.clientId}&redirect_uri=${oidcConfig.redirectUri}&response_type=${oidcConfig.response_type}&scope=${oidcConfig.scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+  };
+
+  const logout = async () => {
+    const idTokenFound = localStorage.getItem("id_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("token");
+    const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
+
+    window.location.href = logoutUrl;
+  };
+
+  useEffect(() => {
+    if (document.referrer === "") {
+      // if came from different page
+    
+    } else {
+      if (isLoggedOut) {
+        //if came to this page after logout
+      } else {
+        removeAllCookies();
+        logout();
+        login();
+      }
+    }
+  }, []);
 
   return (
     <div className="home-container">
       <div className="home-page ">
         <div className="overlay">
-          <div className="inner-container">
-            <div>
-              <h6 className="heading1">Enroll InfraByte Videos</h6>
+          <div className="inner-container ">
+            <div className="">
+              <h6 className="heading1">
+                Welcome to <span className="title-color">InfraByte</span> Videos
+              </h6>
               <h1 className="heading2 mt-3 mb-5">
-                InfraByte videos are ready to play
+                <span>
+                  <img src={logo} alt="logo" width="100" hight="100" />
+                </span>{" "}
+                videos are ready to play .
               </h1>
 
-              <a
-                className="button-container hide-container"
-                href="https://infrabyte.com.au/"
-                target="_blank"
+              <button
+                className="button-container  mx-0"
+                // onClick={handleLogin}
+                onClick={login}
               >
-                Visit site
-              </a>
+                Get Started
+              </button>
             </div>
           </div>
+          <p className="my-5 poweredby ">
+            <strong style={{ color: "orange" }}>
+              Powered by{" "}
+              <a href="https://infrabyte.com.au/" style={{ color: "white" }}>
+                Infrabyte
+              </a>
+            </strong>
+          </p>
         </div>
       </div>
-
-      <LoginPage />
+      {/* <LoginPage /> */}
+      <div className={isLoading ? "loading-bar" : "d-none"}></div>
     </div>
   );
 }

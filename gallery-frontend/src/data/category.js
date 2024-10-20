@@ -15,7 +15,7 @@ export const category = [
                 title: "Thumbnail 7",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                  "https://productionagaas.blob.core.windows.net/a1gaas-prod-drill1/93659078-b959-421a-9184-9a26485e363b/JobBookingTutorial/Finance/Car Look Up/ae512280-b840-45a6-999e-34fe200544a5.mp4",
               },
               {
                 title: "Thumbnail 8",
@@ -223,79 +223,45 @@ export const category = [
           {
             id: 7,
             title: "All cars",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            thumbnails: [],
           },
           {
             id: 8,
-            title: "Auctions",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            title: "Tow Records",
+            thumbnails: [],
           },
           {
-            id: 9,
-            title: "Jobs",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            id: 3,
+            title: "Auctions",
+            thumbnails: [],
           },
           {
             id: 10,
-            title: "Quotes",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            title: "Jobs",
+            thumbnails: [],
           },
           {
             id: 11,
-            title: "Locked Jobs",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            title: "Quotes",
+            thumbnails: [],
           },
           {
             id: 12,
-            title: "Office Drop-Offs",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            title: "Locked Jobs",
+            thumbnails: [],
           },
           {
             id: 13,
-            title: "Ppsr Lockups",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
+            title: "Office Drop-Offs",
+            thumbnails: [],
           },
           {
             id: 14,
+            title: "Ppsr Lockups",
+            thumbnails: [],
+          },
+          {
+            id: 15,
             title: "Unresolved Jobs",
             thumbnails: [
               {
@@ -305,7 +271,7 @@ export const category = [
             ],
           },
           {
-            id: 15,
+            id: 16,
             title: "Vin/Rego Decoder",
             thumbnails: [
               {
@@ -315,8 +281,28 @@ export const category = [
             ],
           },
           {
-            id: 16,
+            id: 17,
             title: "Website Enquiries",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 18,
+            title: "Inquiry System",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 19,
+            title: "Car Referral",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -337,7 +323,7 @@ export const category = [
         subcategoryName: "Off. Inventory",
         items: [
           {
-            id: 17,
+            id: 20,
             title: "Con. Exp. Type",
             thumbnails: [
               {
@@ -351,7 +337,7 @@ export const category = [
             ],
           },
           {
-            id: 18,
+            id: 21,
             title: "Off. Customers",
             thumbnails: [
               {
@@ -361,7 +347,7 @@ export const category = [
             ],
           },
           {
-            id: 19,
+            id: 22,
             title: "Off. Sales",
             thumbnails: [
               {
@@ -371,7 +357,7 @@ export const category = [
             ],
           },
           {
-            id: 20,
+            id: 23,
             title: "Cust. Statement",
             thumbnails: [
               {
@@ -381,7 +367,7 @@ export const category = [
             ],
           },
           {
-            id: 21,
+            id: 24,
             title: "Bulk Payment",
             thumbnails: [
               {
@@ -391,7 +377,7 @@ export const category = [
             ],
           },
           {
-            id: 22,
+            id: 25,
             title: "Cash Flow",
             thumbnails: [
               {
@@ -401,7 +387,7 @@ export const category = [
             ],
           },
           {
-            id: 23,
+            id: 26,
             title: "Offshore Storage",
             thumbnails: [
               {
@@ -423,7 +409,7 @@ export const category = [
         subcategoryName: "Reports",
         items: [
           {
-            id: 24,
+            id: 27,
             title: "Form 1",
             thumbnails: [
               {
@@ -437,7 +423,7 @@ export const category = [
             ],
           },
           {
-            id: 25,
+            id: 28,
             title: "Form 3A",
             thumbnails: [
               {
@@ -447,7 +433,7 @@ export const category = [
             ],
           },
           {
-            id: 26,
+            id: 29,
             title: "Form 5",
             thumbnails: [
               {
@@ -457,7 +443,7 @@ export const category = [
             ],
           },
           {
-            id: 27,
+            id: 30,
             title: "Form 6",
             thumbnails: [
               {
@@ -467,7 +453,7 @@ export const category = [
             ],
           },
           {
-            id: 28,
+            id: 31,
             title: "Job Status",
             thumbnails: [
               {
@@ -477,7 +463,7 @@ export const category = [
             ],
           },
           {
-            id: 29,
+            id: 32,
             title: "Non-Accidental Towing Record",
             thumbnails: [
               {
@@ -499,7 +485,7 @@ export const category = [
         subcategoryName: "Scrap Metal Collection",
         items: [
           {
-            id: 30,
+            id: 33,
             title: "Truck Loads",
             thumbnails: [
               {
@@ -513,7 +499,7 @@ export const category = [
             ],
           },
           {
-            id: 31,
+            id: 34,
             title: "Outside Customer",
             thumbnails: [
               {
@@ -535,7 +521,7 @@ export const category = [
         subcategoryName: "Settings",
         items: [
           {
-            id: 32,
+            id: 35,
             title: "Account Manager",
             thumbnails: [
               {
@@ -549,7 +535,7 @@ export const category = [
             ],
           },
           {
-            id: 33,
+            id: 36,
             title: "Auto Parts",
             thumbnails: [
               {
@@ -559,7 +545,7 @@ export const category = [
             ],
           },
           {
-            id: 34,
+            id: 37,
             title: "Branch Offices",
             thumbnails: [
               {
@@ -569,7 +555,7 @@ export const category = [
             ],
           },
           {
-            id: 35,
+            id: 38,
             title: "Clients",
             thumbnails: [
               {
@@ -579,7 +565,7 @@ export const category = [
             ],
           },
           {
-            id: 36,
+            id: 39,
             title: "Dismantle Types",
             thumbnails: [
               {
@@ -589,7 +575,7 @@ export const category = [
             ],
           },
           {
-            id: 37,
+            id: 40,
             title: "Driver Truck Assignment",
             thumbnails: [
               {
@@ -599,7 +585,7 @@ export const category = [
             ],
           },
           {
-            id: 38,
+            id: 41,
             title: "Scrap Metal Type",
             thumbnails: [
               {
@@ -609,7 +595,7 @@ export const category = [
             ],
           },
           {
-            id: 39,
+            id: 42,
             title: "Service Areas",
             thumbnails: [
               {
@@ -619,7 +605,7 @@ export const category = [
             ],
           },
           {
-            id: 40,
+            id: 43,
             title: "LogIn Register",
             thumbnails: [
               {
@@ -629,7 +615,7 @@ export const category = [
             ],
           },
           {
-            id: 41,
+            id: 44,
             title: "Offshore Branch",
             thumbnails: [
               {
@@ -639,7 +625,7 @@ export const category = [
             ],
           },
           {
-            id: 42,
+            id: 45,
             title: "Trucks",
             thumbnails: [
               {
@@ -649,7 +635,7 @@ export const category = [
             ],
           },
           {
-            id: 43,
+            id: 46,
             title: "Vehicle Parts Criteria",
             thumbnails: [
               {
@@ -658,8 +644,109 @@ export const category = [
               },
             ],
           },
+          {
+            id: 47,
+            title: "Account Manager",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 48,
+            title: "Change Logs",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 49,
+            title: "RedBook Car Makes",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 50,
+            title: "Car Parts List",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 51,
+            title: "Car Pricing Setting",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 52,
+            title: "Car Inquiry Setting",
+            thumbnails: [],
+          },
         ],
       },
     ],
   },
+  // {
+  //   categoryId: 9,
+  //   categoryName: "Referrals",
+  //   subcategories: [
+  //     {
+  //       subcategoryId: 9,
+  //       subcategoryName: "Referrals",
+  //       items: [
+  //         {
+  //           id: 53,
+  //           title: "Referral Code",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 7",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //             {
+  //               title: "Thumbnail 8",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

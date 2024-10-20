@@ -21,12 +21,14 @@ const LoginPage = () => {
     }
 
     setValidated(true);
-    if (validated) {
-        localStorage.setItem('token', 'mockToken');
-      navigate("/videos");
-    }
+    // if (validated) {
+    //     localStorage.setItem('token', 'mockToken');
+    //   navigate("/videos");
+    // }
   };
 
+  // keyword with comma separate
+  //
   return (
     <>
       <Container className="login-container">

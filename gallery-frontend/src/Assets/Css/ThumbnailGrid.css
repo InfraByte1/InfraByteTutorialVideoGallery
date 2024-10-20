@@ -1,103 +1,159 @@
 .thumbnail-grid {
-    padding: 20px;
+  padding: 20px;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin: 30px;
+}
+
+.thumbnail-overlay {
+  /* position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 5px;
+  z-index: 10;
+ 
+  color: #fff;
+  padding: 5px;
+  text-align: center;*/
+  /* opacity: 0; */
+  /* transition: opacity 0.3s ease;
+  text-align: right;  */
+}
+
+.thumbnail-item:hover .thumbnail-overlay {
+  /* opacity: 1; */
+}
+
+.thumbnail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  cursor: pointer;
+  /* width: 100%;
+  height: 500px; */
+  display: block;
+  width: 500px;
+  height: 500px;
+}
+
+.thumbnail-title {
+  text-align: left;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  width: 90%;
+}
+
+.new-container {
+  margin-top: 5px;
+  background-color: orange;
+  color: white;
+  display: inline;
+  align-self: flex-start;
+  padding: 4px;
+  font-size: 0.9em;
+  border-radius: 8px;
+}
+
+@media (max-width: 769px) {
+  .thumbnail-grid {
+    padding: 10px;
   }
-  
-  .thumbnails {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin: 30px;
-  }
-  
-  .thumbnail-item {
-    position: relative;
-    width: 270px;
-    height: 270px;
-    overflow: hidden;
-  }
-  
-  .thumbnail-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .thumbnail-item:hover .thumbnail-image {
-    transform: scale(1.1);
-  }
-  
-  .thumbnail-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0px;
-    z-index: 10;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 5px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    text-align: left;
-  }
-  
-  .thumbnail-item:hover .thumbnail-overlay {
+
+  .thumbnail-grid.mobile-list .thumbnail-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
     opacity: 1;
   }
-  
-  .thumbnail-title {
-    font-size: 14px;
-  
+
+  .thumbnail-grid.mobile-list .thumbnail-item:hover .thumbnail-overlay {
+    opacity: 1;
   }
 
-  @media (max-width: 769px) {
-    .thumbnail-grid {
-      padding: 10px;
-    }
-  
-    .thumbnails {
-      display: flex; 
-      gap: 5px;margin: 0px;
-    }
-  
-    .thumbnail-item {
-      width: 100px;
-      height: 100px;
-    }
-    
-   
-
-    .thumbnail-grid.mobile-list .thumbnails {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .thumbnail-grid.mobile-list .thumbnail-item {
-      width: 100%;
-      height: auto;
-    }
-  
-    .thumbnail-grid.mobile-list .thumbnail-image {
-      width: 100%;
-      height: auto;
-    }
-  
-    .thumbnail-grid.mobile-list .thumbnail-item:hover .thumbnail-image {
-      transform: none;
-    }
-  
-    .thumbnail-grid.mobile-list .thumbnail-overlay {
-      background-color: rgba(0, 0, 0, 0.7);
-      opacity: 1;
-    }
-  
-    .thumbnail-grid.mobile-list .thumbnail-item:hover .thumbnail-overlay {
-      opacity: 1;
-    }
-  
-    .thumbnail-grid.mobile-list .play-button-overlay {
-      opacity: 1;
-    }
+  .thumbnail-grid.mobile-list .play-button-overlay {
+    opacity: 1;
   }
+}
+
+/* src/components/VideoList.css */
+.video-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-item {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.video-item:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.thumbnail {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  border-radius: 5px;
+  object-fit: contain;
+}
+
+.video-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.video-details h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.video-details p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .video-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .thumbnail {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .video-details {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-item {
+    width: 100%;
+  }
+
+  .video-details h2 {
+    font-size: 1em;
+  }
+
+  .video-details p {
+    font-size: 0.9em;
+  }
+}
