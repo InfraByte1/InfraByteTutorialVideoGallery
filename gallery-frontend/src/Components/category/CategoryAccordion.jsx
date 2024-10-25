@@ -42,7 +42,7 @@ const CategoryAccordion = ({
     if (!pkce_code_verifier) {
       setLoading(false);
       navigate("/", { replace: true });
-      alert("Your session has expired. Please log in again.");
+      // alert("Your session has expired. Please log in again.");
     }
     var item = data.reduce((acc, category) => {
       const foundItem = category.subcategories
