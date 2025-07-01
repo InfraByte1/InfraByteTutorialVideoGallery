@@ -1,6 +1,6 @@
 // development
 var authority = "https://localhost:5020";
-var clientId = "react_tutorial_client";
+var clientId = "infrabyte_tutorial_client";
 var redirectUri = "http://localhost:3000/callback";
 var postLogoutRedirectUri = "http://localhost:3000/logout-callback";
 var apiBaseUrl = "https://api.staging.infrabyte.com.au/api/";
