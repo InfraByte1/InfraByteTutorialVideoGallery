@@ -5,6 +5,7 @@ var redirectUri = "http://localhost:3000/callback";
 var postLogoutRedirectUri = "http://localhost:3000/logout-callback";
 var apiBaseUrl = "https://api.staging.infrabyte.com.au/api/";
 var hostUrl = "http://localhost:3000";
+var clientSecret = "1Jn7wg1l+Ppme/VQes4T/+H2YYBlw+CVTXSMtVk30v4=";
 
 if (process.env.REACT_APP_ENVIRONMENT === "production") {
   authority = "https://security.infrabyte.com.au";
@@ -12,6 +13,7 @@ if (process.env.REACT_APP_ENVIRONMENT === "production") {
   postLogoutRedirectUri = "https://tutorial.infrabyte.com.au/logout-callback";
   apiBaseUrl = "https://api.infrabyte.com.au/api/";
   hostUrl = "https://tutorial.infrabyte.com.au";
+  clientSecret = "RUFDrGypzfUsgaQPASAzNUeJQ0B0tGrZT6EmkC8JxT4=";
 } else if (process.env.REACT_APP_ENVIRONMENT === "staging") {
   authority = "https://security.staging.infrabyte.com.au";
   redirectUri = "https://tutorial.staging.infrabyte.com.au/callback";
@@ -19,6 +21,7 @@ if (process.env.REACT_APP_ENVIRONMENT === "production") {
     "https://tutorial.staging.infrabyte.com.au/logout-callback";
   apiBaseUrl = "https://api.staging.infrabyte.com.au/api/";
   hostUrl = "https://tutorial.staging.infrabyte.com.au";
+  clientSecret = "COhOvHI+hwCHn2Ii6/mYTOwy2yt+UFN/+Mr6i+AEa4A=";
 }
 // used to test
 // exports.loginUrl = `${authority}/connect/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid profile email jobbookingapi offline_access&state=2323&code_challenge=231232&code_challenge_method=S256`;
@@ -44,6 +47,7 @@ exports.tokenPayload = () => {};
 exports.oidcConfig = {
   authority: authority,
   clientId: clientId,
+  clientSecret,
   redirectUri: redirectUri,
   postLogoutRedirectUri: postLogoutRedirectUri,
   response_type: "code",
