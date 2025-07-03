@@ -54,7 +54,7 @@ const Loading = () => {
     var payload = {
       grant_type: "authorization_code",
       client_id: oidcConfig.clientId,
-      client_secret: oidcConfig.clientSecret,
+      // client_secret: oidcConfig.clientSecret,
       code: code,
       redirect_uri: oidcConfig.redirectUri,
       code_verifier: codeVerifier,
