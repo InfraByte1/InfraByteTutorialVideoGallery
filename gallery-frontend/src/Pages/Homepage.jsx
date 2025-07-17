@@ -37,6 +37,11 @@ function Homepage() {
   // };
 
   const login = async () => {
+    if (process.env.REACT_APP_ENVIRONMENT === "dev") {
+      navigate("/callback", { state: { isLoggedOut: true } });
+      return;
+    }
+
     const codeVerifier = generateCodeVerifier(128);
     const codeChallenge = await generateCodeChallenge(codeVerifier);
 
@@ -58,7 +63,6 @@ function Homepage() {
   useEffect(() => {
     if (document.referrer === "") {
       // if came from different page
-    
     } else {
       if (isLoggedOut) {
         //if came to this page after logout

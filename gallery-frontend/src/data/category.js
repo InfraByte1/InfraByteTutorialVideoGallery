@@ -54,73 +54,73 @@ export const category = [
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 3",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 4",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 5",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 6",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 7",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 8",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 9",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 10",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 11",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 12",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 13",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
               },
               {
-                title: "Thumbnail 2",
+                title: "Thumbnail 14",
                 url: "https://via.placeholder.com/150",
                 videoUrl:
                   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -185,7 +185,6 @@ export const category = [
       },
     ],
   },
-
   {
     categoryId: 3,
     categoryName: "Inventory",
@@ -231,7 +230,7 @@ export const category = [
             thumbnails: [],
           },
           {
-            id: 3,
+            id: 9,
             title: "Auctions",
             thumbnails: [],
           },
@@ -242,26 +241,31 @@ export const category = [
           },
           {
             id: 11,
-            title: "Quotes",
+            title: "Jobs (Basic)",
             thumbnails: [],
           },
           {
             id: 12,
-            title: "Locked Jobs",
+            title: "Quotes",
             thumbnails: [],
           },
           {
             id: 13,
-            title: "Office Drop-Offs",
+            title: "Locked Jobs",
             thumbnails: [],
           },
           {
             id: 14,
-            title: "Ppsr Lockups",
+            title: "Office Drop-Offs",
             thumbnails: [],
           },
           {
             id: 15,
+            title: "Ppsr Lockups",
+            thumbnails: [],
+          },
+          {
+            id: 16,
             title: "Unresolved Jobs",
             thumbnails: [
               {
@@ -271,7 +275,7 @@ export const category = [
             ],
           },
           {
-            id: 16,
+            id: 17,
             title: "Vin/Rego Decoder",
             thumbnails: [
               {
@@ -281,7 +285,7 @@ export const category = [
             ],
           },
           {
-            id: 17,
+            id: 18,
             title: "Website Enquiries",
             thumbnails: [
               {
@@ -291,7 +295,7 @@ export const category = [
             ],
           },
           {
-            id: 18,
+            id: 19,
             title: "Inquiry System",
             thumbnails: [
               {
@@ -301,7 +305,7 @@ export const category = [
             ],
           },
           {
-            id: 19,
+            id: 20,
             title: "Car Referral",
             thumbnails: [
               {
@@ -319,11 +323,11 @@ export const category = [
     categoryName: "Off. Inventory",
     subcategories: [
       {
-        subcategoryId: 4,
+        subcategoryId: 5,
         subcategoryName: "Off. Inventory",
         items: [
           {
-            id: 20,
+            id: 21,
             title: "Con. Exp. Type",
             thumbnails: [
               {
@@ -337,7 +341,7 @@ export const category = [
             ],
           },
           {
-            id: 21,
+            id: 22,
             title: "Off. Customers",
             thumbnails: [
               {
@@ -347,7 +351,7 @@ export const category = [
             ],
           },
           {
-            id: 22,
+            id: 23,
             title: "Off. Sales",
             thumbnails: [
               {
@@ -357,7 +361,7 @@ export const category = [
             ],
           },
           {
-            id: 23,
+            id: 24,
             title: "Cust. Statement",
             thumbnails: [
               {
@@ -367,7 +371,7 @@ export const category = [
             ],
           },
           {
-            id: 24,
+            id: 25,
             title: "Bulk Payment",
             thumbnails: [
               {
@@ -377,7 +381,7 @@ export const category = [
             ],
           },
           {
-            id: 25,
+            id: 26,
             title: "Cash Flow",
             thumbnails: [
               {
@@ -387,7 +391,7 @@ export const category = [
             ],
           },
           {
-            id: 26,
+            id: 27,
             title: "Offshore Storage",
             thumbnails: [
               {
@@ -409,7 +413,7 @@ export const category = [
         subcategoryName: "Reports",
         items: [
           {
-            id: 27,
+            id: 28,
             title: "Form 1",
             thumbnails: [
               {
@@ -423,7 +427,7 @@ export const category = [
             ],
           },
           {
-            id: 28,
+            id: 29,
             title: "Form 3A",
             thumbnails: [
               {
@@ -433,7 +437,7 @@ export const category = [
             ],
           },
           {
-            id: 29,
+            id: 30,
             title: "Form 5",
             thumbnails: [
               {
@@ -443,7 +447,7 @@ export const category = [
             ],
           },
           {
-            id: 30,
+            id: 31,
             title: "Form 6",
             thumbnails: [
               {
@@ -453,7 +457,7 @@ export const category = [
             ],
           },
           {
-            id: 31,
+            id: 32,
             title: "Job Status",
             thumbnails: [
               {
@@ -463,7 +467,7 @@ export const category = [
             ],
           },
           {
-            id: 32,
+            id: 33,
             title: "Non-Accidental Towing Record",
             thumbnails: [
               {
@@ -485,7 +489,7 @@ export const category = [
         subcategoryName: "Scrap Metal Collection",
         items: [
           {
-            id: 33,
+            id: 34,
             title: "Truck Loads",
             thumbnails: [
               {
@@ -499,7 +503,7 @@ export const category = [
             ],
           },
           {
-            id: 34,
+            id: 35,
             title: "Outside Customer",
             thumbnails: [
               {
@@ -521,7 +525,7 @@ export const category = [
         subcategoryName: "Settings",
         items: [
           {
-            id: 35,
+            id: 36,
             title: "Account Manager",
             thumbnails: [
               {
@@ -535,7 +539,7 @@ export const category = [
             ],
           },
           {
-            id: 36,
+            id: 37,
             title: "Auto Parts",
             thumbnails: [
               {
@@ -545,7 +549,7 @@ export const category = [
             ],
           },
           {
-            id: 37,
+            id: 38,
             title: "Branch Offices",
             thumbnails: [
               {
@@ -555,7 +559,7 @@ export const category = [
             ],
           },
           {
-            id: 38,
+            id: 39,
             title: "Clients",
             thumbnails: [
               {
@@ -565,18 +569,8 @@ export const category = [
             ],
           },
           {
-            id: 39,
-            title: "Dismantle Types",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-          {
             id: 40,
-            title: "Driver Truck Assignment",
+            title: "Assessors",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -586,7 +580,7 @@ export const category = [
           },
           {
             id: 41,
-            title: "Scrap Metal Type",
+            title: "Dismantle Types",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -596,7 +590,7 @@ export const category = [
           },
           {
             id: 42,
-            title: "Service Areas",
+            title: "Driver Truck Assignment",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -606,7 +600,7 @@ export const category = [
           },
           {
             id: 43,
-            title: "LogIn Register",
+            title: "Scrap Metal Type",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -616,7 +610,7 @@ export const category = [
           },
           {
             id: 44,
-            title: "Offshore Branch",
+            title: "Service Areas",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -626,7 +620,7 @@ export const category = [
           },
           {
             id: 45,
-            title: "Trucks",
+            title: "LogIn Register",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -636,7 +630,7 @@ export const category = [
           },
           {
             id: 46,
-            title: "Vehicle Parts Criteria",
+            title: "Offshore Branch",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -646,63 +640,47 @@ export const category = [
           },
           {
             id: 47,
-            title: "Account Manager",
+            title: "Trucks",
             thumbnails: [
               {
                 title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
                 url: "https://via.placeholder.com/150",
               },
             ],
           },
           {
             id: 48,
-            title: "Change Logs",
+            title: "Lead Source",
             thumbnails: [
               {
                 title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
                 url: "https://via.placeholder.com/150",
               },
             ],
           },
           {
             id: 49,
-            title: "RedBook Car Makes",
+            title: "Communication",
             thumbnails: [
               {
                 title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
                 url: "https://via.placeholder.com/150",
               },
             ],
           },
           {
             id: 50,
-            title: "Car Parts List",
+            title: "Vehicle Parts Criteria",
             thumbnails: [
               {
                 title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
                 url: "https://via.placeholder.com/150",
               },
             ],
           },
           {
             id: 51,
-            title: "Car Pricing Setting",
+            title: "Quote Rejected",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -716,6 +694,76 @@ export const category = [
           },
           {
             id: 52,
+            title: "Referee",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 53,
+            title: "Change Logs",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 54,
+            title: "RedBook Car Makes",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 55,
+            title: "Car Parts List",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 56,
+            title: "Car Pricing Setting",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+              {
+                title: "Thumbnail 8",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
+          {
+            id: 57,
             title: "Car Inquiry Setting",
             thumbnails: [],
           },
@@ -732,7 +780,7 @@ export const category = [
   //       subcategoryName: "Referrals",
   //       items: [
   //         {
-  //           id: 53,
+  //           id: 58,
   //           title: "Referral Code",
   //           thumbnails: [
   //             {
