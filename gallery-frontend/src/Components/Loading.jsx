@@ -131,7 +131,17 @@ const Loading = () => {
         } else {
           localStorage.setItem("role", false);
         }
-        navigate("/videos", { replace: true });
+
+        const sharedQuery = sessionStorage.getItem("shared");
+
+        if (sharedQuery) {
+          sessionStorage.removeItem("shared");
+          navigate(`/video/${encodeURIComponent(sharedQuery)}`, {
+            replace: true,
+          });
+        } else {
+          navigate("/videos", { replace: true });
+        }
       })
       .catch((error) => {
         setLoading(false);

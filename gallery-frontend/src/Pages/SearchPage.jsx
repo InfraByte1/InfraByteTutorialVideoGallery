@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getHeaders } from "../services/auth";
 import { getJobsTutorialById, getJobsTutorialByTags } from "../config/config";
 import axios from "axios";
@@ -22,6 +22,7 @@ const SearchPage = ({ isFromShare }) => {
   const [videoUrl, setVideoUrl] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
   const [videoTitle, setVideoTitle] = useState("");
+  const navigate = useNavigate();
 
   const playVideo = (url, fileName) => {
     setVideoUrl(url);
@@ -47,8 +48,11 @@ const SearchPage = ({ isFromShare }) => {
     try {
       setLoading(true);
       var responseData;
+
       if (query != undefined) {
         if (isFromShare) {
+          sessionStorage.setItem("shared", query);
+
           var videoId = CryptoJS.AES.decrypt(
             decodeURIComponent(query),
             oidcConfig.secretCrypt
@@ -78,8 +82,17 @@ const SearchPage = ({ isFromShare }) => {
       setLoading(false);
     } catch (err) {
       // console.error("fetch failed:", err);
-      toast.info("Error fetching data: " + err.message);
+
       setLoading(false);
+      if (isFromShare) {
+        toast.info("Error fetching data: Try login again.", {
+          onClose: () => {
+            navigate("/", { state: { isShared: true } });
+          },
+        });
+      } else {
+        toast.info("Error fetching data: " + err.message);
+      }
     }
   };
   return (

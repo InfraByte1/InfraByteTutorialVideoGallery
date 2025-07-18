@@ -18,6 +18,7 @@ function Homepage() {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const isLoggedOut = location.state?.isLoggedOut || false;
+  const isShared = location.state?.isShared || false;
 
   // if (auth.isLoading) {
   //   return <div>Loading...</div>;
@@ -37,10 +38,10 @@ function Homepage() {
   // };
 
   const login = async () => {
-    if (process.env.REACT_APP_ENVIRONMENT === "dev") {
-      navigate("/callback", { state: { isLoggedOut: true } });
-      return;
-    }
+    // if (process.env.REACT_APP_ENVIRONMENT === "dev") {
+    //   navigate("/callback", { state: { isLoggedOut: true } });
+    //   return;
+    // }
 
     const codeVerifier = generateCodeVerifier(128);
     const codeChallenge = await generateCodeChallenge(codeVerifier);
@@ -61,7 +62,9 @@ function Homepage() {
   };
 
   useEffect(() => {
-    if (document.referrer === "") {
+    if (isShared) {
+      login();
+    } else if (document.referrer === "") {
       // if came from different page
     } else {
       if (isLoggedOut) {

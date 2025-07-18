@@ -59,7 +59,6 @@ const AppRoute = () => {
         path="/add/video"
         element={
           <>
-            {" "}
             <Header />
             <VideoFormPage />
           </>
