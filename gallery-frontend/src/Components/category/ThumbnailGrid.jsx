@@ -1,21 +1,174 @@
-import React, { useEffect, useState } from "react";
-import PlayButtonOverlay from "./PlayButtonOverlay";
-import { Accordion, Button, Container, Modal } from "react-bootstrap";
-import noThumbnail from "../../Assets/images/no_thumbnail.jpg";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { Accordion, Button, Container } from "react-bootstrap";
 import { FaShareAlt } from "react-icons/fa";
 import CryptoJS from "crypto-js";
-
-import "../../Assets/Css/ThumbnailGrid.css";
-import { deleteOneVideo } from "../../services/video";
-import {
-  deleteVideoTutorial,
-  getJobTutorialsByCategorySubCategoryTitle,
-  oidcConfig,
-} from "../../config/config";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import noThumbnail from "../../Assets/images/no_thumbnail.jpg";
+import "../../Assets/Css/ThumbnailGrid.css";
+import { deleteVideoTutorial, getJobTutorialsByCategorySubCategoryTitle, oidcConfig } from "../../config/config";
 import { getHeaders } from "../../services/auth";
+import axios from "axios";
+
+// Component for video player
+// Component for video player
+const VideoPlayer = ({ videoUrl, videoTitle }) => {
+  const videoRef = useRef(null);
+  const [canSeek, setCanSeek] = useState(false); // Track if seeking is possible
+
+  useEffect(() => {
+    if (videoRef.current && videoUrl) {
+      // console.log("Loading new video URL:", videoUrl);
+      videoRef.current.pause(); // Pause current playback
+      videoRef.current.currentTime = 0; // Reset to start
+      videoRef.current.src = videoUrl; // Explicitly set new source
+      videoRef.current.load(); // Reload video
+      videoRef.current.play().catch((err) => {
+        // console.error("Auto-play failed:", err);
+        toast.error("Failed to play video. Please try manually.");
+      });
+    }
+    // Cleanup on unmount or URL change
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = ""; // Clear source to prevent memory leaks
+      }
+    };
+  }, [videoUrl]);
+
+  const handleSeeking = () => {
+    // console.log("Video is seeking...");
+    if (!canSeek) {
+      toast.warn("Seeking not available yet, please wait for video to buffer.");
+    }
+  };
+
+  const handleSeeked = () => {
+    // console.log("Video seeked to:", videoRef.current?.currentTime);
+  };
+
+  const handleError = (e) => {
+    // console.error("Video error:", e);
+    toast.error("Error loading video. Check format or network.");
+  };
+
+  // Handle metadata loading to ensure seeking is possible
+  const handleLoadedMetadata = () => {
+    // console.log("Video metadata loaded, duration:", videoRef.current?.duration);
+    if (videoRef.current && isNaN(videoRef.current.duration)) {
+      toast.warn("Video metadata incomplete, seeking may fail. Consider re-encoding the video.");
+    } else {
+      setCanSeek(true); // Enable seeking once metadata is loaded
+    }
+  };
+
+  // Handle stalled or waiting events for long videos
+  const handleStalled = () => {
+    // console.warn("Video stalled during seeking or playback");
+    if (videoRef.current) {
+      videoRef.current.load(); // Reload video on stall
+      videoRef.current.play().catch((err) => console.error("Replay failed:", err));
+    }
+  };
+
+  // Monitor buffering progress to ensure seeking is possible
+  const handleProgress = () => {
+    if (videoRef.current && videoRef.current.buffered.length > 0) {
+      const bufferedEnd = videoRef.current.buffered.end(videoRef.current.buffered.length - 1);
+      // console.log("Buffered up to:", bufferedEnd, "seconds");
+      if (bufferedEnd > videoRef.current.currentTime) {
+        setCanSeek(true); // Allow seeking if enough data is buffered
+      }
+    }
+  };
+
+  return (
+    <>
+      <div className="video-player">
+        <video
+          ref={videoRef}
+          key={videoUrl || "empty"} // Use "empty" key when no URL to ensure unique key
+          controls
+          autoPlay
+          muted
+          preload="metadata" // Changed to metadata to load initial data faster, then buffer as needed
+          onSeeking={handleSeeking}
+          onSeeked={handleSeeked}
+          onError={handleError}
+          onLoadedMetadata={handleLoadedMetadata} // Added to debug metadata
+          onStalled={handleStalled} // Added to handle buffering issues
+          onProgress={handleProgress} // Added to monitor buffering
+        >
+          {videoUrl && <source src={videoUrl} type="video/mp4" />}
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>}
+    </>
+  );
+};
+
+// Component for individual thumbnail
+const Thumbnail = ({ thumbnail, playVideo, copyUrlToClipboard, handleVideoDelete, showUpdate, loading }) => {
+  return (
+    <div className="thumbnail-container">
+      <div className="thumbnail-item">
+        {thumbnail.thumbnailName ? (
+          <img
+            src={thumbnail.thumbnailPath}
+            alt={thumbnail.title}
+            className="thumbnail-image"
+            onClick={() => playVideo(thumbnail.filePath, thumbnail.title)}
+          />
+        ) : (
+          // <img
+          //   src={noThumbnail}
+          //   alt="No image"
+          //   className="thumbnail-image "
+          //   onClick={() => playVideo(thumbnail.filePath)}
+          // />
+          <video
+            src={thumbnail.filePath}
+            className="thumbnail-image"
+            onClick={() => playVideo(thumbnail.filePath, thumbnail.title)}
+            muted
+          />
+        )}
+        <div className="thumbnail-overlay">
+          <a
+            href="/add/video"
+            variant="primary"
+            className="mt-3 btn btn-danger"
+          >
+            Delete
+          </a>
+          {/* <PlayButtonOverlay /> */}
+        </div>
+        {/* <PlayButtonOverlay /> */}
+      </div>
+      <h2
+        className="thumbnail-title"
+        onClick={() => playVideo(thumbnail.filePath, thumbnail.title)}
+      >
+        {thumbnail.title}
+      </h2>
+      {thumbnail.videoStatus && (
+        <div className="new-container">{thumbnail.videoStatus ?? ""}</div>
+      )}
+      <div className="thumbnail-overlay">
+        <Button
+          onClick={thumbnail.isPrivate ? null : () => copyUrlToClipboard(thumbnail.id)}
+          style={thumbnail.isPrivate ? styles.disabledButton : styles.shareButton}
+          aria-label={thumbnail.isPrivate ? "Private video" : "Share video"}
+          disabled={thumbnail.isPrivate}
+        >
+          <FaShareAlt style={styles.icon} />
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 const ThumbnailGrid = ({
   selectedItem,
@@ -28,122 +181,94 @@ const ThumbnailGrid = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
-
-  const [loading, setLoading] = useState(false);
-  const [loadingData, setLoadingData] = useState(false);
-
   const [videoTitle, setVideoTitle] = useState("");
-
   const [copied, setCopied] = useState(false);
-
-  const copyUrlToClipboard = (videoId) => {
-    if (!videoId) return;
-    if (!loading) {
-      const encrypted = CryptoJS.AES.encrypt(
-        videoId,
-        oidcConfig.secretCrypt
-      ).toString();
-      const urlSafeEncryptedUrl = encodeURIComponent(encrypted);
-
-      const url = `${oidcConfig.hostUrl}/video/${urlSafeEncryptedUrl}`;
-      navigator.clipboard
-        .writeText(url)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        })
-        .catch((err) => {
-          console.error("Failed to copy the text to clipboard: ", err);
-        });
-    }
-  };
+  const [loading, setLoading] = useState({});
+  const [loadingData, setLoadingData] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
 
   const navigate = useNavigate();
 
-  const playVideo = (url, fileName) => {
+  const copyUrlToClipboard = useCallback((videoId) => {
+    if (!videoId || loading[videoId]) return;
+    const encrypted = CryptoJS.AES.encrypt(videoId, oidcConfig.secretCrypt).toString();
+    const url = `${oidcConfig.hostUrl}/video/${encodeURIComponent(encrypted)}`;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopied(true);
+        toast.success("Video link copied!");
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch((err) => {
+        // console.error("Failed to copy:", err);
+        toast.error("Failed to copy link");
+      });
+  }, [loading]);
+
+  const playVideo = useCallback((url, title) => {
+    // console.log("Playing video:", { url, title });
     setVideoUrl(url);
-    setVideoTitle(fileName);
-    toast.info(`Now Playing: ${fileName}`);
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 769);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    setVideoTitle(title);
+    toast.info(`Now Playing: ${title}`);
   }, []);
 
-  const handleVideoDelete = async (videoId) => {
-    setLoading(true);
-
-    var deleteVideoApi = `${deleteVideoTutorial}/${videoId}`;
+  const handleVideoDelete = useCallback(async (videoId) => {
+    setLoading((prev) => ({ ...prev, [videoId]: true }));
     try {
-      var token = localStorage.getItem("token");
-
-      const response = await axios.delete(deleteVideoApi, {
+      const response = await axios.delete(`${deleteVideoTutorial}/${videoId}`, {
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Access-Control-Allow-Origin": oidcConfig.hostUrl,
         },
       });
-      if (response) {
-        toast.info("Your video is deleted");
+      if (response.status === 200) {
+        toast.success("Video deleted successfully");
+        navigate(0);
       }
-      navigate(0);
     } catch (err) {
       console.error("Delete failed:", err);
-      toast.error("Delete failed:", err);
+      toast.error("Failed to delete video");
+    } finally {
+      setLoading((prev) => ({ ...prev, [videoId]: false }));
     }
-    setLoading(false);
-  };
+  }, [navigate]);
 
-  const fetchDataForDelete = async (selectedTitle) => {
+  const fetchDataForDelete = useCallback(async (selectedTitle) => {
     setLoadingData(true);
-    var fetchDataForUpdate = `${getJobTutorialsByCategorySubCategoryTitle}`;
     try {
-      var token = localStorage.getItem("token");
-      var reqData = {
-        category:
-          selectedCategory ??
-          (videoType === "web" ? "Dashboard" : "Driver Portal"),
-        subCategory:
-          selectedSubCategory ??
-          (videoType === "web" ? "Dashboard" : "Driver Portal"),
-        videoType: videoType,
-        videoTitle: selectedTitle,
-      };
-
-      const response = await axios.post(fetchDataForUpdate, reqData, {
-        headers: getHeaders(),
-      });
-      if (response) {
-        navigate(`/edit/video/${videoType}`, { state: response.data });
-        toast.info("Your video is fetched");
-      }
+      const response = await axios.post(
+        getJobTutorialsByCategorySubCategoryTitle,
+        {
+          category: selectedCategory ?? (videoType === "web" ? "Dashboard" : "Driver Portal"),
+          subCategory: selectedSubCategory ?? (videoType === "web" ? "Dashboard" : "Driver Portal"),
+          videoType,
+          videoTitle: selectedTitle,
+        },
+        { headers: getHeaders() }
+      );
+      navigate(`/edit/video/${videoType}`, { state: response.data });
+      toast.success("Video data fetched successfully");
     } catch (err) {
-      console.error("Delete failed:", err);
-      toast.error("fetch failed:", err);
+      console.error("Fetch failed:", err);
+      toast.error("Failed to fetch video data");
+    } finally {
+      setLoadingData(false);
     }
-    setLoadingData(false);
-  };
+  }, [navigate, selectedCategory, selectedSubCategory, videoType]);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 769);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
       <ToastContainer />
-      <div className="video-player">
-        <video controls autoPlay key={videoUrl}>
-          <source src={videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>}
+      <VideoPlayer videoUrl={videoUrl} videoTitle={videoTitle} />
+      {/* {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>} */}
 
       <div className={`thumbnail-grid ${isMobile ? "mobile-list" : ""}`}>
         {isMobile && (
@@ -172,82 +297,15 @@ const ThumbnailGrid = ({
                 <center>
                   <div className="thumbnails">
                     {selectedItem.videoTutorials.map((thumbnail, index) => (
-                      <div className="thumbnail-container" key={index}>
-                        <div key={index} className="thumbnail-item">
-                          {thumbnail.thumbnailName != null ? (
-                            <img
-                              src={thumbnail.thumbnailPath}
-                              alt={thumbnail.fileName}
-                              className="thumbnail-image "
-                              onClick={() =>
-                                playVideo(thumbnail.filePath, thumbnail.title)
-                              }
-                            />
-                          ) : (
-                            // <img
-                            //   src={noThumbnail}
-                            //   alt="No image"
-                            //   className="thumbnail-image "
-                            //   onClick={() => playVideo(thumbnail.filePath)}
-                            // />
-                            <video
-                              src={thumbnail.filePath}
-                              className="thumbnail-image"
-                              onClick={() =>
-                                playVideo(thumbnail.filePath, thumbnail.title)
-                              }
-                            ></video>
-                          )}
-                          <div className="thumbnail-overlay">
-                            <a
-                              href="/add/video"
-                              variant="primary"
-                              className="mt-3 btn  btn-danger"
-                            >
-                              Delete
-                            </a>
-                          </div>
-                          <PlayButtonOverlay />
-                        </div>
-                        <h2
-                          className="thumbnail-title"
-                          onClick={() =>
-                            playVideo(thumbnail.filePath, thumbnail.title)
-                          }
-                        >
-                          {thumbnail.title}
-                        </h2>
-                        {thumbnail.videoStatus && (
-                          <div className="new-container">
-                            {thumbnail.videoStatus ?? ""}
-                          </div>
-                        )}
-
-                        <div className="thumbnail-overlay ">
-                          {
-                            <button
-                              onClick={
-                                thumbnail.isPrivate === true
-                                  ? null
-                                  : () => copyUrlToClipboard(thumbnail.id)
-                              }
-                              style={
-                                thumbnail.isPrivate === true
-                                  ? styles.disabledButton
-                                  : styles.shareButton
-                              }
-                            >
-                              <FaShareAlt style={styles.icon} />{" "}
-                            </button>
-                          }
-
-                          {copied && (
-                            <span style={styles.copiedMessage}>
-                              Video Link Copied!
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                      <Thumbnail
+                        key={index}
+                        thumbnail={thumbnail}
+                        playVideo={playVideo}
+                        copyUrlToClipboard={copyUrlToClipboard}
+                        handleVideoDelete={handleVideoDelete}
+                        showUpdate={showUpdate}
+                        loading={loading[thumbnail.id]}
+                      />
                     ))}
                   </div>
                 </center>
@@ -550,7 +608,7 @@ const styles = {
     padding: "5px",
     fontSize: "16px",
     borderRadius: "5px",
-    cursor: "pointer",
+    cursor: "not-allowed",
     marginTop: "8px",
     backgroundColor: "red",
   },
@@ -558,7 +616,7 @@ const styles = {
     marginRight: "0px",
   },
   copiedMessage: {
-    marginLeft: "00px",
+    marginLeft: "10px",
     color: "green",
   },
 };

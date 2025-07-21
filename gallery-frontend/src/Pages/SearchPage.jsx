@@ -101,7 +101,7 @@ const SearchPage = ({ isFromShare }) => {
     >
       <ToastContainer />
       <div className="video-player mt-2">
-        <video controls autoPlay key={videoUrl}>
+        <video controls autoPlay muted key={videoUrl} preload="metadata">
           <source src={videoUrl} type="video/mp4" />
           Your browser does not support the video tag.
         </video>

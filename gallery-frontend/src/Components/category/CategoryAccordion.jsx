@@ -65,7 +65,7 @@ const CategoryAccordion = ({
         headers: getHeaders(),
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         resData = response.data;
         // setSelectedItem(response.data);
       })
