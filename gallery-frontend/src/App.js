@@ -11,10 +11,13 @@ import { isAuthenticatedUser } from "./services/auth";
 import Loading from "./Components/Loading";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PermissionProvider } from "./contexts/PermissionContext";
 
 function App() {
   // const location = useLocation(); , '/login', '/logout'
-  const hideFooter = ["/", "/callback", "/videos"].includes(window.location.pathname);
+  const hideFooter = ["/", "/callback", "/videos"].includes(
+    window.location.pathname
+  );
   const hideHeader = ["/", "*"].includes(window.location.pathname);
   // const hideFooter = false;
   const callback = ["/callback"].includes(window.location.pathname);
@@ -24,9 +27,12 @@ function App() {
   return (
     <>
       {/* {!hideHeader && <Header />} */}
-      <ToastContainer />
-      <AppRoute />
-      {!hideFooter && <Footer />}
+      <PermissionProvider>
+        <ToastContainer />
+        <AppRoute />
+        {!hideFooter && <Footer />}
+      </PermissionProvider>
+
       {/* <Footer /> */}
     </>
   );

@@ -25,7 +25,7 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
       videoRef.current.load(); // Reload video
       videoRef.current.play().catch((err) => {
         // console.error("Auto-play failed:", err);
-        toast.error("Failed to play video. Please try manually.");
+        // toast.error("Failed to play video. Please try manually.");
       });
     }
     // Cleanup on unmount or URL change
@@ -271,7 +271,7 @@ const ThumbnailGrid = ({
       {/* {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>} */}
 
       <div className={`thumbnail-grid ${isMobile ? "mobile-list" : ""}`}>
-        {isMobile && (
+        {/* {isMobile && (
           <center>
             <Container
               onClick={handleShow}
@@ -284,7 +284,7 @@ const ThumbnailGrid = ({
               <i className="fas fa-eye"></i> Show Video List
             </Container>
           </center>
-        )}
+        )} */}
         {!selectedItem && (
           <p>Welcome to InfraByte {videoType} video tutorial. </p>
         )}

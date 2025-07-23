@@ -32,6 +32,9 @@ exports.getTokenUrl = `${authority}/connect/token`;
 // exports.getAuthorizationUrl= `${authority}`;
 exports.getAuthorizationUrl = `${authority}/connect/authorize`;
 
+exports.getRolePermissionsByUserId=(userId) => `${apiBaseUrl}v6/Accounts/GetRolePermissionsByUserId/${userId}`;
+
+
 exports.getAllJobTutorials = `${apiBaseUrl}v6/BookingTutorial/GetAllJobTutorials`;
 exports.getJobTutorialsByCategorySubCategory = `${apiBaseUrl}v6/BookingTutorial/GetJobTutorialsByCategorySubCategory`;
 exports.getJobTutorialsByCategorySubCategoryTitle = `${apiBaseUrl}v6/BookingTutorial/GetJobTutorialsByCategorySubCategoryTitle`; //fetch data for update

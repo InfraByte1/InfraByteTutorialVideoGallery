@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import CategoryAccordion from "../Components/category/CategoryAccordion";
-import { category } from "../data/category";
-import { mobileCategory } from "../data/mobile_category";
-
 import ThumbnailGrid from "../Components/category/ThumbnailGrid";
-import Header from "../Components/Header";
 import RightSideModal from "../Components/RightSideModal";
 import axios from "axios";
 import { getAllJobTutorials } from "../config/config";
@@ -13,49 +9,87 @@ import { getHeaders } from "../services/auth";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import noThumbnail from "../Assets/images/no_thumbnail.jpg";
-import PlayButtonOverlay from "../Components/category/PlayButtonOverlay";
+import { usePermissions } from "../contexts/PermissionContext";
 
 const VideoListsPage = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
   const { videoType } = useParams();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
+  const { filteredWebCategories, filteredMobileCategories, isLoaded, error } =
+    usePermissions();
 
-  // Memoize handleShow and handleClose to prevent unnecessary re-renders
-  const handleShow = useCallback(() => setShowModal(true), []);
-  const handleClose = useCallback(() => setShowModal(false), []);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 769);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleShow = useCallback((e) => {
+    e.stopPropagation();
+    setShowModal(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setShowModal(false);
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, [videoType]); // Add videoType as dependency to refetch if it changes
+  }, [videoType, filteredWebCategories, filteredMobileCategories, isLoaded]);
 
   const fetchData = async () => {
     try {
+      if (!isLoaded) {
+        // throw new Error("Permissions are still loading");
+      }
+
+      if (error) {
+        throw new Error(`Permission error: ${error}`);
+      }
+
+      let newData = [];
       if (videoType) {
         if (videoType === "web") {
-          setData(category);
+          newData = filteredWebCategories;
         } else if (videoType === "mobile") {
-          setData(mobileCategory);
+          newData = filteredMobileCategories;
         } else {
           throw new Error("Invalid videoType");
         }
-        // Optional: Uncomment to enable dynamic fetching
-        /*
-        const response = await axios.get(getAllJobTutorials, {
-          headers: getHeaders(),
-          params: { videoType },
-        });
-        setData(response.data);
-        */
+
+        setData(newData);
+        // Reset selectedItem when data changes or is empty
+        if (newData.length === 0) {
+          console.log(`Resetting selectedItem: videoType=${videoType}, data is empty`);
+          setSelectedItem(null);
+        }
+
+        console.log("filteredWebCategories:", filteredWebCategories);
+        console.log("filteredMobileCategories:", filteredMobileCategories);
+        console.log("setData:", newData);
+
         // Validate data
-        if (data.length > 0) {
-          data.forEach((item) => {
-            if (item.videoTutorials) {
-              item.videoTutorials.forEach((video) => {
-                if (!video.filePath || !video.filePath.endsWith(".mp4")) {
-                  console.warn("Invalid video URL:", video.filePath);
-                  toast.warn(`Invalid video URL for ${video.title || "video"}`);
-                }
+        if (newData.length > 0) {
+          newData.forEach((item) => {
+            if (item.subcategories) {
+              item.subcategories.forEach((subcat) => {
+                subcat.items.forEach((subItem) => {
+                  console.log(`Processing item: ${subItem.title}, categoryKey: ${subItem.categoryKey}`);
+                  if (subItem.thumbnails) {
+                    subItem.thumbnails.forEach((thumbnail) => {
+                      if (
+                        thumbnail.videoUrl &&
+                        !thumbnail.videoUrl.endsWith(".mp4")
+                      ) {
+                        toast.warn(
+                          `Invalid video URL for ${thumbnail.title || "video"}`
+                        );
+                      }
+                    });
+                  }
+                });
               });
             }
           });
@@ -66,68 +100,65 @@ const VideoListsPage = () => {
     } catch (err) {
       console.error("Fetch data error:", err);
       toast.error(`Failed to load videos: ${err.message}`);
+      setData([]);
+      setSelectedItem(null);
     }
   };
 
-  // Memoize setSelectedItem to prevent unnecessary re-renders
   const handleSetSelectedItem = useCallback((item) => {
+    console.log("handleSetSelectedItem called with:", item);
     setSelectedItem(item);
   }, []);
 
   return (
-    <>
-      <div className="mt-5 mb-5 container-fluid" style={{ minHeight: "100vh" }}>
-        <Row>
-          <Col md={3} className="hide-container">
-            <CategoryAccordion
-              data={data}
-              setSelectedItem={handleSetSelectedItem}
-              modalClose={handleClose}
-              videoType={videoType}
-            />
-          </Col>
-
-          <Col md={9}>
-            <div className="output">
-              <ThumbnailGrid
-                selectedItem={selectedItem}
-                handleShow={handleShow}
-                showUpdate={false}
-                videoType={videoType}
-              />
-            </div>
-          </Col>
-        </Row>
-        {/* <div key={1} className="video-item" onClick={() => {}}>
-                          
-                          
-                                <img
-                                  src={noThumbnail}
-                                  alt="No image"
-                                  className="thumbnail "
-                                  // onClick={() => playVideo(thumbnail.filePath)}
-                                />  
-                          
-                          
-                          <div className="video-details">
-                            <h2>{'sdafsdafasdfasdf'}</h2>
-                            <div className="new-container">
-                            
-                            New
-                            </div> 
-                          </div>
-                        </div> */}
-
-        <RightSideModal show={showModal} handleClose={handleClose}>
+    <div className="mt-5 mb-5 container-fluid" style={{ minHeight: "100vh" }}>
+      <Row>
+        <Col md={3} className="hide-container">
           <CategoryAccordion
             data={data}
             setSelectedItem={handleSetSelectedItem}
             modalClose={handleClose}
             videoType={videoType}
           />
-        </RightSideModal>
-      </div>
-    </>
+        </Col>
+
+        <Col md={9}>
+          <div className="output">
+            <ThumbnailGrid
+              selectedItem={selectedItem}
+              handleShow={handleShow}
+              showUpdate={false}
+              videoType={videoType}
+            />
+          </div>
+        </Col>
+      </Row>
+
+      {isMobile && (
+        <center>
+          <Container
+            onClick={handleShow}
+            style={{
+              backgroundColor: "gray",
+              padding: "10px",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fas fa-eye"></i> Show Video List
+          </Container>
+        </center>
+      )}
+
+      <RightSideModal show={showModal} handleClose={handleClose}>
+        <CategoryAccordion
+          data={data}
+          setSelectedItem={handleSetSelectedItem}
+          modalClose={handleClose}
+          videoType={videoType}
+        />
+      </RightSideModal>
+    </div>
   );
 };
 

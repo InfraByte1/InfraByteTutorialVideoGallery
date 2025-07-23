@@ -1,4 +1,5 @@
-import { oidcConfig } from "../config/config";
+import axios from "axios";
+import { getRolePermissionsByUserId, oidcConfig } from "../config/config";
 import Cookies from "js-cookie";
 
 export const isAuthenticatedUser = () => {
@@ -43,6 +44,18 @@ export const removeAllCookies = () => {
   Object.keys(allCookies).forEach((cookieName) => {
     Cookies.remove(cookieName);
   });
+};
+
+export const getRolesPermissionsByUserId = async (userId) => {
+  try {
+    const response = await axios.get(getRolePermissionsByUserId(userId), {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (err) {
+    // console.error("Failed to fetch roles and permissions:", err);
+    throw err;
+  }
 };
 
 // export const handleLogout = async () => {
