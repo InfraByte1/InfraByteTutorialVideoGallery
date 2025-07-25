@@ -3,11 +3,13 @@ import { getRolesPermissionsByUserId } from "../services/auth";
 import { category } from "../data/category";
 import { mobileCategory } from "../data/mobile_category";
 import { jwtDecode } from "jwt-decode";
+import CryptoJS from "crypto-js";
+import { oidcConfig } from "../config/config";
 
 // Create context
 const PermissionContext = createContext(undefined);
 
-// Utility function to check if user has any permission for an item 
+// Utility function to check if user has any permission for an item
 const hasItemPermission = (roles, categoryKey, categoryKey2) => {
   const isSuperAdmin = roles.some((role) => role.roleName === "Super Admin");
   if (isSuperAdmin) return true;
@@ -16,7 +18,8 @@ const hasItemPermission = (roles, categoryKey, categoryKey2) => {
     (role) =>
       Array.isArray(role?.permissions) &&
       (role.permissions.some((perm) => perm.startsWith(categoryKey)) ||
-        (categoryKey2 && role.permissions.some((perm) => perm === categoryKey2)))
+        (categoryKey2 &&
+          role.permissions.some((perm) => perm === categoryKey2)))
   );
 };
 
@@ -37,7 +40,6 @@ const filterCategoriesByPermissions = (categories, roles) => {
     .filter((cat) => cat.subcategories.length > 0);
 };
 
-
 export const PermissionProvider = ({ children }) => {
   const [roles, setRoles] = useState([]);
   const [filteredWebCategories, setFilteredWebCategories] = useState([]);
@@ -50,12 +52,50 @@ export const PermissionProvider = ({ children }) => {
     setError(null);
 
     try {
-      const data = await getRolesPermissionsByUserId(userId);
-      //   if (!response.ok) {
-      //     throw new Error(`HTTP error! Status: ${response.status}`);
-      //   }
-    //   console.log(data);
-      //   const data = await response.json();
+      let data;
+      // Check sessionStorage and JWT expiration
+      const cachedPermissions = sessionStorage.getItem("globalPermissions");
+      const token = localStorage.getItem("access_token");
+      let isTokenValid = false;
+
+      if (token) {
+        try {
+          const decodedToken = jwtDecode(token);
+          const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+          isTokenValid = decodedToken.exp > currentTime; // Check if token is still valid
+        } catch (err) {
+          console.error("Failed to decode token for expiration check:", err);
+        }
+      }
+
+      if (cachedPermissions && isTokenValid) {
+        try {
+          // Decrypt cached permissions
+          const bytes = CryptoJS.AES.decrypt(
+            cachedPermissions,
+            oidcConfig.secretCrypt
+          );
+          const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          data = decryptedData;
+          // console.log("API Persisted from sessionStorage (decrypted):", data);
+        } catch (err) {
+          console.error("Failed to decrypt cached permissions:", err);
+          // Clear invalid cached data to avoid repeated errors
+          sessionStorage.removeItem("globalPermissions");
+        }
+      }
+
+      if (!data) {
+        // Fetch permissions and store encrypted in sessionStorage
+        data = await getRolesPermissionsByUserId(userId);
+        // console.log("API Fetched:", data);
+        const encrypted = CryptoJS.AES.encrypt(
+          JSON.stringify(data),
+          oidcConfig.secretCrypt
+        ).toString();
+        sessionStorage.setItem("globalPermissions", encrypted);
+      }
+
       // Validate data is an array
       if (!Array.isArray(data)) {
         throw new Error("Invalid data format: Expected an array of roles");

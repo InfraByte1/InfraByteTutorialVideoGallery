@@ -56,9 +56,10 @@ function Homepage() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("token");
-    const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
+    sessionStorage.removeItem("globalPermissions");
+    // const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
 
-    window.location.href = logoutUrl;
+    // window.location.href = logoutUrl;
   };
 
   useEffect(() => {

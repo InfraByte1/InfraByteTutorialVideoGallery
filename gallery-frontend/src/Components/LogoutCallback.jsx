@@ -8,7 +8,7 @@ const LogoutCallback = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("token");
-
+    sessionStorage.removeItem("globalPermissions");
     navigate("/", { replace: true });
   }, [navigate]);
 

@@ -84,6 +84,8 @@ function SelectVideoType() {
     iframe.onload = () => {
       document.body.removeChild(iframe);
       localStorage.clear();
+      sessionStorage.removeItem("globalPermissions");
+      // console.log("logged out");
       removeAllCookies();
       navigate("/", { state: { isLoggedOut: true } });
     };

@@ -62,13 +62,13 @@ const VideoListsPage = () => {
         setData(newData);
         // Reset selectedItem when data changes or is empty
         if (newData.length === 0) {
-          console.log(`Resetting selectedItem: videoType=${videoType}, data is empty`);
+          // console.log(`Resetting selectedItem: videoType=${videoType}, data is empty`);
           setSelectedItem(null);
         }
 
-        console.log("filteredWebCategories:", filteredWebCategories);
-        console.log("filteredMobileCategories:", filteredMobileCategories);
-        console.log("setData:", newData);
+        // console.log("filteredWebCategories:", filteredWebCategories);
+        // console.log("filteredMobileCategories:", filteredMobileCategories);
+        // console.log("setData:", newData);
 
         // Validate data
         if (newData.length > 0) {
@@ -76,7 +76,7 @@ const VideoListsPage = () => {
             if (item.subcategories) {
               item.subcategories.forEach((subcat) => {
                 subcat.items.forEach((subItem) => {
-                  console.log(`Processing item: ${subItem.title}, categoryKey: ${subItem.categoryKey}`);
+                  // console.log(`Processing item: ${subItem.title}, categoryKey: ${subItem.categoryKey}`);
                   if (subItem.thumbnails) {
                     subItem.thumbnails.forEach((thumbnail) => {
                       if (
@@ -106,7 +106,7 @@ const VideoListsPage = () => {
   };
 
   const handleSetSelectedItem = useCallback((item) => {
-    console.log("handleSetSelectedItem called with:", item);
+    // console.log("handleSetSelectedItem called with:", item);
     setSelectedItem(item);
   }, []);
 
