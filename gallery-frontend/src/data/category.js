@@ -1,5 +1,5 @@
 export const category = [
-   {
+  {
     categoryId: 0,
     categoryName: "Dashboard",
     categoryKey: "Permissions.WebPermissions.Dashboard",
@@ -262,7 +262,7 @@ export const category = [
           {
             id: 11,
             title: "Jobs (Basic)",
-            categoryKey: "Permissions.WebPermissions.JobBookings.JobsBasic",
+            categoryKey: "Permissions.WebPermissions.JobBookings.BasicJob",
             thumbnails: [],
           },
           {
@@ -344,6 +344,17 @@ export const category = [
               },
             ],
           },
+          {
+            id: 21,
+            title: "Stolen Vehicle",
+            categoryKey: "Permissions.WebPermissions.JobBookings.Stolen",
+            thumbnails: [
+              {
+                title: "Thumbnail 7",
+                url: "https://via.placeholder.com/150",
+              },
+            ],
+          },
         ],
       },
     ],
@@ -359,7 +370,7 @@ export const category = [
         categoryKey: "Permissions.WebPermissions.OffshoreInventories",
         items: [
           {
-            id: 21,
+            id: 22,
             title: "Con. Exp. Type",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreContainerExpenseType",
             thumbnails: [
@@ -374,7 +385,7 @@ export const category = [
             ],
           },
           {
-            id: 22,
+            id: 23,
             title: "Off. Customers",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomer",
             thumbnails: [
@@ -385,7 +396,7 @@ export const category = [
             ],
           },
           {
-            id: 23,
+            id: 24,
             title: "Off. Sales",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreSales",
             thumbnails: [
@@ -396,7 +407,7 @@ export const category = [
             ],
           },
           {
-            id: 24,
+            id: 25,
             title: "Cust. Statement",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomerStatement",
             thumbnails: [
@@ -407,7 +418,7 @@ export const category = [
             ],
           },
           {
-            id: 25,
+            id: 26,
             title: "Bulk Payment",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreBulkPayment",
             thumbnails: [
@@ -418,7 +429,7 @@ export const category = [
             ],
           },
           {
-            id: 26,
+            id: 27,
             title: "Cash Flow",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCashFlow",
             thumbnails: [
@@ -429,7 +440,7 @@ export const category = [
             ],
           },
           {
-            id: 27,
+            id: 28,
             title: "Offshore Storage",
             categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreInventoryListing",
             thumbnails: [
@@ -454,7 +465,7 @@ export const category = [
         categoryKey: "Permissions.WebPermissions.Reports",
         items: [
           {
-            id: 28,
+            id: 29,
             title: "Form 1",
             categoryKey: "Permissions.WebPermissions.Reports.Form1",
             thumbnails: [
@@ -469,7 +480,7 @@ export const category = [
             ],
           },
           {
-            id: 29,
+            id: 30,
             title: "Form 3A",
             categoryKey: "Permissions.WebPermissions.Reports.Form3A",
             thumbnails: [
@@ -480,7 +491,7 @@ export const category = [
             ],
           },
           {
-            id: 30,
+            id: 31,
             title: "Form 5",
             categoryKey: "Permissions.WebPermissions.Reports.Form5",
             thumbnails: [
@@ -491,7 +502,7 @@ export const category = [
             ],
           },
           {
-            id: 31,
+            id: 32,
             title: "Form 6",
             categoryKey: "Permissions.WebPermissions.Reports.Form6",
             thumbnails: [
@@ -502,7 +513,7 @@ export const category = [
             ],
           },
           {
-            id: 32,
+            id: 33,
             title: "Job Status",
             categoryKey: "Permissions.WebPermissions.Reports.JobStatus",
             thumbnails: [
@@ -513,7 +524,7 @@ export const category = [
             ],
           },
           {
-            id: 33,
+            id: 34,
             title: "Non-Accidental Towing Record",
             categoryKey: "Permissions.WebPermissions.Reports.NonAccidentalTowingRecord",
             thumbnails: [
@@ -538,7 +549,7 @@ export const category = [
         categoryKey: "Permissions.WebPermissions.OutsideScrapMetalCollections",
         items: [
           {
-            id: 34,
+            id: 35,
             title: "Truck Loads",
             categoryKey: "Permissions.WebPermissions.OutsideScrapMetalCollections.TruckLoad",
             thumbnails: [
@@ -553,7 +564,7 @@ export const category = [
             ],
           },
           {
-            id: 35,
+            id: 36,
             title: "Outside Customer",
             categoryKey: "Permissions.WebPermissions.OutsideScrapMetalCollections.OutsideCustomer",
             thumbnails: [
@@ -578,7 +589,7 @@ export const category = [
         categoryKey: "Permissions.WebPermissions.Settings",
         items: [
           {
-            id: 36,
+            id: 37,
             title: "Account Manager",
             categoryKey: "Permissions.WebPermissions.Settings.AccountManager",
             thumbnails: [
@@ -593,7 +604,7 @@ export const category = [
             ],
           },
           {
-            id: 37,
+            id: 38,
             title: "Auto Parts",
             categoryKey: "Permissions.WebPermissions.Settings.AutoPart",
             thumbnails: [
@@ -604,7 +615,7 @@ export const category = [
             ],
           },
           {
-            id: 38,
+            id: 39,
             title: "Branch Offices",
             categoryKey: "Permissions.WebPermissions.Settings.BranchOffice",
             thumbnails: [
@@ -615,7 +626,7 @@ export const category = [
             ],
           },
           {
-            id: 39,
+            id: 40,
             title: "Clients",
             categoryKey: "Permissions.WebPermissions.Settings.Client",
             thumbnails: [
@@ -626,7 +637,7 @@ export const category = [
             ],
           },
           {
-            id: 40,
+            id: 41,
             title: "Assessors",
             categoryKey: "Permissions.WebPermissions.Settings.Assessors",
             thumbnails: [
@@ -637,7 +648,7 @@ export const category = [
             ],
           },
           {
-            id: 41,
+            id: 42,
             title: "Dismantle Types",
             categoryKey: "Permissions.WebPermissions.Settings.DismantleType",
             thumbnails: [
@@ -648,7 +659,7 @@ export const category = [
             ],
           },
           {
-            id: 42,
+            id: 43,
             title: "Driver Truck Assignment",
             categoryKey: "Permissions.WebPermissions.Settings.DriverTruckAssignment",
             thumbnails: [
@@ -659,7 +670,7 @@ export const category = [
             ],
           },
           {
-            id: 43,
+            id: 44,
             title: "Scrap Metal Type",
             categoryKey: "Permissions.WebPermissions.Settings.ScrapMetalType",
             thumbnails: [
@@ -670,7 +681,7 @@ export const category = [
             ],
           },
           {
-            id: 44,
+            id: 45,
             title: "Service Areas",
             categoryKey: "Permissions.WebPermissions.Settings.ServiceArea",
             thumbnails: [
@@ -681,7 +692,7 @@ export const category = [
             ],
           },
           {
-            id: 45,
+            id: 46,
             title: "LogIn Register",
             categoryKey: "Permissions.WebPermissions.Settings.LogInRegister",
             thumbnails: [
@@ -692,7 +703,7 @@ export const category = [
             ],
           },
           {
-            id: 46,
+            id: 47,
             title: "Offshore Branch",
             categoryKey: "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
             thumbnails: [
@@ -703,7 +714,7 @@ export const category = [
             ],
           },
           {
-            id: 47,
+            id: 48,
             title: "Trucks",
             categoryKey: "Permissions.WebPermissions.Settings.Truck",
             thumbnails: [
@@ -714,7 +725,7 @@ export const category = [
             ],
           },
           {
-            id: 48,
+            id: 49,
             title: "Lead Source",
             categoryKey: "Permissions.WebPermissions.Settings.LeadSource",
             thumbnails: [
@@ -725,7 +736,7 @@ export const category = [
             ],
           },
           {
-            id: 49,
+            id: 50,
             title: "Communication",
             categoryKey: "Permissions.WebPermissions.Settings.Communication",
             thumbnails: [
@@ -736,7 +747,7 @@ export const category = [
             ],
           },
           {
-            id: 50,
+            id: 51,
             title: "Vehicle Parts Criteria",
             categoryKey: "Permissions.WebPermissions.Settings.VehiclePartsCriteria",
             thumbnails: [
@@ -747,7 +758,7 @@ export const category = [
             ],
           },
           {
-            id: 51,
+            id: 52,
             title: "Quote Rejected",
             categoryKey: "Permissions.WebPermissions.Settings.QuoteRejected",
             thumbnails: [
@@ -762,7 +773,7 @@ export const category = [
             ],
           },
           {
-            id: 52,
+            id: 53,
             title: "Referee",
             categoryKey: "Permissions.WebPermissions.Settings.Referee",
             thumbnails: [
@@ -777,7 +788,7 @@ export const category = [
             ],
           },
           {
-            id: 53,
+            id: 54,
             title: "Change Logs",
             categoryKey: "Permissions.WebPermissions.Settings.ChangeLogs",
             thumbnails: [
@@ -792,7 +803,7 @@ export const category = [
             ],
           },
           {
-            id: 54,
+            id: 55,
             title: "RedBook Car Makes",
             categoryKey: "Permissions.WebPermissions.Settings.CarMake",
             thumbnails: [
@@ -807,7 +818,7 @@ export const category = [
             ],
           },
           {
-            id: 55,
+            id: 56,
             title: "Car Parts List",
             categoryKey: "Permissions.WebPermissions.Settings.CarPartsList",
             thumbnails: [
@@ -822,7 +833,7 @@ export const category = [
             ],
           },
           {
-            id: 56,
+            id: 57,
             title: "Car Pricing Setting",
             categoryKey: "Permissions.WebPermissions.Settings.CarPricingSetting",
             thumbnails: [
@@ -837,7 +848,7 @@ export const category = [
             ],
           },
           {
-            id: 57,
+            id: 58,
             title: "Car Inquiry Setting",
             categoryKey: "Permissions.WebPermissions.Settings.CarInquirySetting",
             thumbnails: [],
