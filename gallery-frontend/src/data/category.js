@@ -221,6 +221,80 @@ export const category = [
               },
             ],
           },
+          {
+            id: 73,
+            title: "In Stock",
+            categoryKey: "Permissions.WebPermissions.Inventories.InStock",
+            actions: true,
+          },
+          {
+            id: 59,
+            title: "Catalyst Converter",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.CatalystConverter",
+            actions: true,
+          },
+          {
+            id: 60,
+            title: "Scrap Metal Type",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.ScrapMetalType",
+            actions: true,
+          },
+          {
+            id: 61,
+            title: "Scrap Metal Trips",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.ScrapMetalTripListing",
+            actions: true,
+          },
+          {
+            id: 62,
+            title: "Scrap Body Disposal",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.ScrapBodyDisposalListing",
+            actions: true,
+          },
+          {
+            id: 63,
+            title: "Shipping Containers",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.ShippingContainerListing",
+            actions: true,
+          },
+          {
+            id: 64,
+            title: "Container Packing",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.ContainerPackingTab",
+            actions: true,
+          },
+          {
+            id: 65,
+            title: "Dismantled Jobs",
+            categoryKey: "Permissions.WebPermissions.Inventories.DismantledJob",
+            actions: true,
+          },
+          {
+            id: 66,
+            title: "Dismantled Parts",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.DismantledPart",
+            actions: true,
+          },
+          {
+            id: 67,
+            title: "Sold To Parts",
+            categoryKey: "Permissions.WebPermissions.Inventories.SoldToParts",
+            actions: true,
+          },
+          {
+            id: 68,
+            title: "Complete Car Sold",
+            categoryKey:
+              "Permissions.WebPermissions.Inventories.CompleteCarSold",
+            actions: true,
+          },
         ],
       },
     ],
@@ -292,7 +366,8 @@ export const category = [
           {
             id: 16,
             title: "Unresolved Jobs",
-            categoryKey: "Permissions.WebPermissions.JobBookings.Quote.UnresolvedJob",
+            categoryKey:
+              "Permissions.WebPermissions.JobBookings.Quote.UnresolvedJob",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -303,7 +378,8 @@ export const category = [
           {
             id: 17,
             title: "Vin/Rego Decoder",
-            categoryKey: "Permissions.WebPermissions.JobBookings.VinRegoDecoderUi",
+            categoryKey:
+              "Permissions.WebPermissions.JobBookings.VinRegoDecoderUi",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -314,7 +390,8 @@ export const category = [
           {
             id: 18,
             title: "Website Enquiries",
-            categoryKey: "Permissions.WebPermissions.JobBookings.WebsiteInquiry",
+            categoryKey:
+              "Permissions.WebPermissions.JobBookings.WebsiteInquiry",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -372,7 +449,8 @@ export const category = [
           {
             id: 22,
             title: "Con. Exp. Type",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreContainerExpenseType",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreContainerExpenseType",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -387,7 +465,8 @@ export const category = [
           {
             id: 23,
             title: "Off. Customers",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomer",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomer",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -398,7 +477,8 @@ export const category = [
           {
             id: 24,
             title: "Off. Sales",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreSales",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreSales",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -409,7 +489,8 @@ export const category = [
           {
             id: 25,
             title: "Cust. Statement",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomerStatement",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreCustomerStatement",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -420,7 +501,8 @@ export const category = [
           {
             id: 26,
             title: "Bulk Payment",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreBulkPayment",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreBulkPayment",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -431,7 +513,8 @@ export const category = [
           {
             id: 27,
             title: "Cash Flow",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreCashFlow",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreCashFlow",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -442,7 +525,8 @@ export const category = [
           {
             id: 28,
             title: "Offshore Storage",
-            categoryKey: "Permissions.WebPermissions.OffshoreInventories.OffshoreInventoryListing",
+            categoryKey:
+              "Permissions.WebPermissions.OffshoreInventories.OffshoreInventoryListing",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -526,7 +610,8 @@ export const category = [
           {
             id: 34,
             title: "Non-Accidental Towing Record",
-            categoryKey: "Permissions.WebPermissions.Reports.NonAccidentalTowingRecord",
+            categoryKey:
+              "Permissions.WebPermissions.Reports.NonAccidentalTowingRecord",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -551,7 +636,8 @@ export const category = [
           {
             id: 35,
             title: "Truck Loads",
-            categoryKey: "Permissions.WebPermissions.OutsideScrapMetalCollections.TruckLoad",
+            categoryKey:
+              "Permissions.WebPermissions.OutsideScrapMetalCollections.TruckLoad",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -566,7 +652,8 @@ export const category = [
           {
             id: 36,
             title: "Outside Customer",
-            categoryKey: "Permissions.WebPermissions.OutsideScrapMetalCollections.OutsideCustomer",
+            categoryKey:
+              "Permissions.WebPermissions.OutsideScrapMetalCollections.OutsideCustomer",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -661,7 +748,8 @@ export const category = [
           {
             id: 43,
             title: "Driver Truck Assignment",
-            categoryKey: "Permissions.WebPermissions.Settings.DriverTruckAssignment",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.DriverTruckAssignment",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -705,7 +793,8 @@ export const category = [
           {
             id: 47,
             title: "Offshore Branch",
-            categoryKey: "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -749,7 +838,8 @@ export const category = [
           {
             id: 51,
             title: "Vehicle Parts Criteria",
-            categoryKey: "Permissions.WebPermissions.Settings.VehiclePartsCriteria",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.VehiclePartsCriteria",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -835,7 +925,8 @@ export const category = [
           {
             id: 57,
             title: "Car Pricing Setting",
-            categoryKey: "Permissions.WebPermissions.Settings.CarPricingSetting",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.CarPricingSetting",
             thumbnails: [
               {
                 title: "Thumbnail 7",
@@ -850,8 +941,34 @@ export const category = [
           {
             id: 58,
             title: "Car Inquiry Setting",
-            categoryKey: "Permissions.WebPermissions.Settings.CarInquirySetting",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.CarInquirySetting",
             thumbnails: [],
+          },
+          {
+            id: 69,
+            title: "Role Manager",
+            categoryKey: "Permissions.WebPermissions.Settings.RoleManager",
+            actions: true,
+          },
+          {
+            id: 70,
+            title: "Client Type",
+            categoryKey: "Permissions.WebPermissions.Settings.ClientType",
+            actions: true,
+          },
+          {
+            id: 71,
+            title: "External API Logs",
+            categoryKey: "Permissions.WebPermissions.Settings.ExternalApiLogs",
+            actions: true,
+          },
+          {
+            id: 72,
+            title: "Offshore Branch Office",
+            categoryKey:
+              "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
+            actions: true,
           },
         ],
       },
