@@ -106,12 +106,9 @@ function Homepage() {
               </button>
             </div>
           </div>
-          <p className="my-5 poweredby ">
+          <p className="poweredby">
             <strong style={{ color: "orange" }}>
-              Powered by{" "}
-              <a href="https://infrabyte.com.au/" style={{ color: "white" }}>
-                Infrabyte
-              </a>
+              Powered by <a href="https://infrabyte.com.au/">Infrabyte</a>
             </strong>
           </p>
         </div>
