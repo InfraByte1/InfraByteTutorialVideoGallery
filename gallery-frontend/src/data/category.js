@@ -221,80 +221,80 @@ export const category = [
               },
             ],
           },
-          {
-            id: 73,
-            title: "In Stock",
-            categoryKey: "Permissions.WebPermissions.Inventories.InStock",
-            actions: true,
-          },
-          {
-            id: 59,
-            title: "Catalyst Converter",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.CatalystConverter",
-            actions: true,
-          },
-          {
-            id: 60,
-            title: "Scrap Metal Type",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ScrapMetalType",
-            actions: true,
-          },
-          {
-            id: 61,
-            title: "Scrap Metal Trips",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ScrapMetalTripListing",
-            actions: true,
-          },
-          {
-            id: 62,
-            title: "Scrap Body Disposal",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ScrapBodyDisposalListing",
-            actions: true,
-          },
-          {
-            id: 63,
-            title: "Shipping Containers",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ShippingContainerListing",
-            actions: true,
-          },
-          {
-            id: 64,
-            title: "Container Packing",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ContainerPackingTab",
-            actions: true,
-          },
-          {
-            id: 65,
-            title: "Dismantled Jobs",
-            categoryKey: "Permissions.WebPermissions.Inventories.DismantledJob",
-            actions: true,
-          },
-          {
-            id: 66,
-            title: "Dismantled Parts",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.DismantledPart",
-            actions: true,
-          },
-          {
-            id: 67,
-            title: "Sold To Parts",
-            categoryKey: "Permissions.WebPermissions.Inventories.SoldToParts",
-            actions: true,
-          },
-          {
-            id: 68,
-            title: "Complete Car Sold",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.CompleteCarSold",
-            actions: true,
-          },
+          // {
+          //   id: 73,
+          //   title: "In Stock",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.InStock",
+          //   actions: true,
+          // },
+          // {
+          //   id: 59,
+          //   title: "Catalyst Converter",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.CatalystConverter",
+          //   actions: true,
+          // },
+          // {
+          //   id: 60,
+          //   title: "Scrap Metal Type",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ScrapMetalType",
+          //   actions: true,
+          // },
+          // {
+          //   id: 61,
+          //   title: "Scrap Metal Trips",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ScrapMetalTripListing",
+          //   actions: true,
+          // },
+          // {
+          //   id: 62,
+          //   title: "Scrap Body Disposal",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ScrapBodyDisposalListing",
+          //   actions: true,
+          // },
+          // {
+          //   id: 63,
+          //   title: "Shipping Containers",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ShippingContainerListing",
+          //   actions: true,
+          // },
+          // {
+          //   id: 64,
+          //   title: "Container Packing",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ContainerPackingTab",
+          //   actions: true,
+          // },
+          // {
+          //   id: 65,
+          //   title: "Dismantled Jobs",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.DismantledJob",
+          //   actions: true,
+          // },
+          // {
+          //   id: 66,
+          //   title: "Dismantled Parts",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.DismantledPart",
+          //   actions: true,
+          // },
+          // {
+          //   id: 67,
+          //   title: "Sold To Parts",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.SoldToParts",
+          //   actions: true,
+          // },
+          // {
+          //   id: 68,
+          //   title: "Complete Car Sold",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.CompleteCarSold",
+          //   actions: true,
+          // },
         ],
       },
     ],
