@@ -945,31 +945,31 @@ export const category = [
               "Permissions.WebPermissions.Settings.CarInquirySetting",
             thumbnails: [],
           },
-          {
-            id: 69,
-            title: "Role Manager",
-            categoryKey: "Permissions.WebPermissions.Settings.RoleManager",
-            actions: true,
-          },
-          {
-            id: 70,
-            title: "Client Type",
-            categoryKey: "Permissions.WebPermissions.Settings.ClientType",
-            actions: true,
-          },
-          {
-            id: 71,
-            title: "External API Logs",
-            categoryKey: "Permissions.WebPermissions.Settings.ExternalApiLogs",
-            actions: true,
-          },
-          {
-            id: 72,
-            title: "Offshore Branch Office",
-            categoryKey:
-              "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
-            actions: true,
-          },
+          // {
+          //   id: 69,
+          //   title: "Role Manager",
+          //   categoryKey: "Permissions.WebPermissions.Settings.RoleManager",
+          //   actions: true,
+          // },
+          // {
+          //   id: 70,
+          //   title: "Client Type",
+          //   categoryKey: "Permissions.WebPermissions.Settings.ClientType",
+          //   actions: true,
+          // },
+          // {
+          //   id: 71,
+          //   title: "External API Logs",
+          //   categoryKey: "Permissions.WebPermissions.Settings.ExternalApiLogs",
+          //   actions: true,
+          // },
+          // {
+          //   id: 72,
+          //   title: "Offshore Branch Office",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Settings.OffshoreBranchOffice",
+          //   actions: true,
+          // },
         ],
       },
     ],

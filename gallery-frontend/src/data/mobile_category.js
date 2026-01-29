@@ -45,7 +45,7 @@ export const mobileCategory = [
         items: [
           {
             id: 3,
-            title: "Customer Job List",
+            title: "Customer Portal",
             categoryKey: "Permissions.MobilePermissions.CustomerPortal.CustomerJobList",
             categoryKey2: "Permissions.Mobiles.JobBookings.CustomerPortal.ListView",
             thumbnails: [
