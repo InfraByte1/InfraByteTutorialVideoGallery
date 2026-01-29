@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
+import { RoutesCustom } from "./RoutesCustom";
 
 // Pages
 import Home from "../pages/HomePage";
-import { RoutesCustom } from "./RoutesCustom";
-// import NoPage from "../pages/NoPage";
+import NotFoundPage from "../pages/NotFoundPage";
 // import Loading from "../components/Loading";
 // import VideoListPage from "../pages/VideoListsPage";
 // import VideoFormPage from "../pages/VideoFormPage";
@@ -100,7 +100,7 @@ const AppRoutes: React.FC = () => {
         /> */}
 
         {/* 404 */}
-        {/* <Route path="*" element={<NoPage />} /> */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
   );
