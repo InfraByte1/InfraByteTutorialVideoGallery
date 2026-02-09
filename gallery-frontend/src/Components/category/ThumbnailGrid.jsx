@@ -6,7 +6,11 @@ import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import noThumbnail from "../../Assets/images/no_thumbnail.jpg";
 import "../../Assets/Css/ThumbnailGrid.css";
-import { deleteVideoTutorial, getJobTutorialsByCategorySubCategoryTitle, oidcConfig } from "../../config/config";
+import {
+  deleteVideoTutorial,
+  getJobTutorialsByCategorySubCategoryTitle,
+  oidcConfig,
+} from "../../config/config";
 import { getHeaders } from "../../services/auth";
 import axios from "axios";
 
@@ -57,7 +61,9 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
   const handleLoadedMetadata = () => {
     // console.log("Video metadata loaded, duration:", videoRef.current?.duration);
     if (videoRef.current && isNaN(videoRef.current.duration)) {
-      toast.warn("Video metadata incomplete, seeking may fail. Consider re-encoding the video.");
+      toast.warn(
+        "Video metadata incomplete, seeking may fail. Consider re-encoding the video.",
+      );
     } else {
       setCanSeek(true); // Enable seeking once metadata is loaded
     }
@@ -68,14 +74,18 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
     // console.warn("Video stalled during seeking or playback");
     if (videoRef.current) {
       videoRef.current.load(); // Reload video on stall
-      videoRef.current.play().catch((err) => console.error("Replay failed:", err));
+      videoRef.current
+        .play()
+        .catch((err) => console.error("Replay failed:", err));
     }
   };
 
   // Monitor buffering progress to ensure seeking is possible
   const handleProgress = () => {
     if (videoRef.current && videoRef.current.buffered.length > 0) {
-      const bufferedEnd = videoRef.current.buffered.end(videoRef.current.buffered.length - 1);
+      const bufferedEnd = videoRef.current.buffered.end(
+        videoRef.current.buffered.length - 1,
+      );
       // console.log("Buffered up to:", bufferedEnd, "seconds");
       if (bufferedEnd > videoRef.current.currentTime) {
         setCanSeek(true); // Allow seeking if enough data is buffered
@@ -110,7 +120,14 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
 };
 
 // Component for individual thumbnail
-const Thumbnail = ({ thumbnail, playVideo, copyUrlToClipboard, handleVideoDelete, showUpdate, loading }) => {
+const Thumbnail = ({
+  thumbnail,
+  playVideo,
+  copyUrlToClipboard,
+  handleVideoDelete,
+  showUpdate,
+  loading,
+}) => {
   return (
     <div className="thumbnail-container">
       <div className="thumbnail-item">
@@ -158,8 +175,12 @@ const Thumbnail = ({ thumbnail, playVideo, copyUrlToClipboard, handleVideoDelete
       )}
       <div className="thumbnail-overlay">
         <Button
-          onClick={thumbnail.isPrivate ? null : () => copyUrlToClipboard(thumbnail.id)}
-          style={thumbnail.isPrivate ? styles.disabledButton : styles.shareButton}
+          onClick={
+            thumbnail.isPrivate ? null : () => copyUrlToClipboard(thumbnail.id)
+          }
+          style={
+            thumbnail.isPrivate ? styles.disabledButton : styles.shareButton
+          }
           aria-label={thumbnail.isPrivate ? "Private video" : "Share video"}
           disabled={thumbnail.isPrivate}
         >
@@ -189,22 +210,28 @@ const ThumbnailGrid = ({
 
   const navigate = useNavigate();
 
-  const copyUrlToClipboard = useCallback((videoId) => {
-    if (!videoId || loading[videoId]) return;
-    const encrypted = CryptoJS.AES.encrypt(videoId, oidcConfig.secretCrypt).toString();
-    const url = `${oidcConfig.hostUrl}/video/${encodeURIComponent(encrypted)}`;
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setCopied(true);
-        toast.success("Video link copied!");
-        setTimeout(() => setCopied(false), 2000);
-      })
-      .catch((err) => {
-        // console.error("Failed to copy:", err);
-        toast.error("Failed to copy link");
-      });
-  }, [loading]);
+  const copyUrlToClipboard = useCallback(
+    (videoId) => {
+      if (!videoId || loading[videoId]) return;
+      const encrypted = CryptoJS.AES.encrypt(
+        videoId,
+        oidcConfig.secretCrypt,
+      ).toString();
+      const url = `${oidcConfig.hostUrl}/video/${encodeURIComponent(encrypted)}`;
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          setCopied(true);
+          toast.success("Video link copied!");
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch((err) => {
+          // console.error("Failed to copy:", err);
+          toast.error("Failed to copy link");
+        });
+    },
+    [loading],
+  );
 
   const playVideo = useCallback((url, title) => {
     // console.log("Playing video:", { url, title });
@@ -213,50 +240,63 @@ const ThumbnailGrid = ({
     toast.info(`Now Playing: ${title}`);
   }, []);
 
-  const handleVideoDelete = useCallback(async (videoId) => {
-    setLoading((prev) => ({ ...prev, [videoId]: true }));
-    try {
-      const response = await axios.delete(`${deleteVideoTutorial}/${videoId}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Access-Control-Allow-Origin": oidcConfig.hostUrl,
-        },
-      });
-      if (response.status === 200) {
-        toast.success("Video deleted successfully");
-        navigate(0);
+  const handleVideoDelete = useCallback(
+    async (videoId) => {
+      setLoading((prev) => ({ ...prev, [videoId]: true }));
+      try {
+        const response = await axios.delete(
+          `${deleteVideoTutorial}/${videoId}`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Access-Control-Allow-Origin": oidcConfig.hostUrl,
+            },
+          },
+        );
+        if (response.status === 200) {
+          toast.success("Video deleted successfully");
+          navigate(0);
+        }
+      } catch (err) {
+        console.error("Delete failed:", err);
+        toast.error("Failed to delete video");
+      } finally {
+        setLoading((prev) => ({ ...prev, [videoId]: false }));
       }
-    } catch (err) {
-      console.error("Delete failed:", err);
-      toast.error("Failed to delete video");
-    } finally {
-      setLoading((prev) => ({ ...prev, [videoId]: false }));
-    }
-  }, [navigate]);
+    },
+    [navigate],
+  );
 
-  const fetchDataForDelete = useCallback(async (selectedTitle) => {
-    setLoadingData(true);
-    try {
-      const response = await axios.post(
-        getJobTutorialsByCategorySubCategoryTitle,
-        {
-          category: selectedCategory ?? (videoType === "web" ? "Dashboard" : "Driver Portal"),
-          subCategory: selectedSubCategory ?? (videoType === "web" ? "Dashboard" : "Driver Portal"),
-          videoType,
-          videoTitle: selectedTitle,
-        },
-        { headers: getHeaders() }
-      );
-      navigate(`/edit/video/${videoType}`, { state: response.data });
-      toast.success("Video data fetched successfully");
-    } catch (err) {
-      console.error("Fetch failed:", err);
-      toast.error("Failed to fetch video data");
-    } finally {
-      setLoadingData(false);
-    }
-  }, [navigate, selectedCategory, selectedSubCategory, videoType]);
+  const fetchDataForDelete = useCallback(
+    async (selectedTitle) => {
+      setLoadingData(true);
+      try {
+        const response = await axios.post(
+          getJobTutorialsByCategorySubCategoryTitle,
+          {
+            category:
+              selectedCategory ??
+              (videoType === "web" ? "Dashboard" : "Driver Portal"),
+            subCategory:
+              selectedSubCategory ??
+              (videoType === "web" ? "Dashboard" : "Driver Portal"),
+            videoType,
+            videoTitle: selectedTitle,
+          },
+          { headers: getHeaders() },
+        );
+        navigate(`/edit/video/${videoType}`, { state: response.data });
+        toast.success("Video data fetched successfully");
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        toast.error("Failed to fetch video data");
+      } finally {
+        setLoadingData(false);
+      }
+    },
+    [navigate, selectedCategory, selectedSubCategory, videoType],
+  );
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 769);
@@ -370,7 +410,7 @@ const ThumbnailGrid = ({
                                 onClick={() =>
                                   playVideo(
                                     thumbnail.filePath,
-                                    thumbnail.subTitle
+                                    thumbnail.subTitle,
                                   )
                                 }
                               />
@@ -382,7 +422,7 @@ const ThumbnailGrid = ({
                                 onClick={() =>
                                   playVideo(
                                     thumbnail.filePath,
-                                    thumbnail.subTitle
+                                    thumbnail.subTitle,
                                   )
                                 }
                               /> // <video src={thumbnail.filePath} className="thumbnail-image" onClick={() => playVideo(thumbnail.filePath)}></video>
@@ -393,7 +433,7 @@ const ThumbnailGrid = ({
                                 onClick={() =>
                                   playVideo(
                                     thumbnail.filePath,
-                                    thumbnail.subTitle
+                                    thumbnail.subTitle,
                                   )
                                 }
                               >
@@ -404,6 +444,16 @@ const ThumbnailGrid = ({
                                 <div className="new-container">
                                   {thumbnail.videoStatus ?? ""}
                                 </div>
+                              )} 
+                              {showUpdate && (
+                                <a
+                                  href={thumbnail.filePath} // or thumbnail.videoUrl / filePath
+                                  download
+                                  className="btn btn-success btn-sm"
+                                  onClick={(e) => e.stopPropagation()} // prevents accordion toggle
+                                >
+                                  Download
+                                </a>
                               )}
                               <div className="thumbnail-overlay">
                                 {showUpdate && (
@@ -450,7 +500,7 @@ const ThumbnailGrid = ({
                               </div>
                             </div>
                           </div>
-                        )
+                        ),
                       )}
                     </div>
                     {/* <center>
