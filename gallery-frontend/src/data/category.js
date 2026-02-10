@@ -32,170 +32,170 @@ export const category = [
       },
     ],
   },
-  {
-    categoryId: 1,
-    categoryName: "Auto Parts",
-    categoryKey: "Permissions.WebPermissions.AutoParts",
-    subcategories: [
-      {
-        subcategoryId: 1,
-        subcategoryName: "Stock Records",
-        categoryKey: "Permissions.WebPermissions.AutoParts",
-        items: [
-          {
-            id: 2,
-            title: "Stock Records",
-            categoryKey: "Permissions.WebPermissions.AutoParts.StockRecords",
-            thumbnails: [
-              {
-                title: "Thumbnail 1",
-                url: "https://www.veeforu.com/wp-content/uploads/2022/10/red-gaming-thumbnail-download.jpg",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 2",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-              },
-              {
-                title: "Thumbnail 3",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 4",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 5",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 6",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 9",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 10",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-              },
-              {
-                title: "Thumbnail 11",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 12",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 13",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-              {
-                title: "Thumbnail 14",
-                url: "https://via.placeholder.com/150",
-                videoUrl:
-                  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-              },
-            ],
-          },
-          {
-            id: 3,
-            title: "Import A.P. Records",
-            categoryKey: "Permissions.WebPermissions.AutoParts.ImportAPRecords",
-            thumbnails: [
-              {
-                title: "Thumbnail 3",
-                url: "https://i.pinimg.com/736x/ed/93/6f/ed936fa3053731b50c0af7a8018453ee.jpg",
-              },
-              {
-                title: "Thumbnail 4",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-          {
-            id: 4,
-            title: "A.P. Branches",
-            categoryKey: "Permissions.WebPermissions.AutoParts.APBranches",
-            thumbnails: [
-              {
-                title: "Thumbnail 3",
-                url: "https://i.pinimg.com/736x/ed/93/6f/ed936fa3053731b50c0af7a8018453ee.jpg",
-              },
-              {
-                title: "Thumbnail 4",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    categoryId: 2,
-    categoryName: "Finance",
-    categoryKey: "Permissions.WebPermissions.Finance",
-    subcategories: [
-      {
-        subcategoryId: 2,
-        subcategoryName: "Car Look Up",
-        categoryKey: "Permissions.WebPermissions.Finance",
-        items: [
-          {
-            id: 5,
-            title: "Car Look Up",
-            categoryKey: "Permissions.WebPermissions.Finance.CarLookUp",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   categoryId: 1,
+  //   categoryName: "Auto Parts",
+  //   categoryKey: "Permissions.WebPermissions.AutoParts",
+  //   subcategories: [
+  //     {
+  //       subcategoryId: 1,
+  //       subcategoryName: "Stock Records",
+  //       categoryKey: "Permissions.WebPermissions.AutoParts",
+  //       items: [
+  //         {
+  //           id: 2,
+  //           title: "Stock Records",
+  //           categoryKey: "Permissions.WebPermissions.AutoParts.StockRecords",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 1",
+  //               url: "https://www.veeforu.com/wp-content/uploads/2022/10/red-gaming-thumbnail-download.jpg",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 2",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 3",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 4",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 5",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 6",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 7",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 8",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 9",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 10",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 11",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 12",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 13",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //             {
+  //               title: "Thumbnail 14",
+  //               url: "https://via.placeholder.com/150",
+  //               videoUrl:
+  //                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           id: 3,
+  //           title: "Import A.P. Records",
+  //           categoryKey: "Permissions.WebPermissions.AutoParts.ImportAPRecords",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 3",
+  //               url: "https://i.pinimg.com/736x/ed/93/6f/ed936fa3053731b50c0af7a8018453ee.jpg",
+  //             },
+  //             {
+  //               title: "Thumbnail 4",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           id: 4,
+  //           title: "A.P. Branches",
+  //           categoryKey: "Permissions.WebPermissions.AutoParts.APBranches",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 3",
+  //               url: "https://i.pinimg.com/736x/ed/93/6f/ed936fa3053731b50c0af7a8018453ee.jpg",
+  //             },
+  //             {
+  //               title: "Thumbnail 4",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   categoryId: 2,
+  //   categoryName: "Finance",
+  //   categoryKey: "Permissions.WebPermissions.Finance",
+  //   subcategories: [
+  //     {
+  //       subcategoryId: 2,
+  //       subcategoryName: "Car Look Up",
+  //       categoryKey: "Permissions.WebPermissions.Finance",
+  //       items: [
+  //         {
+  //           id: 5,
+  //           title: "Car Look Up",
+  //           categoryKey: "Permissions.WebPermissions.Finance.CarLookUp",
+  //           thumbnails: [
+  //             {
+  //               title: "Thumbnail 7",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //             {
+  //               title: "Thumbnail 8",
+  //               url: "https://via.placeholder.com/150",
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     categoryId: 3,
     categoryName: "Inventory",
@@ -234,13 +234,13 @@ export const category = [
               "Permissions.WebPermissions.Inventories.CatalystConverter",
             actions: true,
           },
-          {
-            id: 60,
-            title: "Scrap Metal Type",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ScrapMetalType",
-            actions: true,
-          },
+          // {
+          //   id: 60,
+          //   title: "Scrap Metal Type",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ScrapMetalType",
+          //   actions: true,
+          // },
           {
             id: 61,
             title: "Scrap Metal Trips",
@@ -254,20 +254,20 @@ export const category = [
               "Permissions.WebPermissions.Inventories.ScrapMetalTripListing",
             actions: true,
           },
-          {
-            id: 62,
-            title: "Scrap Body Disposal",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ScrapBodyDisposalListing",
-            actions: true,
-          },
-          {
-            id: 63,
-            title: "Shipping Containers",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.ShippingContainerListing",
-            actions: true,
-          },
+          // {
+          //   id: 62,
+          //   title: "Scrap Body Disposal",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ScrapBodyDisposalListing",
+          //   actions: true,
+          // },
+          // {
+          //   id: 63,
+          //   title: "Shipping Containers",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.ShippingContainerListing",
+          //   actions: true,
+          // },
           {
             id: 64,
             title: "Container Packing",
@@ -275,12 +275,12 @@ export const category = [
               "Permissions.WebPermissions.Inventories.ContainerPackingTab",
             actions: true,
           },
-          {
-            id: 65,
-            title: "Dismantled Jobs",
-            categoryKey: "Permissions.WebPermissions.Inventories.DismantledJob",
-            actions: true,
-          },
+          // {
+          //   id: 65,
+          //   title: "Dismantled Jobs",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.DismantledJob",
+          //   actions: true,
+          // },
           {
             id: 66,
             title: "Dismantled Parts",
@@ -288,19 +288,19 @@ export const category = [
               "Permissions.WebPermissions.Inventories.DismantledPart",
             actions: true,
           },
-          {
-            id: 67,
-            title: "Sold To Parts",
-            categoryKey: "Permissions.WebPermissions.Inventories.SoldToParts",
-            actions: true,
-          },
-          {
-            id: 68,
-            title: "Complete Car Sold",
-            categoryKey:
-              "Permissions.WebPermissions.Inventories.CompleteCarSold",
-            actions: true,
-          },
+          // {
+          //   id: 67,
+          //   title: "Sold To Parts",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.SoldToParts",
+          //   actions: true,
+          // },
+          // {
+          //   id: 68,
+          //   title: "Complete Car Sold",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Inventories.CompleteCarSold",
+          //   actions: true,
+          // },
         ],
       },
     ],
@@ -357,30 +357,30 @@ export const category = [
             categoryKey: "Permissions.WebPermissions.JobBookings.LockedJobs",
             thumbnails: [],
           },
-          {
-            id: 14,
-            title: "Office Drop-Offs",
-            categoryKey: "Permissions.WebPermissions.JobBookings.OfficeDropOff",
-            thumbnails: [],
-          },
+          // {
+          //   id: 14,
+          //   title: "Office Drop-Offs",
+          //   categoryKey: "Permissions.WebPermissions.JobBookings.OfficeDropOff",
+          //   thumbnails: [],
+          // },
           {
             id: 15,
             title: "Ppsr Lockups",
             categoryKey: "Permissions.WebPermissions.JobBookings.Ppsr",
             thumbnails: [],
           },
-          {
-            id: 16,
-            title: "Unresolved Jobs",
-            categoryKey:
-              "Permissions.WebPermissions.JobBookings.Quote.UnresolvedJob",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 16,
+          //   title: "Unresolved Jobs",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.JobBookings.Quote.UnresolvedJob",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
           {
             id: 17,
             title: "Vin/Rego Decoder",
@@ -528,18 +528,18 @@ export const category = [
               },
             ],
           },
-          {
-            id: 28,
-            title: "Offshore Storage",
-            categoryKey:
-              "Permissions.WebPermissions.OffshoreInventories.OffshoreInventoryListing",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 28,
+          //   title: "Offshore Storage",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.OffshoreInventories.OffshoreInventoryListing",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
         ],
       },
     ],
@@ -613,18 +613,18 @@ export const category = [
               },
             ],
           },
-          {
-            id: 34,
-            title: "Non-Accidental Towing Record",
-            categoryKey:
-              "Permissions.WebPermissions.Reports.NonAccidentalTowingRecord",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 34,
+          //   title: "Non-Accidental Towing Record",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Reports.NonAccidentalTowingRecord",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
         ],
       },
     ],
@@ -785,17 +785,17 @@ export const category = [
               },
             ],
           },
-          {
-            id: 46,
-            title: "LogIn Register",
-            categoryKey: "Permissions.WebPermissions.Settings.LogInRegister",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 46,
+          //   title: "LogIn Register",
+          //   categoryKey: "Permissions.WebPermissions.Settings.LogInRegister",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
           {
             id: 47,
             title: "Offshore Branch",
@@ -841,18 +841,18 @@ export const category = [
               },
             ],
           },
-          {
-            id: 51,
-            title: "Vehicle Parts Criteria",
-            categoryKey:
-              "Permissions.WebPermissions.Settings.VehiclePartsCriteria",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 51,
+          //   title: "Vehicle Parts Criteria",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Settings.VehiclePartsCriteria",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
           {
             id: 52,
             title: "Quote Rejected",
@@ -928,29 +928,29 @@ export const category = [
               },
             ],
           },
-          {
-            id: 57,
-            title: "Car Pricing Setting",
-            categoryKey:
-              "Permissions.WebPermissions.Settings.CarPricingSetting",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
-          {
-            id: 58,
-            title: "Car Inquiry Setting",
-            categoryKey:
-              "Permissions.WebPermissions.Settings.CarInquirySetting",
-            thumbnails: [],
-          },
+          // {
+          //   id: 57,
+          //   title: "Car Pricing Setting",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Settings.CarPricingSetting",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //     {
+          //       title: "Thumbnail 8",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
+          // {
+          //   id: 58,
+          //   title: "Car Inquiry Setting",
+          //   categoryKey:
+          //     "Permissions.WebPermissions.Settings.CarInquirySetting",
+          //   thumbnails: [],
+          // },
           // {
           //   id: 69,
           //   title: "Role Manager",

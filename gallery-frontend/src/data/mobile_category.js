@@ -191,18 +191,18 @@ export const mobileCategory = [
               },
             ],
           },
-          {
-            id: 19,
-            title: "Sales",
-            categoryKey: "Permissions.MobilePermissions.OverseasAgentPortal.Sales",
-            categoryKey2: "Permissions.Mobiles.OffshoreInventories.OffshoreSell.ListView",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 19,
+          //   title: "Sales",
+          //   categoryKey: "Permissions.MobilePermissions.OverseasAgentPortal.Sales",
+          //   categoryKey2: "Permissions.Mobiles.OffshoreInventories.OffshoreSell.ListView",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
         ],
       },
     ],
