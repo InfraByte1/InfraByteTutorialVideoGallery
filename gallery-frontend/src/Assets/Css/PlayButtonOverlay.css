@@ -21,18 +21,20 @@
   
 
 .video-player {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 aspect ratio */
-  }
-  
-  .video-player video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  width: 100%;
+  height: 70vh;
+  max-height: 480px;
+  min-height: 260px;
+  background: #000; /* prevents white flashes */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-player video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
   /* Tablet view */
 @media (max-width: 768px) {

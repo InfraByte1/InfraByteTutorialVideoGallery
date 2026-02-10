@@ -20,6 +20,8 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
   const videoRef = useRef(null);
   const [canSeek, setCanSeek] = useState(false); // Track if seeking is possible
 
+
+
   useEffect(() => {
     if (videoRef.current && videoUrl) {
       // console.log("Loading new video URL:", videoUrl);
@@ -54,7 +56,7 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
 
   const handleError = (e) => {
     // console.error("Video error:", e);
-    toast.error("Error loading video. Check format or network.");
+    // toast.error("Error loading video. Check format or network.");
   };
 
   // Handle metadata loading to ensure seeking is possible
@@ -91,7 +93,9 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
         setCanSeek(true); // Allow seeking if enough data is buffered
       }
     }
-  };
+  };  
+  // Do not render player if no video URL
+  // if (!videoUrl) return null;
 
   return (
     <>
@@ -114,7 +118,14 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
           Your browser does not support the video tag.
         </video>
       </div>
-      {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>}
+      {videoTitle && (
+        <div className="mx-3 mt-3 p-3 rounded bg-light border">
+          <div className="text-uppercase text-muted small mb-1">
+            Now Playing
+          </div>
+          <div className="fw-semibold text-truncate">{videoTitle}</div>
+        </div>
+      )}{" "}
     </>
   );
 };
@@ -304,6 +315,11 @@ const ThumbnailGrid = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    setVideoUrl("");
+    setVideoTitle("");
+  }, [selectedItem]);
+
   return (
     <>
       <ToastContainer />
@@ -352,9 +368,25 @@ const ThumbnailGrid = ({
               </>
             )}
 
-            <h3 className="mt-5 mb-3">{selectedItem.category}</h3>
+            <div className="mt-0 mb-2 d-flex align-items-center flex-wrap gap-2">
+              <span className="badge rounded-pill bg-secondary">
+                {selectedItem.category}
+              </span>
 
-            <Accordion defaultActiveKey="default">
+              {selectedItem.subCategory &&
+                selectedItem.subCategory !== selectedItem.category && (
+                  <>
+                    <i className="fa-solid fa-chevron-right text-muted small"></i>
+
+                    <span className="badge rounded-pill bg-info text-dark">
+                      {selectedItem.subCategory}
+                    </span>
+                  </>
+                )}
+            </div>
+
+            <h6 className="text-muted mb-3">{selectedItem.description}</h6>
+            <Accordion defaultActiveKey="default"  >
               {isMobile && <ToastContainer />}
               {loadingData && (
                 <span>
@@ -364,23 +396,24 @@ const ThumbnailGrid = ({
               {selectedItem.subCategories.map((category) => (
                 <Accordion.Item
                   eventKey={category.videoTitle ?? ""}
-                  key={category.videoTitle}
+                  key={category.videoTitle} 
                 >
                   <Accordion.Header
-                    className={
+                    className= { 
                       selectedItem != null && selectedItem.category == category
-                        ? "active"
+                        ? " active"
                         : ""
                     }
                     id={category.videoTitle}
                   >
                     <div className="d-flex align-items-center justify-content-between w-100">
-                      <h5 className="mt-0 mb-1">{category.videoTitle}</h5>
+                      <h5 className="mt-0 mb-1 accordion-title">{category.videoTitle}</h5>
                       {showUpdate && (
                         <a
-                          onClick={() =>
-                            fetchDataForDelete(category.videoTitle)
-                          }
+                          onClick={(e) => {
+                            e.stopPropagation(); //   prevent accordion toggle
+                            fetchDataForDelete(category.videoTitle);
+                          }}
                           variant="primary"
                           className="button-container mt-3  "
                         >
@@ -390,8 +423,8 @@ const ThumbnailGrid = ({
                     </div>
                   </Accordion.Header>
 
-                  <Accordion.Body>
-                    <h6 className="mt-0 mb-3 mx-2">
+                  <Accordion.Body  >
+                    <h6 className="mt-0 mb-3 mx-2  ">
                       {category.description === `null`
                         ? ""
                         : category.description}
@@ -428,23 +461,22 @@ const ThumbnailGrid = ({
                               /> // <video src={thumbnail.filePath} className="thumbnail-image" onClick={() => playVideo(thumbnail.filePath)}></video>
                             )}
 
-                            <div className="video-details">
-                              <h2
-                                onClick={() =>
-                                  playVideo(
-                                    thumbnail.filePath,
-                                    thumbnail.subTitle,
-                                  )
-                                }
-                              >
-                                {thumbnail.subTitle}
-                              </h2>
+                            <div
+                              className="video-details"
+                              onClick={() =>
+                                playVideo(
+                                  thumbnail.filePath,
+                                  thumbnail.subTitle,
+                                )
+                              }
+                            >
+                              <h2>{thumbnail.subTitle}</h2>
                               {/* <p>{}</p> */}
                               {thumbnail.videoStatus && (
                                 <div className="new-container">
                                   {thumbnail.videoStatus ?? ""}
                                 </div>
-                              )} 
+                              )}
                               {showUpdate && (
                                 <a
                                   href={thumbnail.filePath} // or thumbnail.videoUrl / filePath
