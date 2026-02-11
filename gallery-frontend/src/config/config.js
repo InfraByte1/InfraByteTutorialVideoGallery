@@ -15,12 +15,20 @@ if (process.env.REACT_APP_ENVIRONMENT === "production") {
   hostUrl = "https://tutorial.infrabyte.com.au";
   clientSecret = "RUFDrGypzfUsgaQPASAzNUeJQ0B0tGrZT6EmkC8JxT4=";
 } else if (process.env.REACT_APP_ENVIRONMENT === "staging") {
-  authority = "https://security.staging.infrabyte.com.au";
   redirectUri = "https://tutorial.staging.infrabyte.com.au/callback";
   postLogoutRedirectUri =
     "https://tutorial.staging.infrabyte.com.au/logout-callback";
   apiBaseUrl = "https://api.staging.infrabyte.com.au/api/";
   hostUrl = "https://tutorial.staging.infrabyte.com.au";
+  authority = "https://security.staging.infrabyte.com.au";
+  clientSecret = "COhOvHI+hwCHn2Ii6/mYTOwy2yt+UFN/+Mr6i+AEa4A=";
+} else if (process.env.REACT_APP_ENVIRONMENT === "dev") {
+  redirectUri = "https://tutorial.dev.infrabyte.com.au/callback";
+  postLogoutRedirectUri =
+    "https://tutorial.dev.infrabyte.com.au/logout-callback";
+  apiBaseUrl = "https://api.dev.infrabyte.com.au/api/";
+  hostUrl = "https://tutorial.dev.infrabyte.com.au";
+  authority = "https://security.dev.infrabyte.com.au";
   clientSecret = "COhOvHI+hwCHn2Ii6/mYTOwy2yt+UFN/+Mr6i+AEa4A=";
 }
 // used to test
@@ -32,8 +40,8 @@ exports.getTokenUrl = `${authority}/connect/token`;
 // exports.getAuthorizationUrl= `${authority}`;
 exports.getAuthorizationUrl = `${authority}/connect/authorize`;
 
-exports.getRolePermissionsByUserId=(userId) => `${apiBaseUrl}v6/Accounts/GetRolePermissionsByUserId/${userId}`;
-
+exports.getRolePermissionsByUserId = (userId) =>
+  `${apiBaseUrl}v6/Accounts/GetRolePermissionsByUserId/${userId}`;
 
 exports.getAllJobTutorials = `${apiBaseUrl}v6/BookingTutorial/GetAllJobTutorials`;
 exports.getJobTutorialsByCategorySubCategory = `${apiBaseUrl}v6/BookingTutorial/GetJobTutorialsByCategorySubCategory`;
