@@ -206,21 +206,21 @@ export const category = [
         subcategoryName: "Inventory",
         categoryKey: "Permissions.WebPermissions.Inventories",
         items: [
-          {
-            id: 6,
-            title: "Inventory",
-            categoryKey: "Permissions.WebPermissions.Inventories.InStock",
-            thumbnails: [
-              {
-                title: "Thumbnail 7",
-                url: "https://via.placeholder.com/150",
-              },
-              {
-                title: "Thumbnail 8",
-                url: "https://via.placeholder.com/150",
-              },
-            ],
-          },
+          // {
+          //   id: 6,
+          //   title: "Inventory",
+          //   categoryKey: "Permissions.WebPermissions.Inventories.InStock",
+          //   thumbnails: [
+          //     {
+          //       title: "Thumbnail 7",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //     {
+          //       title: "Thumbnail 8",
+          //       url: "https://via.placeholder.com/150",
+          //     },
+          //   ],
+          // },
           {
             id: 73,
             title: "In Stock",

@@ -7,11 +7,13 @@ import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
 import { oidcConfig } from "../config/config";
-import Cookies from "js-cookie";
+import { useSearchParams } from "react-router-dom";
 
 function SelectVideoType() {
   let navigate = useNavigate();
   // const auth = useAuth();
+const [searchParams] = useSearchParams();
+const token = searchParams.get("token");
 
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("Username");
@@ -54,6 +56,17 @@ function SelectVideoType() {
   useEffect(() => {
     getUserName();
   });
+
+  useEffect(() => {
+  if (token) {
+    // console.log("Token from URL:", token);
+
+    localStorage.setItem("access_token", token);
+
+    // Optional: remove token from URL after saving
+    window.history.replaceState({}, document.title, "/videos");
+  }
+}, [token]);
   useEffect(() => {
     if (!isAuthenticatedUser()) {
       window.location.href = "/";

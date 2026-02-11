@@ -348,7 +348,7 @@ const ThumbnailGrid = ({
           <>
             {yourVideosData && (
               <>
-                <h2 className="mt-5 mb-3">{selectedItem.subCategory}</h2>
+                <h2 className="mt-3 mb-3">{selectedItem.subCategory}</h2>
                 <h6 className="mt-5 mb-3">{selectedItem.description}</h6>
                 <center>
                   <div className="thumbnails">
