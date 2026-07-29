@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
 import { redirect, useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../services/auth";
 import UserDropdown from "./UserDropdown";
 import { useAuth } from "oidc-react";
+var jwt = require("jsonwebtoken");
 
 function Header() {
   let navigate = useNavigate();
 
   const auth = useAuth();
 
-  const username = "Username";
+  const [username,setUserName] = useState("Username");
   const token = localStorage.getItem("token");
 
   var link = `https://localhost:5020/connect/endsession?id_token=${token}&post_logout_redirect_uri=http://localhost:3000`;
@@ -31,6 +32,10 @@ function Header() {
     window.location.href = "/";
   };
 
+  useEffect(() => {
+    // var decode1 = jwt.decode(auth.userData.access_token.toString())
+    // setUserName(decode1)
+  }, []);
   return (
     <div className="nav-bottom">
       <Navbar bg="white" variant="#201f41" className="container" expand="lg">

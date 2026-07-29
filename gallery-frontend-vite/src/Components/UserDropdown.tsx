@@ -1,0 +1,24 @@
+import { Dropdown } from "react-bootstrap";
+import { FaUserCircle } from "react-icons/fa";
+import "../Assets/Css/UserDropdown.css";
+
+interface UserDropdownProps {
+  username: string;
+  onLogout: () => void;
+}
+
+const UserDropdown = ({ username, onLogout }: UserDropdownProps) => {
+  return (
+    <Dropdown align="end" className="user-dropdown">
+      <Dropdown.Toggle variant="success" id="dropdown-basic" className="dropdown-toggle-custom">
+        <FaUserCircle size={24} className="user-icon" /> {username}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+
+export default UserDropdown;

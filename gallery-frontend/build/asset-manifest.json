@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/InfraByteTutorialVideoGallery/static/css/main.0865d997.css",
+    "main.js": "/InfraByteTutorialVideoGallery/static/js/main.a68e802a.js",
+    "static/js/453.7e546616.chunk.js": "/InfraByteTutorialVideoGallery/static/js/453.7e546616.chunk.js",
+    "static/media/auto-care-backgroun.jpg": "/InfraByteTutorialVideoGallery/static/media/auto-care-backgroun.485096bba975bb3e541c.jpg",
+    "static/media/404.webp": "/InfraByteTutorialVideoGallery/static/media/404.d94b150269927842438b.webp",
+    "index.html": "/InfraByteTutorialVideoGallery/index.html",
+    "main.0865d997.css.map": "/InfraByteTutorialVideoGallery/static/css/main.0865d997.css.map",
+    "main.a68e802a.js.map": "/InfraByteTutorialVideoGallery/static/js/main.a68e802a.js.map",
+    "453.7e546616.chunk.js.map": "/InfraByteTutorialVideoGallery/static/js/453.7e546616.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0865d997.css",
+    "static/js/main.a68e802a.js"
+  ]
+}
