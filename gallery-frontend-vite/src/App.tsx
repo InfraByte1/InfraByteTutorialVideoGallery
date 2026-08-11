@@ -1,26 +1,26 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "oidc-react";
+import { ToastContainer } from "react-toastify";
 import Footer from "./Components/Footer";
 import AppRoute from "./router";
-import { isAuthenticatedUser } from "./services/auth";
+import { useAuthContext } from "./context/AuthContext";
 import "./Assets/Css/HeaderFooter.css";
 
 function App() {
   const hideFooter = ["/", "/callback"].includes(window.location.pathname);
 
   const navigate = useNavigate();
-  const { isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuthContext();
 
   useEffect(() => {
-    if (isAuthenticatedUser() || !isLoading) {
+    if (isAuthenticated && !isLoading) {
       navigate("/videos");
-      return;
     }
-  }, [navigate, isLoading]);
+  }, [navigate, isAuthenticated, isLoading]);
 
   return (
     <>
+      <ToastContainer />
       <AppRoute />
       {!hideFooter && <Footer />}
     </>

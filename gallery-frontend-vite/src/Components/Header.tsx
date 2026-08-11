@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Navbar, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "oidc-react";
 import logo from "../Assets/images/nonon.png";
-import { clearToken } from "../services/auth";
+import { useAuthContext } from "../context/AuthContext";
+import { getUserDisplayName } from "../services/auth";
 import UserDropdown from "./UserDropdown";
 
 function Header() {
+  const { user, logout } = useAuthContext();
   const navigate = useNavigate();
-  const auth = useAuth();
+  const username = getUserDisplayName(user);
 
-  const [username] = useState("Username");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleLogout = () => {
-    clearToken();
-    auth.signOut();
-    navigate("/", { replace: true });
-    window.location.href = "/";
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const term = searchTerm.trim();
+    if (term) {
+      navigate(`/search-result/${encodeURIComponent(term)}`);
+    }
   };
 
   return (
@@ -27,16 +29,20 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Form className="d-flex justify-content-end w-100 mt-2 mb-2">
+          <Form className="d-flex justify-content-end w-100 mt-2 mb-2" onSubmit={handleSearch}>
             <Form.Control
               type="text"
               placeholder="Search infrabyte videos . . . "
               className="search-container"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant=" mx-2 button-container">Search</Button>
+            <Button type="submit" variant=" mx-2 button-container">
+              Search
+            </Button>
           </Form>
 
-          <UserDropdown username={username} onLogout={handleLogout} />
+          <UserDropdown username={username} onLogout={logout} />
         </Navbar.Collapse>
       </Navbar>
     </div>

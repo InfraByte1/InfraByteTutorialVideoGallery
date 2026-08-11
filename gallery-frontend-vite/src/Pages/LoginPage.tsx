@@ -1,17 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { Form, Button, Container, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import logo from "../Assets/images/nonon.png";
 import "../Assets/Css/Login.css";
-import { setToken } from "../services/auth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [validated, setValidated] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
@@ -21,10 +17,9 @@ const LoginPage = () => {
     }
 
     setValidated(true);
-    if (validated) {
-      setToken("mockToken");
-      navigate("/videos");
-    }
+    // Intentionally inert for now — submitting doesn't sign anyone in.
+    // Real auth goes through AuthContext's login() (OIDC redirect), not a
+    // password form; wire this up once/if that's actually the intent.
   };
 
   return (

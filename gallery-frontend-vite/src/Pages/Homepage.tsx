@@ -1,24 +1,24 @@
 import { useState } from "react";
 import "../Assets/Css/Homepage.css";
-import { useAuth } from "oidc-react";
 import logo from "../Assets/images/nonon.png";
+import { useAuthContext } from "../context/AuthContext";
 
 function Homepage() {
-  const auth = useAuth();
+  const { isLoading, isAuthenticated, user, login } = useAuthContext();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
-  if (auth.isLoading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (auth.userData) {
-    return <div>Welcome, {auth.userData.profile.name}!</div>;
+  if (isAuthenticated) {
+    return <div>Welcome, {user?.name ?? user?.preferred_username}!</div>;
   }
 
   const handleLogin = () => {
-    setIsLoading(true);
-    auth.signIn();
+    setIsSigningIn(true);
+    login();
   };
 
   return (
@@ -52,7 +52,7 @@ function Homepage() {
           </p>
         </div>
       </div>
-      <div className={isLoading ? "loading-bar" : "d-none"}></div>
+      <div className={isSigningIn ? "loading-bar" : "d-none"}></div>
     </div>
   );
 }
