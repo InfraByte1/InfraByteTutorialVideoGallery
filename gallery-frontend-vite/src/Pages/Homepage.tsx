@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../Assets/Css/Homepage.css";
 import logo from "../Assets/images/nonon.png";
-import backgroundPoster from "../Assets/images/auto-care-backgroun.jpg";
 import { useAuthContext } from "../context/AuthContext";
 import { removeAllCookies } from "../services/auth";
 
@@ -58,10 +57,10 @@ function Homepage() {
   return (
     <div className="home-container">
       <div className="home-page ">
-        <video className="home-video-bg" src={DEMO_VIDEO_URL} poster={backgroundPoster} autoPlay muted loop playsInline />
         <div className="overlay">
           <div className="inner-container ">
             <div className="">
+              <video className="hero-preview-video" src={DEMO_VIDEO_URL} autoPlay muted loop playsInline />
               <h6 className="heading1">
                 Welcome to <span className="title-color">InfraByte</span> Tutorials
               </h6>
