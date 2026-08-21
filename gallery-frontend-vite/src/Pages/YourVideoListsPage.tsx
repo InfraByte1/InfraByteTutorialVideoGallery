@@ -96,17 +96,19 @@ const YourVideoListsPage = () => {
           </div>
         </Col>
       </Row>
-      <RightSideModal show={showModal} handleClose={handleClose}>
-        <CategoryAccordion
-          data={data}
-          yourVideosData={yourVideosData ?? undefined}
-          setSelectedItem={setSelectedItem}
-          modalClose={handleClose}
-          videoType={videoType}
-          setCategorySelected={setSelectedCategory}
-          setSelectedSubCategory={setSelectedSubCategory}
-        />
-      </RightSideModal>
+      {showModal && (
+        <RightSideModal show={showModal} handleClose={handleClose}>
+          <CategoryAccordion
+            data={data}
+            yourVideosData={yourVideosData ?? undefined}
+            setSelectedItem={setSelectedItem}
+            modalClose={handleClose}
+            videoType={videoType}
+            setCategorySelected={setSelectedCategory}
+            setSelectedSubCategory={setSelectedSubCategory}
+          />
+        </RightSideModal>
+      )}
     </div>
   );
 };

@@ -39,14 +39,16 @@ const VideoListsPage = () => {
           </Col>
         </Row>
 
-        <RightSideModal show={showModal} handleClose={handleClose}>
-          <CategoryAccordion
-            data={categories}
-            setSelectedItem={setSelectedItem}
-            modalClose={handleClose}
-            videoType={videoType}
-          />
-        </RightSideModal>
+        {showModal && (
+          <RightSideModal show={showModal} handleClose={handleClose}>
+            <CategoryAccordion
+              data={categories}
+              setSelectedItem={setSelectedItem}
+              modalClose={handleClose}
+              videoType={videoType}
+            />
+          </RightSideModal>
+        )}
       </Container>
     </>
   );
