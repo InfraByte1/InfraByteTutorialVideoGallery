@@ -46,7 +46,7 @@ function Homepage() {
               </h6>
               <h1 className="heading2 mt-3 mb-5">
                 <span>
-                  <img src={logo} alt="logo" width="100" hight="100" />
+                  <img src={logo} alt="logo" width="100%" height="100%" />
                 </span>{" "}
                 videos are ready to play .
               </h1>
