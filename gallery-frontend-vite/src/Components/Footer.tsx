@@ -6,7 +6,7 @@ function Footer() {
       <div className="container footer-container">
         <p>
           <a href="#">
-            <img src={logo} alt="logo" width="100" height="100" />
+            <img src={logo} alt="logo" width="120" />
           </a>
         </p>
         <p>

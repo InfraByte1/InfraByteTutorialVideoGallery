@@ -25,7 +25,7 @@ const LoginPage = () => {
   return (
     <Container className="login-container">
       <Col className="justify-content-space-around d-flex flex-column ">
-        <img src={logo} alt="bar" width="120" height="120" />
+        <img src={logo} alt="bar" width="180" />
         <Col className="mt-3">
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <h2 className="heading3">Please sign-in to continue!</h2>

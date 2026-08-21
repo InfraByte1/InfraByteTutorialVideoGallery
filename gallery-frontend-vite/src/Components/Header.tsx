@@ -25,7 +25,7 @@ function Header() {
     <div className="nav-bottom">
       <Navbar bg="white" variant="light" className="container" expand="lg">
         <Navbar.Brand href="#">
-          <img src={logo} alt="logo" width="100" height="100" />
+          <img src={logo} alt="logo" width="170" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
