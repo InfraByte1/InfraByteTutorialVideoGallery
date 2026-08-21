@@ -199,6 +199,11 @@ export const logout = () => {
 
   const goHome = () => {
     document.body.removeChild(iframe);
+    // window.location.href below is a full page reload, so React Router
+    // state can't carry this signal — Homepage reads it from sessionStorage
+    // instead to avoid auto-redirecting straight back into login right
+    // after the user asked to log out.
+    sessionStorage.setItem("justLoggedOut", "true");
     window.location.href = "/";
   };
   iframe.onload = goHome;

@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [roles, setRoles] = useState<unknown>(null);
 
   const login = useCallback(async () => {
-    const codeVerifier = generateCodeVerifier(64);
+    const codeVerifier = generateCodeVerifier(128);
     const codeChallenge = await generateCodeChallenge(codeVerifier);
     const state = generateState();
     savePkceState(codeVerifier, state);
@@ -46,6 +46,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       state,
       code_challenge: codeChallenge,
       code_challenge_method: "S256",
+      // Forces the login screen even if the identity server has an existing
+      // SSO session — without it, a stale/wrong-account session there would
+      // silently complete the redirect without giving the user a chance to
+      // switch accounts.
+      prompt: "login",
     });
     window.location.href = `${getAuthorizationUrl}?${params.toString()}`;
   }, []);
