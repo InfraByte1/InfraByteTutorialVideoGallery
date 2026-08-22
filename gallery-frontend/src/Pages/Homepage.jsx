@@ -9,7 +9,7 @@ import { getAuthorizationUrl, loginUrl, oidcConfig } from "../config/config";
 import Cookies from "js-cookie";
 import { generateCodeChallenge, generateCodeVerifier } from "../config/pkce";
 import Loading from "../Components/Loading";
-import { removeAllCookies } from "../services/auth";
+import { isAuthenticatedUser } from "../services/auth";
 
 function Homepage() {
   let navigate = useNavigate();
@@ -54,32 +54,27 @@ function Homepage() {
     }
   };
 
-  const logout = async () => {
-    const idTokenFound = localStorage.getItem("id_token");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("globalPermissions");
-    // const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
-
-    // window.location.href = logoutUrl;
-  };
-
   useEffect(() => {
     if (isShared) {
+      // Shared video links always require a fresh login to establish a session.
       login();
-    } else if (document.referrer === "") {
-      // if came from different page
-    } else {
-      if (isLoggedOut) {
-        //if came to this page after logout
-      } else {
-        removeAllCookies();
-        logout();
-        login();
-      }
+      return;
     }
-  }, []);
+
+    if (isAuthenticatedUser()) {
+      // Users arriving with a token already saved (e.g. handed off from
+      // app.infrabyte.com.au via /callback or /videos?token=...) are already
+      // logged in - send them straight to the videos page instead of
+      // forcing them through the login screen again.
+      navigate("/videos", { replace: true });
+      return;
+    }
+
+    // No session yet: show the landing page. isLoggedOut is only used to
+    // avoid immediately re-triggering anything special right after a
+    // deliberate sign-out; a direct visitor otherwise has to click
+    // "Get Started" to log in.
+  }, [isShared, isLoggedOut, navigate]);
 
   return (
     <div className="home-container">

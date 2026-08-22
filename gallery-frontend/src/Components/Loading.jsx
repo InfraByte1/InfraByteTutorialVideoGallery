@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "../Assets/Css/Loading.css";
-import { isAuthenticatedUser } from "../services/auth";
+import { isAuthenticatedUser, saveAuthSession } from "../services/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getTokenUrl, oidcConfig } from "../config/config";
 import { jwtDecode } from "jwt-decode";
@@ -114,28 +114,7 @@ const Loading = () => {
         const idToken = response.data.id_token;
 
         // Save tokens to localStorage or state management
-        localStorage.setItem("access_token", accessToken);
-        localStorage.setItem("id_token", idToken);
-        localStorage.setItem("token", accessToken);
-        var token = jwtDecode(accessToken);
-        localStorage.setItem(
-          "userName",
-          token["http://schemas.a1gaas.com/identity/claims/name"],
-        );
-
-        var roles =
-          token["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-        //if admins then true
-        if (
-          // roles.includes("Admin") ||
-          roles.includes("System Admin") ||
-          roles.includes("Super Admin")
-        ) {
-          localStorage.setItem("role", true);
-        } else {
-          localStorage.setItem("role", false);
-        }
+        const token = saveAuthSession(accessToken, idToken);
 
         const sharedQuery = sessionStorage.getItem("shared");
 

@@ -1,6 +1,45 @@
 import axios from "axios";
 import { getRolePermissionsByUserId, oidcConfig } from "../config/config";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+
+// Single source of truth for writing a token to storage so every entry
+// point (OIDC /callback exchange, direct ?token= handoff from other apps)
+// keeps access_token/token/userName/role in sync with each other.
+export const saveAuthSession = (accessToken, idToken) => {
+  if (!accessToken) {
+    return null;
+  }
+
+  const decodedToken = jwtDecode(accessToken);
+
+  localStorage.setItem("access_token", accessToken);
+  localStorage.setItem("token", accessToken);
+  if (idToken) {
+    localStorage.setItem("id_token", idToken);
+  }
+
+  localStorage.setItem(
+    "userName",
+    decodedToken["http://schemas.a1gaas.com/identity/claims/name"],
+  );
+
+  const roles =
+    decodedToken[
+      "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    ] || [];
+  localStorage.setItem(
+    "role",
+    roles.includes("System Admin") || roles.includes("Super Admin"),
+  );
+
+  // A new token means a new (possibly different) user session, so any
+  // permissions cached for whoever was previously logged in must not
+  // be reused.
+  sessionStorage.removeItem("globalPermissions");
+
+  return decodedToken;
+};
 
 export const isAuthenticatedUser = () => {
   const token = localStorage.getItem("token");
