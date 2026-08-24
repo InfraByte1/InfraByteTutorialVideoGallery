@@ -53,6 +53,12 @@ const CategoryAccordion = ({
       }
       return acc;
     }, null);
+
+    if (item == null) {
+      setLoading(false);
+      return;
+    }
+
     var category = videoType === "web" ? "Dashboard" : "Driver Portal";
     var reqData = {
       category: selectedCategory ?? category,
@@ -84,10 +90,16 @@ const CategoryAccordion = ({
   };
 
   useEffect(() => {
-    if (setCategorySelected != null || setCategorySelected === undefined) {
+    if (
+      (setCategorySelected != null || setCategorySelected === undefined) &&
+      selectedItem == null &&
+      data != null &&
+      Array.isArray(data) &&
+      data.length > 0
+    ) {
       handleSelect(1);
     }
-  }, []);
+  }, [data]);
 
   const handleYourVideo = async (subCategory) => {
     var item = yourVideosData.reduce((acc, category) => {
