@@ -1,75 +1,92 @@
+.accordion-item {
+  border: 1px solid #ececf2;
+  border-radius: 10px !important;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
 
-.accordion-header {
-    background-color: #ff7f00;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: #ff7f00 0.3s ease;
-  }
-  
-  .accordion-header .active {
-    background-color: #ff7f00;
-  }
-  
-  
-  .accordion-header:hover {
-    background-color: #ff7f00;
-  }
-  
-  .accordion-body {
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    padding: 15px;
-    padding-bottom: 1px;
-    background-color: #f9f9f9;
-  }
-  .accordion-body .active {
-    background-color: #ff7f00;
-    
-  }
-  
-  .accordion-body .active:hover {
-    color: white;
-    
-  }
-  
-  .accordion-body ul{
-    padding-left: 0px;
-  }
+.accordion-item:last-child {
+  margin-bottom: 0;
+}
 
-  .accordion-body ul li {
-    
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    padding: 10px;
-    /* background-color: #f9f9f9; */
-    text-decoration: none;
-    list-style-type: none;text-align: left;
-  }
-  
-  .accordion-body ul li:hover {
-    cursor: pointer;
-   color: #ff7f00;
-  }
+.accordion-button {
+  background: #ffffff;
+  color: #1c1b3a;
+  font-weight: 600;
+  padding: 14px 16px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
 
+.accordion-button:hover {
+  background: #fff8ee;
+}
 
-  
-  .accordion-item {
-    margin-bottom: 0px;
-  }
-  
-  .output {
-    border: 1px solid #ddd;
-    padding: 0px;
-    background-color: #f9f9f9;
-    min-height: 200px;
-    border-radius: 4px;     
-  }
-  
-  .video-thumbnail {
-    width: 100%;
-    max-width: 300px;
-    margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+.accordion-button:not(.collapsed) {
+  background: #fff3dd;
+  color: #1c1b3a;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 3px rgba(255, 157, 0, 0.25);
+  border-color: transparent;
+}
+
+.accordion-header.active .accordion-button {
+  background: #fff3dd;
+}
+
+.accordion-body {
+  border-top: 1px solid #ececf2;
+  padding: 10px;
+  background-color: #fafafa;
+}
+
+.accordion-body ul {
+  padding-left: 0px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accordion-body ul li {
+  border-top: none;
+  border-left: 3px solid transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-decoration: none;
+  list-style-type: none;
+  text-align: left;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.accordion-body ul li:hover {
+  cursor: pointer;
+  background: #fff3dd;
+  color: #e07b00;
+}
+
+.accordion-body ul li.active {
+  background: #1c1b3a;
+  color: #ffffff;
+  border-left-color: #ff9d00;
+  font-weight: 600;
+}
+
+.output {
+  border: 1px solid #ececf2;
+  padding: 0px;
+  background-color: #ffffff;
+  min-height: 200px;
+  border-radius: 10px;
+}
+
+.video-thumbnail {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

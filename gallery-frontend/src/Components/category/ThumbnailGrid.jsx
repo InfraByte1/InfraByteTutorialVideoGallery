@@ -451,7 +451,7 @@ const ThumbnailGrid = ({
                               <img
                                 src={noThumbnail}
                                 alt="No image"
-                                className="thumbnail "
+                                className="thumbnail thumbnail-placeholder"
                                 onClick={() =>
                                   playVideo(
                                     thumbnail.filePath,
@@ -673,33 +673,37 @@ const styles = {
   shareButton: {
     display: "flex",
     alignItems: "center",
-    backgroundColor: "orange",
+    justifyContent: "center",
+    backgroundImage: "linear-gradient(135deg, #ff9d00, #e07b00)",
     border: "none",
     color: "white",
-    padding: "5px",
-    fontSize: "16px",
-    borderRadius: "5px",
+    width: "34px",
+    height: "34px",
+    fontSize: "14px",
+    borderRadius: "999px",
     cursor: "pointer",
-    marginTop: "8px",
+    boxShadow: "0 4px 12px -6px rgba(224, 123, 0, 0.6)",
   },
   disabledButton: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     border: "none",
     color: "white",
-    padding: "5px",
-    fontSize: "16px",
-    borderRadius: "5px",
+    width: "34px",
+    height: "34px",
+    fontSize: "14px",
+    borderRadius: "999px",
     cursor: "not-allowed",
-    marginTop: "8px",
-    backgroundColor: "red",
+    backgroundColor: "#c7c7d1",
   },
   icon: {
     marginRight: "0px",
   },
   copiedMessage: {
     marginLeft: "10px",
-    color: "green",
+    color: "#1c8a3d",
+    fontWeight: 600,
   },
 };
 
