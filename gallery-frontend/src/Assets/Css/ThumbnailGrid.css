@@ -168,6 +168,49 @@
   font-size: 1.1rem;
 }
 
+/* Search results: same .video-item building block as the accordion rows,
+   laid out as vertical cards in a responsive grid instead of a stacked
+   horizontal list - suits a search results gallery better. */
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.search-results .video-item {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+
+.search-results .thumbnail {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin-right: 0;
+  border-radius: 0;
+}
+
+.search-results .thumbnail-placeholder {
+  background: #f7f7fb;
+}
+
+.search-results .video-details {
+  padding: 12px 14px 14px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.search-results .video-details h2 {
+  font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .video-item {
     flex-direction: column;

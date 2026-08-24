@@ -117,7 +117,7 @@ const SearchPage = ({ isFromShare }) => {
       {data && (
         <>
           <>
-            <div className="thumbnails mt-3 ">
+            <div className="search-results mt-3">
               {data.map((thumbnail, index) =>
                 thumbnail.isPrivate === true ? (
                   <></>
@@ -140,11 +140,10 @@ const SearchPage = ({ isFromShare }) => {
                       <img
                         src={noThumbnail}
                         alt="No image"
-                        className="thumbnail "
+                        className="thumbnail thumbnail-placeholder"
                         // onClick={() => playVideo(thumbnail.filePath)}
                       /> // <video src={thumbnail.filePath} className="thumbnail-image" onClick={() => playVideo(thumbnail.filePath)}></video>
                     )}
-                    <div className="thumbnail-overlay"></div>
                     <div className="video-details">
                       <h2>{thumbnail.subTitle}</h2>
                       {thumbnail.videoStatus && (
