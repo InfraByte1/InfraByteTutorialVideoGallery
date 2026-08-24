@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import CategoryAccordion from "../Components/category/CategoryAccordion";
 import ThumbnailGrid from "../Components/category/ThumbnailGrid";
 import RightSideModal from "../Components/RightSideModal";
@@ -135,19 +135,15 @@ const VideoListsPage = () => {
       </Row>
 
       {isMobile && (
-        <center>
-          <Container
+        <div className="text-center mb-3">
+          <button
             onClick={handleShow}
-            style={{
-              backgroundColor: "gray",
-              padding: "10px",
-              color: "white",
-              cursor: "pointer",
-            }}
+            className="button-container"
+            type="button"
           >
             <i className="fas fa-eye"></i> Show Video List
-          </Container>
-        </center>
+          </button>
+        </div>
       )}
 
       <RightSideModal show={showModal} handleClose={handleClose}>
