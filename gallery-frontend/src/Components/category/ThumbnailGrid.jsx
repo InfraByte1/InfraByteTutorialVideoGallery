@@ -18,16 +18,17 @@ import axios from "axios";
 // Component for video player
 const VideoPlayer = ({ videoUrl, videoTitle }) => {
   const videoRef = useRef(null);
-  const [canSeek, setCanSeek] = useState(false); // Track if seeking is possible
-
-
+  // Video URLs can contain raw spaces/special characters (e.g. folder names
+  // like "Driver Portal"), which can break HTTP Range requests - and with
+  // them, seeking - even though the same file seeks fine opened locally.
+  const encodedVideoUrl = videoUrl ? encodeURI(videoUrl) : videoUrl;
 
   useEffect(() => {
-    if (videoRef.current && videoUrl) {
-      // console.log("Loading new video URL:", videoUrl);
+    if (videoRef.current && encodedVideoUrl) {
+      // console.log("Loading new video URL:", encodedVideoUrl);
       videoRef.current.pause(); // Pause current playback
       videoRef.current.currentTime = 0; // Reset to start
-      videoRef.current.src = videoUrl; // Explicitly set new source
+      videoRef.current.src = encodedVideoUrl; // Explicitly set new source
       videoRef.current.load(); // Reload video
       videoRef.current.play().catch((err) => {
         // console.error("Auto-play failed:", err);
@@ -41,13 +42,10 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
         videoRef.current.src = ""; // Clear source to prevent memory leaks
       }
     };
-  }, [videoUrl]);
+  }, [encodedVideoUrl]);
 
   const handleSeeking = () => {
     // console.log("Video is seeking...");
-    if (!canSeek) {
-      toast.warn("Seeking not available yet, please wait for video to buffer.");
-    }
   };
 
   const handleSeeked = () => {
@@ -59,41 +57,10 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
     // toast.error("Error loading video. Check format or network.");
   };
 
-  // Handle metadata loading to ensure seeking is possible
   const handleLoadedMetadata = () => {
     // console.log("Video metadata loaded, duration:", videoRef.current?.duration);
-    if (videoRef.current && isNaN(videoRef.current.duration)) {
-      toast.warn(
-        "Video metadata incomplete, seeking may fail. Consider re-encoding the video.",
-      );
-    } else {
-      setCanSeek(true); // Enable seeking once metadata is loaded
-    }
   };
 
-  // Handle stalled or waiting events for long videos
-  const handleStalled = () => {
-    // console.warn("Video stalled during seeking or playback");
-    if (videoRef.current) {
-      videoRef.current.load(); // Reload video on stall
-      videoRef.current
-        .play()
-        .catch((err) => console.error("Replay failed:", err));
-    }
-  };
-
-  // Monitor buffering progress to ensure seeking is possible
-  const handleProgress = () => {
-    if (videoRef.current && videoRef.current.buffered.length > 0) {
-      const bufferedEnd = videoRef.current.buffered.end(
-        videoRef.current.buffered.length - 1,
-      );
-      // console.log("Buffered up to:", bufferedEnd, "seconds");
-      if (bufferedEnd > videoRef.current.currentTime) {
-        setCanSeek(true); // Allow seeking if enough data is buffered
-      }
-    }
-  };  
   // Do not render player if no video URL
   // if (!videoUrl) return null;
 
@@ -102,7 +69,7 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
       <div className="video-player">
         <video
           ref={videoRef}
-          key={videoUrl || "empty"} // Use "empty" key when no URL to ensure unique key
+          key={encodedVideoUrl || "empty"} // Use "empty" key when no URL to ensure unique key
           controls
           autoPlay
           muted
@@ -111,10 +78,8 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
           onSeeked={handleSeeked}
           onError={handleError}
           onLoadedMetadata={handleLoadedMetadata} // Added to debug metadata
-          onStalled={handleStalled} // Added to handle buffering issues
-          onProgress={handleProgress} // Added to monitor buffering
         >
-          {videoUrl && <source src={videoUrl} type="video/mp4" />}
+          {encodedVideoUrl && <source src={encodedVideoUrl} type="video/mp4" />}
           Your browser does not support the video tag.
         </video>
       </div>
