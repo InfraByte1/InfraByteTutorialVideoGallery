@@ -32,22 +32,13 @@ const UserDropdown = ({ username, onLogout }) => {
 
       <Dropdown.Menu>
         {roleAdmin && (
-          <>
-            <Dropdown.Item
-              onClick={() => {
-                navigate("/add/video", { replace: true });
-              }}
-            >
-              Upload a video
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                navigate("/your-video", { replace: true });
-              }}
-            >
-              Your videos
-            </Dropdown.Item>
-          </>
+          <Dropdown.Item
+            onClick={() => {
+              navigate("/your-video", { replace: true });
+            }}
+          >
+            Your videos
+          </Dropdown.Item>
         )}
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
       </Dropdown.Menu>
