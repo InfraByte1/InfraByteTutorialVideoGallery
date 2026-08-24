@@ -85,10 +85,20 @@ export const PermissionProvider = ({ children }) => {
         }
       }
 
-      if (!data) {
-        // Fetch permissions and store encrypted in sessionStorage
+      const fetchedFresh = !data;
+      if (fetchedFresh) {
+        // Fetch permissions from the API; only cache them once we know
+        // the shape is valid, so a malformed/error response never gets
+        // persisted as if it were a good cache entry.
         data = await getRolesPermissionsByUserId(userId);
-        // console.log("API Fetched:", data);
+      }
+
+      // Validate data is an array
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid data format: Expected an array of roles");
+      }
+
+      if (fetchedFresh) {
         const encrypted = CryptoJS.AES.encrypt(
           JSON.stringify(data),
           oidcConfig.secretCrypt
@@ -96,10 +106,6 @@ export const PermissionProvider = ({ children }) => {
         sessionStorage.setItem("globalPermissions", encrypted);
       }
 
-      // Validate data is an array
-      if (!Array.isArray(data)) {
-        throw new Error("Invalid data format: Expected an array of roles");
-      }
       // Validate each role has a permissions array
       const validRoles = data.filter(
         (role) =>
@@ -118,10 +124,14 @@ export const PermissionProvider = ({ children }) => {
       );
       setFilteredWebCategories(filteredWeb);
       setFilteredMobileCategories(filteredMobile);
-      setIsLoaded(true);
     } catch (error) {
       console.error("Failed to fetch permissions:", error);
       setError(error.message || "Unknown error occurred");
+    } finally {
+      // Always resolve the loading state, even on failure — otherwise
+      // isLoaded gets stuck false forever and consumers (e.g.
+      // VideoListsPage's effect) never re-run to show the error or retry.
+      setIsLoaded(true);
     }
   };
   useEffect(() => {
