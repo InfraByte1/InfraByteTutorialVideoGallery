@@ -23,12 +23,15 @@ if (process.env.REACT_APP_ENVIRONMENT === "production") {
   authority = "https://security.staging.infrabyte.com.au";
   clientSecret = "COhOvHI+hwCHn2Ii6/mYTOwy2yt+UFN/+Mr6i+AEa4A=";
 } else if (process.env.REACT_APP_ENVIRONMENT === "dev") {
-  redirectUri = "https://tutorial.dev.infrabyte.com.au/callback";
-  postLogoutRedirectUri =
-    "https://tutorial.dev.infrabyte.com.au/logout-callback";
-  apiBaseUrl = "https://api.dev.infrabyte.com.au/api/";
-  hostUrl = "https://tutorial.dev.infrabyte.com.au";
-  authority = "https://security.dev.infrabyte.com.au";
+  // redirectUri = "https://tutorial.dev.infrabyte.com.au/callback";
+  // postLogoutRedirectUri = "https://tutorial.infrabyte.com.au/logout-callback";
+  // Relative path so requests stay same-origin (http://localhost:3000) and
+  // get routed through the CRA dev-server proxy (src/setupProxy.js) instead
+  // of hitting api.infrabyte.com.au directly from the browser, which avoids
+  // CORS failures on non-2xx responses that don't carry CORS headers.
+  apiBaseUrl = "/api-proxy/";
+  // hostUrl = "https://tutorial.infrabyte.com.au";
+  // authority = "https://security.dev.infrabyte.com.au";
   clientSecret = "COhOvHI+hwCHn2Ii6/mYTOwy2yt+UFN/+Mr6i+AEa4A=";
 }
 // used to test
