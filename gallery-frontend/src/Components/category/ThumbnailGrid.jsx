@@ -442,17 +442,17 @@ const ThumbnailGrid = ({
                                   {thumbnail.videoStatus ?? ""}
                                 </div>
                               )}
-                              {showUpdate && (
-                                <a
-                                  href={thumbnail.filePath} // or thumbnail.videoUrl / filePath
-                                  download
-                                  className="btn btn-success btn-sm"
-                                  onClick={(e) => e.stopPropagation()} // prevents accordion toggle
-                                >
-                                  Download
-                                </a>
-                              )}
                               <div className="thumbnail-overlay">
+                                {showUpdate && (
+                                  <a
+                                    href={thumbnail.filePath} // or thumbnail.videoUrl / filePath
+                                    download
+                                    className="btn btn-success btn-sm"
+                                    onClick={(e) => e.stopPropagation()} // prevents accordion toggle
+                                  >
+                                    Download
+                                  </a>
+                                )}
                                 {showUpdate && (
                                   <>
                                     <a
@@ -460,12 +460,12 @@ const ThumbnailGrid = ({
                                         handleVideoDelete(thumbnail.id)
                                       }
                                       variant="primary"
-                                      className="mt-3 btn  btn-danger"
+                                      className="btn btn-danger btn-sm"
                                       rel="noopener noreferrer"
                                     >
                                       Delete
                                     </a>
-                                    {loading && (
+                                    {loading[thumbnail.id] && (
                                       <span>
                                         <div className="loading-spinner"></div>
                                       </span>

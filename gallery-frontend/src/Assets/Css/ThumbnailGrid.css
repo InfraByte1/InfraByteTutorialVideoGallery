@@ -13,8 +13,22 @@
 .thumbnail-overlay {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 0 14px 14px;
+}
+
+/* Inside a .video-item row (accordion video lists), the overlay is the
+   action-button row under the title - it shouldn't inherit the card
+   padding meant for the top-level thumbnail grid. */
+.video-item .thumbnail-overlay {
+  padding: 2px 0 0;
+}
+
+.video-item .thumbnail-overlay .btn {
+  border-radius: 999px;
+  font-size: 0.8rem;
+  padding: 6px 14px;
 }
 
 .thumbnail-container {
