@@ -6,8 +6,6 @@ import { getHeaders } from "../../services/auth";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
 
 const CategoryAccordion = ({
   data,
@@ -22,7 +20,6 @@ const CategoryAccordion = ({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,12 +35,6 @@ const CategoryAccordion = ({
   const handleSelect = async (itemId) => {
     setLoading(true);
 
-    const pkce_code_verifier = Cookies.get("pkce_code_verifier");
-    if (!pkce_code_verifier) {
-      setLoading(false);
-      navigate("/", { replace: true });
-      // alert("Your session has expired. Please log in again.");
-    }
     var item = data.reduce((acc, category) => {
       const foundItem = category.subcategories
         .flatMap((subcategory) => subcategory.items)
