@@ -9,7 +9,7 @@ module.exports = function (app) {
   app.use(
     "/api-proxy",
     createProxyMiddleware({
-      target: "https://api.infrabyte.com.au",
+      target: "https://api.staging.infrabyte.com.au",
       changeOrigin: true,
       pathRewrite: { "^/api-proxy": "/api" },
     }),
