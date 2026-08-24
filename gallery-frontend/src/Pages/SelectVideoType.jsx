@@ -2,24 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
 import { useNavigate } from "react-router-dom";
 import UserDropdown from "../Components/UserDropdown";
-import {
-  isAuthenticatedUser,
-  removeAllCookies,
-  saveAuthSession,
-} from "../services/auth";
+import { isAuthenticatedUser, removeAllCookies } from "../services/auth";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
 import { oidcConfig } from "../config/config";
-import { useSearchParams } from "react-router-dom";
-import { usePermissions } from "../contexts/PermissionContext";
 
 function SelectVideoType() {
   let navigate = useNavigate();
   // const auth = useAuth();
-const [searchParams] = useSearchParams();
-const token = searchParams.get("token");
-const { fetchPermissions } = usePermissions();
 
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("Username");
@@ -63,25 +54,6 @@ const { fetchPermissions } = usePermissions();
     getUserName();
   });
 
-  useEffect(() => {
-  if (token) {
-    // A token handed off via the URL (e.g. arriving from app.infrabyte.com.au)
-    // replaces whatever session was previously cached here, so every
-    // identity-derived key (token/userName/role/permissions) must be
-    // refreshed together instead of only access_token.
-    try {
-      const decoded = saveAuthSession(token);
-      if (decoded?.sub) {
-        fetchPermissions(decoded.sub);
-      }
-    } catch (err) {
-      console.error("Failed to process token from URL:", err);
-    }
-
-    // Optional: remove token from URL after saving
-    window.history.replaceState({}, document.title, "/videos");
-  }
-}, [token]);
   useEffect(() => {
     if (!isAuthenticatedUser()) {
       window.location.href = "/";

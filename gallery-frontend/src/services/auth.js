@@ -41,6 +41,37 @@ export const saveAuthSession = (accessToken, idToken) => {
   return decodedToken;
 };
 
+// A ?token= handoff can land on ANY route (deep links like /videos/web or
+// shared /video/:query, not just /videos), so this must run before the app
+// mounts rather than inside a single page's effect — otherwise pages that
+// don't know about the query param fire authenticated requests with no
+// token saved yet and the API correctly responds 401.
+export const consumeTokenFromUrl = () => {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  if (!token) {
+    return null;
+  }
+
+  let decoded = null;
+  try {
+    decoded = saveAuthSession(token);
+  } catch (err) {
+    console.error("Failed to process token from URL:", err);
+    return null;
+  }
+
+  params.delete("token");
+  const query = params.toString();
+  window.history.replaceState(
+    {},
+    document.title,
+    window.location.pathname + (query ? `?${query}` : "") + window.location.hash,
+  );
+
+  return decoded;
+};
+
 export const isAuthenticatedUser = () => {
   const token = localStorage.getItem("token");
   if (!token) {
