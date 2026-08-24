@@ -877,7 +877,7 @@ const VideoFormUpdatePage = () => {
                     className="button-container cancel mt-3 mx-2"
                     block
                     onClick={() => {
-                      navigate("/videos");
+                      navigate("/your-video");
                     }}
                   >
                     Cancel
