@@ -117,7 +117,7 @@ function SelectVideoType() {
                 <Form.Control
                   type="text"
                   placeholder="Search infrabyte videos . . . "
-                  className="search-container"
+                  className="landing-search"
                   onChange={(e) => {
                     setSearchKeyword(e.target.value);
                   }}

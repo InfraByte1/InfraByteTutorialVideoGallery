@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 import {
   getHeaders,
   isAuthenticated,
@@ -151,37 +151,43 @@ function Header() {
               courses
             </Nav.Link>
           </Nav> */}
-          <Nav className="mx-auto navbar-item">
-            <Nav.Link as={Link} to="/videos">
+          <Nav className="navbar-item navbar-item-centered">
+            <Nav.Link as={NavLink} to="/videos" end>
               Home
             </Nav.Link>
-            <Nav.Link href="/videos/web">Web</Nav.Link>
-            <Nav.Link href="/videos/mobile">Mobile</Nav.Link>
+            <Nav.Link as={NavLink} to="/videos/web">
+              Web
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/videos/mobile">
+              Mobile
+            </Nav.Link>
           </Nav>
-          <Form
-            className="d-flex justify-content-end mt-2 mb-2"
-            noValidate
-            onSubmit={handleSubmit}
-          >
-            <Form.Control
-              type="text"
-              placeholder="Search infrabyte videos . . . "
-              className="search-container"
-              onChange={(e) => {
-                setSearchKeyword(e.target.value);
-              }}
-            />
-            <Button type="submit" variant=" mx-2 button-container">
-              Search{" "}
-            </Button>
-            {loading && (
-              <span>
-                <div className="loading-spinner"></div>
-              </span>
-            )}
-          </Form>
+          <div className="navbar-right-group d-flex align-items-center ms-lg-auto">
+            <Form
+              className="d-flex justify-content-end mt-2 mb-2"
+              noValidate
+              onSubmit={handleSubmit}
+            >
+              <Form.Control
+                type="text"
+                placeholder="Search infrabyte videos . . . "
+                className="search-container"
+                onChange={(e) => {
+                  setSearchKeyword(e.target.value);
+                }}
+              />
+              <Button type="submit" variant="" className="button-container">
+                Search{" "}
+              </Button>
+              {loading && (
+                <span>
+                  <div className="loading-spinner"></div>
+                </span>
+              )}
+            </Form>
 
-          <UserDropdown username={username} onLogout={handleLogout} />
+            <UserDropdown username={username} onLogout={handleLogout} />
+          </div>
         </Navbar.Collapse>
       </Navbar>
     </div>

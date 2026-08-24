@@ -1,51 +1,53 @@
 .user-dropdown .dropdown-toggle-custom {
     display: flex;
     align-items: center;
-    background-color: #ffffff; /* Primary color */
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    color: #1c1b3a;
+    border: 1px solid rgba(28, 27, 58, 0.1);
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 999px;
+    box-shadow: 0 4px 14px -6px rgba(28, 27, 58, 0.25);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, color 0.2s ease;
   }
 
 .user-dropdown .dropdown-toggle-custom:hover,
 .user-dropdown .dropdown-toggle-custom:focus,
 .user-dropdown .dropdown-toggle-custom:active {
-  background-color: rgb(247, 148, 29); /* Darker shade for hover effect */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(135deg, #ffb03e, #e07b00);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 18px -8px rgba(224, 123, 0, 0.6);
+  transform: translateY(-1px);
   outline: none;
 }
 
 .user-dropdown .dropdown-toggle-custom::after {
   display: none; /* Hide the default dropdown caret */
 }
-  
-  .user-dropdown .dropdown-toggle-custom:hover,
-  .user-dropdown .dropdown-toggle-custom:focus,
-  .user-dropdown .dropdown-toggle-custom:active {
-    background-color: rgb(247, 148, 29); /* Darker shade for hover effect */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    outline: none;
-  }
-  
+
   .user-dropdown .user-icon {
     margin-right: 8px;
   }
-  
+
   .user-dropdown .dropdown-menu {
-    border-radius: 4px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px -12px rgba(28, 27, 58, 0.35);
+    padding: 8px;
+    margin-top: 10px;
   }
-  
+
   .user-dropdown .dropdown-item {
-    padding: 10px 20px;
-    color: black; /* Primary color */
-    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #1c1b3a;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
-  
+
   .user-dropdown .dropdown-item:hover,
   .user-dropdown .dropdown-item:focus {
-    background-color: rgb(247, 148, 29); /* Primary color */
-    color: white;
+    background-color: #fff3dd;
+    color: #e07b00;
   }
