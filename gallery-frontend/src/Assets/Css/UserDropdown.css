@@ -22,8 +22,11 @@
   outline: none;
 }
 
-.user-dropdown .dropdown-toggle-custom::after {
-  display: none; /* Hide the default dropdown caret */
+/* Hide the default dropdown caret. The extra .dropdown-toggle keeps this ahead
+   of Bootstrap's `.dropup .dropdown-toggle::after`, which would otherwise show
+   the caret when the menu opens upward. */
+.user-dropdown .dropdown-toggle.dropdown-toggle-custom::after {
+  display: none;
 }
 
   .user-dropdown .user-icon {
@@ -36,6 +39,11 @@
     box-shadow: 0 12px 32px -12px rgba(28, 27, 58, 0.35);
     padding: 8px;
     margin-top: 10px;
+  }
+
+  .user-dropdown.dropup .dropdown-menu {
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   .user-dropdown .dropdown-item {

@@ -111,15 +111,17 @@ const VideoListsPage = () => {
   }, []);
 
   return (
-    <div className="mt-5 mb-5 container-fluid" style={{ minHeight: "100vh" }}>
+    <div className="mt-3 mb-5 container-fluid" style={{ minHeight: "100vh" }}>
       <Row>
         <Col md={3} className="hide-container">
-          <CategoryAccordion
-            data={data}
-            setSelectedItem={handleSetSelectedItem}
-            modalClose={handleClose}
-            videoType={videoType}
-          />
+          <div className="sidebar-sticky">
+            <CategoryAccordion
+              data={data}
+              setSelectedItem={handleSetSelectedItem}
+              modalClose={handleClose}
+              videoType={videoType}
+            />
+          </div>
         </Col>
 
         <Col md={9}>

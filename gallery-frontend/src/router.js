@@ -20,6 +20,7 @@ import SearchPage from "./Pages/SearchPage";
 import SelectVideoType from "./Pages/SelectVideoType";
 import { isAuthenticatedUser } from "./services/auth";
 import VideoFormUpdatePage from "./Pages/VideoFormUpdatePage";
+import RequireVideoManager from "./Components/RequireVideoManager";
 
 const AppRoute = () => {
   return (
@@ -47,31 +48,31 @@ const AppRoute = () => {
         }
       />
 
+      {/* Adding / editing / deleting videos is limited to video managers. */}
       <Route
         path="/your-video"
         element={
-          <>
+          <RequireVideoManager>
             <Header /> <YourVideoListsPage />
-          </>
+          </RequireVideoManager>
         }
       />
       <Route
         path="/add/video"
         element={
-          <>
+          <RequireVideoManager>
             <Header />
             <VideoFormPage />
-          </>
+          </RequireVideoManager>
         }
       />
       <Route
         path="/edit/video/:videoTypeState"
         element={
-          <>
-            {" "}
+          <RequireVideoManager>
             <Header />
             <VideoFormUpdatePage />
-          </>
+          </RequireVideoManager>
         }
       />
       <Route

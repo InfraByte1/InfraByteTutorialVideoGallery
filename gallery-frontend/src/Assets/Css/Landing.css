@@ -1,0 +1,389 @@
+/* Landing (home) page. Scoped under .landing so it can't leak into other pages. */
+
+.landing {
+  --l-orange: #ff9d00;
+  --l-orange-soft: #ffc46b;
+  --l-navy: #0f0e1e;
+  --l-text: #f5f4fb;
+  --l-muted: rgba(245, 244, 251, 0.74);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--l-text);
+  background: var(--l-navy) url("../images/auto-care-backgroun.jpg") center /
+    cover no-repeat;
+}
+
+/* Photo tint: strong on the text side, lets the photo breathe on the right */
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+      100deg,
+      rgba(15, 14, 30, 0.95) 0%,
+      rgba(15, 14, 30, 0.82) 42%,
+      rgba(15, 14, 30, 0.35) 100%
+    ),
+    linear-gradient(0deg, rgba(15, 14, 30, 0.7) 0%, transparent 35%);
+}
+
+/* Soft brand glow */
+.landing::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 640px;
+  height: 640px;
+  left: -220px;
+  bottom: -260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 157, 0, 0.32) 0%,
+    rgba(255, 157, 0, 0) 68%
+  );
+  pointer-events: none;
+}
+
+/* ---------- Top bar ---------- */
+.landing-topbar {
+  display: flex;
+  align-items: center;
+  padding: 28px clamp(20px, 5vw, 64px);
+}
+
+.landing-logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+.landing-logo img {
+  display: block;
+  height: 30px;
+  width: auto;
+}
+
+/* ---------- Main ---------- */
+.landing-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 24px clamp(20px, 5vw, 64px) 48px;
+}
+
+.landing-content {
+  max-width: 620px;
+  animation: landing-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.landing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--l-orange-soft);
+  background: rgba(255, 157, 0, 0.12);
+  border: 1px solid rgba(255, 157, 0, 0.35);
+}
+
+.landing-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--l-orange);
+  box-shadow: 0 0 0 4px rgba(255, 157, 0, 0.25);
+}
+
+.landing-title {
+  margin-top: 22px;
+  font-size: clamp(36px, 5.4vw, 66px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.landing-title-accent {
+  background: linear-gradient(100deg, var(--l-orange-soft), var(--l-orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.landing-subtitle {
+  margin-top: 20px;
+  max-width: 520px;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.6;
+  color: var(--l-muted);
+}
+
+/* ---------- CTA ---------- */
+.landing-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 34px;
+  padding: 16px 30px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #1a1100;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--l-orange-soft), var(--l-orange));
+  box-shadow: 0 16px 34px -12px rgba(255, 157, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.landing-cta svg {
+  transition: transform 0.18s ease;
+}
+
+.landing-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 20px 40px -12px rgba(255, 157, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.landing-cta:hover svg {
+  transform: translateX(4px);
+}
+
+.landing-cta:active {
+  transform: translateY(0);
+}
+
+.landing-cta:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- Feature chips ---------- */
+.landing-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--l-text);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.landing-feature svg {
+  color: var(--l-orange);
+  flex-shrink: 0;
+}
+
+/* ---------- Decorative player preview ---------- */
+.landing-preview {
+  flex: 0 0 auto;
+  width: min(420px, 36vw);
+  animation: landing-rise 0.9s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.landing-preview-card {
+  padding: 14px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform: rotate(2deg);
+}
+
+.landing-preview-screen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(
+      135deg,
+      rgba(255, 157, 0, 0.55),
+      rgba(28, 27, 58, 0.9)
+    ),
+    url("../images/auto-care-backgroun.jpg") center / cover;
+}
+
+.landing-play {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  color: #1a1100;
+  background: #fff;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.22),
+    0 14px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.landing-play svg {
+  margin-left: 3px;
+}
+
+.landing-preview-bar {
+  height: 5px;
+  margin: 16px 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.landing-preview-bar span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--l-orange), var(--l-orange-soft));
+}
+
+.landing-preview-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 6px 6px;
+}
+
+.landing-preview-lines span {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.landing-preview-lines span:first-child {
+  width: 72%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.landing-preview-lines span:last-child {
+  width: 46%;
+}
+
+/* ---------- Footer ---------- */
+.landing-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px clamp(20px, 5vw, 64px) 28px;
+  font-size: 13px;
+  color: var(--l-muted);
+}
+
+/* Logo has dark lettering, so it sits on a light pill to stay legible */
+.landing-footer-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.landing-footer-link img {
+  display: block;
+  height: 20px;
+  width: auto;
+}
+
+.landing-footer-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.7);
+}
+
+.landing-footer-link:focus-visible {
+  outline: 2px solid var(--l-orange);
+  outline-offset: 3px;
+}
+
+/* ---------- Motion ---------- */
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-content,
+  .landing-preview {
+    animation: none;
+  }
+  .landing-cta,
+  .landing-cta svg {
+    transition: none;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .landing-preview {
+    display: none;
+  }
+  .landing::before {
+    background: linear-gradient(
+        180deg,
+        rgba(15, 14, 30, 0.82) 0%,
+        rgba(15, 14, 30, 0.88) 100%
+      );
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-topbar {
+    padding-top: 20px;
+  }
+  .landing-logo img {
+    height: 26px;
+  }
+  .landing-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  .landing-features {
+    margin-top: 32px;
+  }
+}

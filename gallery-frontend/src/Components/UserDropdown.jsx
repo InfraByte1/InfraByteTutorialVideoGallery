@@ -4,24 +4,20 @@ import { FaUserCircle } from "react-icons/fa";
 
 import "../Assets/Css/UserDropdown.css";
 import { useNavigate } from "react-router-dom";
+import { canManageVideos } from "../services/permissions";
 
-const UserDropdown = ({ username, onLogout }) => {
+// drop="up" is for placements at the bottom of the viewport, where a menu
+// opening downward would be cut off.
+const UserDropdown = ({ username, onLogout, drop = "down" }) => {
   let navigate = useNavigate();
   const [roleAdmin, setRoleAdmin] = useState(false);
 
   useEffect(() => {
-    const role = localStorage.getItem("role");
-
-    if (role == "true" 
-      // && process.env.REACT_APP_ENVIRONMENT != "production" 
-      // commented for production
-    ) {
-      setRoleAdmin(true);
-    } else {
-    }
+    // Same rule the /your-video, /add/video and /edit/video pages enforce.
+    setRoleAdmin(canManageVideos());
   }, []);
   return (
-    <Dropdown align="end" className="user-dropdown">
+    <Dropdown align="end" drop={drop} className="user-dropdown">
       <Dropdown.Toggle
         variant="success"
         id="dropdown-basic"

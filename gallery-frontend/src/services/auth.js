@@ -78,6 +78,20 @@ export const isAuthenticatedUser = () => {
     return false;
   }
 
+  try {
+    const { exp } = jwtDecode(token);
+    if (exp && exp <= Math.floor(Date.now() / 1000)) {
+      // Don't leave a dead token (or whatever was cached alongside it)
+      // sitting in storage once it's no longer usable.
+      localStorage.clear();
+      sessionStorage.removeItem("globalPermissions");
+      return false;
+    }
+  } catch (err) {
+    localStorage.clear();
+    return false;
+  }
+
   return true;
 };
 

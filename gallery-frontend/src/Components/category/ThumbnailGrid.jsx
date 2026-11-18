@@ -1,6 +1,18 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import { Accordion, Button, Container } from "react-bootstrap";
-import { FaShareAlt } from "react-icons/fa";
+import {
+  FaDesktop,
+  FaListUl,
+  FaMobileAlt,
+  FaPlay,
+  FaShareAlt,
+} from "react-icons/fa";
 import CryptoJS from "crypto-js";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +24,72 @@ import {
   oidcConfig,
 } from "../../config/config";
 import { getHeaders } from "../../services/auth";
+import { enableSeekFromCache } from "../../services/seekableVideo";
 import axios from "axios";
 
+// YouTube-style description: two lines, then "…more" / "Show less".
+// "…more" only appears when the text actually overflows two lines.
+const NowPlayingDescription = ({ text }) => {
+  const ref = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const [overflowing, setOverflowing] = useState(false);
+  // The backend sends the string "null" for groups without a description.
+  const clean = text && text !== "null" ? text.trim() : "";
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [clean]);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const measure = () => {
+      // Only meaningful while clamped; keep the last answer when expanded.
+      if (!expanded) setOverflowing(el.scrollHeight > el.clientHeight + 1);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [clean, expanded]);
+
+  if (!clean) return null;
+
+  return (
+    <div className="now-playing-desc">
+      <p
+        ref={ref}
+        className={`now-playing-desc-text${expanded ? " is-expanded" : ""}`}
+      >
+        {clean}
+      </p>
+      {(overflowing || expanded) && (
+        <button
+          type="button"
+          className="now-playing-more"
+          onClick={() => setExpanded((open) => !open)}
+          aria-expanded={expanded}
+        >
+          {expanded ? "Show less" : "…more"}
+        </button>
+      )}
+    </div>
+  );
+};
+
+// Viewers never see private videos; "Your videos" shows everything.
+const visibleVideos = (group, showUpdate) =>
+  showUpdate
+    ? group.videoTutorials
+    : group.videoTutorials.filter((video) => video.isPrivate !== true);
+
 // Component for video player
-// Component for video player
-const VideoPlayer = ({ videoUrl, videoTitle }) => {
+const VideoPlayer = ({
+  videoUrl,
+  videoTitle,
+  description,
+  shareable,
+  onShare,
+}) => {
   const videoRef = useRef(null);
   // Video URLs can contain raw spaces/special characters (e.g. folder names
   // like "Driver Portal"), which can break HTTP Range requests - and with
@@ -24,6 +97,7 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
   const encodedVideoUrl = videoUrl ? encodeURI(videoUrl) : videoUrl;
 
   useEffect(() => {
+    let stopSeekFix = () => {};
     if (videoRef.current && encodedVideoUrl) {
       // console.log("Loading new video URL:", encodedVideoUrl);
       videoRef.current.pause(); // Pause current playback
@@ -34,9 +108,12 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
         // console.error("Auto-play failed:", err);
         // toast.error("Failed to play video. Please try manually.");
       });
+      // Makes the timeline work when the storage server lacks range support.
+      stopSeekFix = enableSeekFromCache(videoRef.current);
     }
     // Cleanup on unmount or URL change
     return () => {
+      stopSeekFix();
       if (videoRef.current) {
         videoRef.current.pause();
         videoRef.current.src = ""; // Clear source to prevent memory leaks
@@ -84,11 +161,30 @@ const VideoPlayer = ({ videoUrl, videoTitle }) => {
         </video>
       </div>
       {videoTitle && (
-        <div className="mx-3 mt-3 p-3 rounded bg-light border">
-          <div className="text-uppercase text-muted small mb-1">
-            Now Playing
+        <div className="now-playing" role="status">
+          <span className="now-playing-badge" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <div className="now-playing-text">
+            <span className="now-playing-label">Now playing</span>
+            <span className="now-playing-title" title={videoTitle}>
+              {videoTitle}
+            </span>
+            <NowPlayingDescription text={description} />
           </div>
-          <div className="fw-semibold text-truncate">{videoTitle}</div>
+          {shareable && (
+            <button
+              type="button"
+              className="now-playing-share"
+              onClick={onShare}
+              title="Copy share link"
+            >
+              <FaShareAlt aria-hidden="true" />
+              Share
+            </button>
+          )}
         </div>
       )}{" "}
     </>
@@ -179,6 +275,8 @@ const ThumbnailGrid = ({
   const [showModal, setShowModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
+  // id / isPrivate of the playing video, so Now Playing can offer "Share"
+  const [videoMeta, setVideoMeta] = useState({});
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState({});
   const [loadingData, setLoadingData] = useState(false);
@@ -209,11 +307,17 @@ const ThumbnailGrid = ({
     [loading],
   );
 
-  const playVideo = useCallback((url, title) => {
+  const playVideo = useCallback((url, title, meta = {}) => {
     // console.log("Playing video:", { url, title });
     setVideoUrl(url);
     setVideoTitle(title);
-    toast.info(`Now Playing: ${title}`);
+    setVideoMeta(meta);
+    // Large screens already show the Now Playing card next to the player, so
+    // a toast on every click is noise. On phones the card can be off-screen,
+    // so keep the toast there.
+    if (window.innerWidth < 769) {
+      toast.info(`Now Playing: ${title}`);
+    }
   }, []);
 
   const handleVideoDelete = useCallback(
@@ -283,12 +387,49 @@ const ThumbnailGrid = ({
   useEffect(() => {
     setVideoUrl("");
     setVideoTitle("");
+    setVideoMeta({});
   }, [selectedItem]);
+
+  // Web / Mobile › Category › Topic
+  const hasSub =
+    !!selectedItem &&
+    !!selectedItem.subCategory &&
+    selectedItem.subCategory !== selectedItem.category;
+  const TypeIcon = videoType === "mobile" ? FaMobileAlt : FaDesktop;
+  const breadcrumb = selectedItem ? (
+    <ol className="crumbs" aria-label="Breadcrumb">
+      {videoType && (
+        <li className="crumb">
+          <TypeIcon aria-hidden="true" />
+          {videoType === "mobile" ? "Mobile" : "Web"}
+        </li>
+      )}
+      <li
+        className={`crumb${hasSub ? "" : " crumb-current"}`}
+        aria-current={hasSub ? undefined : "page"}
+      >
+        {selectedItem.category}
+      </li>
+      {hasSub && (
+        <li className="crumb crumb-current" aria-current="page">
+          {selectedItem.subCategory}
+        </li>
+      )}
+    </ol>
+  ) : null;
 
   return (
     <>
       <ToastContainer />
-      <VideoPlayer videoUrl={videoUrl} videoTitle={videoTitle} />
+      {!showUpdate && breadcrumb}
+      <VideoPlayer
+        videoUrl={videoUrl}
+        videoTitle={videoTitle}
+        description={videoMeta.description}
+        // Viewers (not "Your videos") share from here; private videos can't be.
+        shareable={!showUpdate && !!videoMeta.id && !videoMeta.isPrivate}
+        onShare={() => copyUrlToClipboard(videoMeta.id)}
+      />
       {/* {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>} */}
 
       <div className={`thumbnail-grid ${isMobile ? "mobile-list" : ""}`}>
@@ -333,25 +474,17 @@ const ThumbnailGrid = ({
               </>
             )}
 
-            <div className="mt-0 mb-2 d-flex align-items-center flex-wrap gap-2">
-              <span className="badge rounded-pill bg-secondary">
-                {selectedItem.category}
-              </span>
+            {/* "Your videos" keeps the breadcrumb here; viewers get it above
+                the player. */}
+            {showUpdate && breadcrumb}
 
-              {selectedItem.subCategory &&
-                selectedItem.subCategory !== selectedItem.category && (
-                  <>
-                    <i className="fa-solid fa-chevron-right text-muted small"></i>
-
-                    <span className="badge rounded-pill bg-info text-dark">
-                      {selectedItem.subCategory}
-                    </span>
-                  </>
-                )}
-            </div>
-
-            <h6 className="text-muted mb-3">{selectedItem.description}</h6>
-            <Accordion defaultActiveKey="default"  >
+            {selectedItem.description && (
+              <p className="section-description">{selectedItem.description}</p>
+            )}
+            <Accordion
+              defaultActiveKey="default"
+              className={showUpdate ? undefined : "viewer-accordion"}
+            >
               {isMobile && <ToastContainer />}
               {loadingData && (
                 <span>
@@ -371,9 +504,9 @@ const ThumbnailGrid = ({
                     }
                     id={category.videoTitle}
                   >
-                    <div className="d-flex align-items-center justify-content-between w-100">
-                      <h5 className="mt-0 mb-1 accordion-title">{category.videoTitle}</h5>
-                      {showUpdate && (
+                    {showUpdate ? (
+                      <div className="d-flex align-items-center justify-content-between w-100">
+                        <h5 className="mt-0 mb-1 accordion-title">{category.videoTitle}</h5>
                         <a
                           onClick={(e) => {
                             e.stopPropagation(); //   prevent accordion toggle
@@ -384,47 +517,91 @@ const ThumbnailGrid = ({
                         >
                           Update video
                         </a>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <span className="pl-head">
+                        <span className="pl-icon" aria-hidden="true">
+                          <FaListUl />
+                        </span>
+                        <span className="pl-text">
+                          <span className="pl-title">{category.videoTitle}</span>
+                          <span className="pl-count">
+                            {visibleVideos(category, false).length}{" "}
+                            {visibleVideos(category, false).length === 1
+                              ? "video"
+                              : "videos"}
+                          </span>
+                        </span>
+                        {category.videoTutorials.some(
+                          (v) => v.filePath === videoUrl,
+                        ) && (
+                          <span className="pl-live">
+                            <span className="eq" aria-hidden="true">
+                              <i />
+                              <i />
+                              <i />
+                            </span>
+                            Playing
+                          </span>
+                        )}
+                      </span>
+                    )}
                   </Accordion.Header>
 
                   <Accordion.Body  >
-                    <h6 className="mt-0 mb-3 mx-2  ">
-                      {category.description === `null`
-                        ? ""
-                        : category.description}
-                    </h6>
                     <div className="video-list w-100">
-                      {category.videoTutorials.map((thumbnail, index) =>
-                        !showUpdate && thumbnail.isPrivate === true ? (
-                          <></>
-                        ) : (
-                          <div key={index} className="video-item">
-                            {thumbnail.thumbnailName != null ? (
-                              <img
-                                src={`${thumbnail.thumbnailPath}/${thumbnail.thumbnailName}`}
-                                alt={thumbnail.thumbnailName}
-                                className="thumbnail"
-                                onClick={() =>
-                                  playVideo(
-                                    thumbnail.filePath,
-                                    thumbnail.subTitle,
-                                  )
-                                }
-                              />
-                            ) : (
-                              <img
-                                src={noThumbnail}
-                                alt="No image"
-                                className="thumbnail thumbnail-placeholder"
-                                onClick={() =>
-                                  playVideo(
-                                    thumbnail.filePath,
-                                    thumbnail.subTitle,
-                                  )
-                                }
-                              /> // <video src={thumbnail.filePath} className="thumbnail-image" onClick={() => playVideo(thumbnail.filePath)}></video>
+                      {visibleVideos(category, showUpdate).map(
+                        (thumbnail, index) => (
+                          <div
+                            key={index}
+                            className={`video-item${
+                              thumbnail.filePath === videoUrl
+                                ? " is-playing"
+                                : ""
+                            }`}
+                          >
+                            {/* Viewers see a numbered playlist; the number
+                                becomes an equalizer on the playing row. */}
+                            {!showUpdate && (
+                              <span className="video-index" aria-hidden="true">
+                                {thumbnail.filePath === videoUrl ? (
+                                  <span className="eq">
+                                    <i />
+                                    <i />
+                                    <i />
+                                  </span>
+                                ) : (
+                                  index + 1
+                                )}
+                              </span>
                             )}
+                            <div
+                              className="thumb-wrap"
+                              onClick={() =>
+                                playVideo(thumbnail.filePath, thumbnail.subTitle, {
+                                  id: thumbnail.id,
+                                  isPrivate: thumbnail.isPrivate,
+                                  description: category.description,
+                                })
+                              }
+                            >
+                              {thumbnail.thumbnailName != null ? (
+                                <img
+                                  src={`${thumbnail.thumbnailPath}/${thumbnail.thumbnailName}`}
+                                  alt={thumbnail.thumbnailName}
+                                  className="thumbnail"
+                                />
+                              ) : (
+                                <img
+                                  src={noThumbnail}
+                                  alt="No image"
+                                  className="thumbnail thumbnail-placeholder"
+                                />
+                              )}
+                              <span className="thumb-play" aria-hidden="true">
+                                <FaPlay />
+                              </span>
+                            </div>
 
                             <div
                               className="video-details"
@@ -432,6 +609,11 @@ const ThumbnailGrid = ({
                                 playVideo(
                                   thumbnail.filePath,
                                   thumbnail.subTitle,
+                                  {
+                                    id: thumbnail.id,
+                                    isPrivate: thumbnail.isPrivate,
+                                    description: category.description,
+                                  },
                                 )
                               }
                             >
@@ -473,7 +655,10 @@ const ThumbnailGrid = ({
                                   </>
                                 )}
 
-                                {
+                                {/* Viewers share from the Now Playing card;
+                                    the per-row button is only for the
+                                    "Your videos" management page. */}
+                                {showUpdate && (
                                   <button
                                     onClick={
                                       thumbnail.isPrivate === true
@@ -485,11 +670,21 @@ const ThumbnailGrid = ({
                                         ? styles.disabledButton
                                         : styles.shareButton
                                     }
+                                    title={
+                                      thumbnail.isPrivate === true
+                                        ? "Private video"
+                                        : "Copy share link"
+                                    }
+                                    aria-label={
+                                      thumbnail.isPrivate === true
+                                        ? "Private video"
+                                        : "Copy share link"
+                                    }
                                   >
                                     <FaShareAlt style={styles.icon} />{" "}
                                   </button>
-                                }
-                                {copied && (
+                                )}
+                                {showUpdate && copied && (
                                   <span style={styles.copiedMessage}>
                                     Video Link Copied!
                                   </span>

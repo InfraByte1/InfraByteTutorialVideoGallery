@@ -2,6 +2,90 @@
   padding: 20px;
 }
 
+/* ---------- Now playing ---------- */
+.now-playing {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 16px 0;
+  padding: 14px 20px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #1c1b3a 0%, #14132a 100%);
+  border-left: 4px solid #ff9d00;
+  box-shadow: 0 14px 28px -16px rgba(28, 27, 58, 0.6);
+}
+
+.now-playing-badge {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 11px 0;
+  border-radius: 50%;
+  background: rgba(255, 157, 0, 0.16);
+}
+
+.now-playing-badge i {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: #ff9d00;
+  transform-origin: bottom;
+  animation: now-playing-bar 1s ease-in-out infinite;
+}
+
+.now-playing-badge i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.now-playing-badge i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes now-playing-bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.now-playing-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.now-playing-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffc46b;
+}
+
+.now-playing-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .now-playing-badge i {
+    animation: none;
+    transform: scaleY(0.7);
+  }
+}
+
 .thumbnails {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -257,4 +341,576 @@
   .video-details p {
     font-size: 0.9em;
   }
+}
+
+/* ---------- Content area: breadcrumb, accordion cards, video rows ----------
+   Scoped to .thumbnail-grid so the sidebar accordion keeps its own look. */
+
+/* Breadcrumb: Web › Category › Topic, one bar, current page in bold */
+.crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 22px 0 14px;
+  padding: 9px 16px;
+  list-style: none;
+  border: 1px solid #ececf2;
+  border-radius: 12px;
+  background: #fbfbfd;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #6b6b80;
+}
+
+.crumb svg {
+  font-size: 0.85rem;
+  color: #9a9aa8;
+}
+
+.crumb + .crumb::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin: 0 12px 0 10px;
+  border-top: 2px solid #b9b9c9;
+  border-right: 2px solid #b9b9c9;
+  transform: rotate(45deg);
+}
+
+.crumb-current {
+  font-weight: 700;
+  color: #1c1b3a;
+}
+
+.crumb-current::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-left: 2px;
+  border-radius: 50%;
+  background: #ff9d00;
+  box-shadow: 0 0 0 3px rgba(255, 157, 0, 0.22);
+}
+
+.section-description {
+  margin: 0 0 16px;
+  color: #6b6b80;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.thumbnail-grid .accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thumbnail-grid .accordion-item {
+  margin: 0;
+  border: 1px solid #ececf2;
+  border-radius: 14px !important;
+  background: #ffffff;
+  box-shadow: 0 6px 18px -14px rgba(28, 27, 58, 0.35);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.thumbnail-grid .accordion-item:hover {
+  border-color: #ffd699;
+  box-shadow: 0 12px 26px -16px rgba(28, 27, 58, 0.4);
+}
+
+.thumbnail-grid .accordion-button {
+  padding: 16px 20px;
+  border-left: 4px solid transparent;
+  background: #ffffff;
+}
+
+.thumbnail-grid .accordion-button:not(.collapsed) {
+  background: #fff7ea;
+  border-left-color: #ff9d00;
+}
+
+.thumbnail-grid .accordion-button::after {
+  /* chevron sits in a soft circle */
+  background-size: 14px;
+  background-position: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(28, 27, 58, 0.06);
+}
+
+.thumbnail-grid .accordion-button:not(.collapsed)::after {
+  background-color: rgba(255, 157, 0, 0.2);
+}
+
+.thumbnail-grid .accordion-body {
+  padding: 14px;
+  background: #ffffff;
+  border-top: 1px solid #f0f0f5;
+}
+
+/* Video rows */
+.thumbnail-grid .video-item {
+  padding: 10px;
+  border-radius: 12px;
+  background: #fbfbfd;
+}
+
+.thumbnail-grid .video-item.is-playing {
+  border-color: #ff9d00;
+  background: #fff7ea;
+  box-shadow: 0 0 0 3px rgba(255, 157, 0, 0.18);
+}
+
+.thumb-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 168px;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f0f0f5;
+  cursor: pointer;
+}
+
+.thumb-wrap .thumbnail {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+}
+
+.thumb-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.1rem;
+  background: rgba(20, 19, 42, 0.45);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.thumb-play svg {
+  box-sizing: content-box;
+  padding: 13px 13px 13px 16px;
+  border-radius: 50%;
+  background: rgba(255, 157, 0, 0.95);
+  box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.6);
+}
+
+.video-item:hover .thumb-play,
+.video-item.is-playing .thumb-play {
+  opacity: 1;
+}
+
+.video-item:hover .thumb-wrap .thumbnail {
+  transform: scale(1.05);
+}
+
+.thumbnail-grid .video-details h2 {
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  .thumb-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .thumbnail-grid .accordion-button {
+    padding: 14px 16px;
+  }
+}
+
+/* ---------- Now playing: share action ---------- */
+.now-playing-text {
+  flex: 1;
+}
+
+.now-playing-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a1100;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffc46b, #ff9d00);
+  box-shadow: 0 8px 18px -10px rgba(255, 157, 0, 0.9);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.now-playing-share:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.now-playing-share:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .now-playing {
+    flex-wrap: wrap;
+  }
+
+  .now-playing-share {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------- Now playing: YouTube-style description ---------- */
+.now-playing:has(.now-playing-desc) {
+  align-items: flex-start;
+}
+
+.now-playing-desc {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.now-playing-desc-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(245, 244, 251, 0.82);
+  white-space: pre-line;
+  overflow-wrap: anywhere; /* long words / URLs must not push the card wider */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.now-playing-desc-text.is-expanded {
+  display: block;
+  overflow: visible;
+}
+
+.now-playing-more {
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffc46b;
+  cursor: pointer;
+}
+
+.now-playing-more:hover {
+  color: #ff9d00;
+  text-decoration: underline;
+}
+
+.now-playing-more:focus-visible {
+  outline: 2px solid #ffc46b;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Search results page ---------- */
+.search-page .search-now-playing {
+  margin: 16px 0 0;
+}
+
+.search-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 32px 0 18px;
+}
+
+.search-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #1c1b3a;
+}
+
+.search-sub {
+  margin: 4px 0 0;
+  color: #6b6b80;
+  font-size: 0.95rem;
+}
+
+.search-query {
+  font-weight: 700;
+  color: #8a4b00;
+  overflow-wrap: anywhere;
+}
+
+.search-count {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8a4b00;
+  background: #fff0d6;
+  box-shadow: inset 0 0 0 1px rgba(255, 157, 0, 0.4);
+}
+
+.search-page .search-results {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+/* Result cards: image on top, title below, soft lift on hover */
+.search-page .search-results .video-item {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px -12px rgba(28, 27, 58, 0.3);
+}
+
+.search-page .search-results .video-item.is-playing {
+  background: #fff7ea;
+}
+
+.search-results .thumb-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+
+.search-page .search-results .video-details {
+  padding: 14px 16px 16px;
+  gap: 8px;
+}
+
+.search-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 48px;
+  padding: 48px 24px;
+  text-align: center;
+  color: #6b6b80;
+  border: 1px dashed #d8d8e6;
+  border-radius: 16px;
+  background: #fbfbfd;
+}
+
+.search-empty svg {
+  box-sizing: content-box;
+  padding: 16px;
+  font-size: 1.4rem;
+  color: #e07b00;
+  border-radius: 50%;
+  background: #fff0d6;
+}
+
+.search-empty h2 {
+  margin: 8px 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1c1b3a;
+}
+
+.search-empty p {
+  margin: 0;
+  max-width: 380px;
+}
+
+/* ---------- Viewer accordion: playlist look (not used on "Your videos") ---------- */
+.viewer-accordion .accordion-button {
+  padding: 14px 18px;
+}
+
+.pl-head {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: 14px;
+}
+
+.pl-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1c1b3a;
+  background: #f1f0f8;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.viewer-accordion .accordion-button:not(.collapsed) .pl-icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffb03e, #e07b00);
+  box-shadow: 0 6px 14px -8px rgba(224, 123, 0, 0.9);
+}
+
+.pl-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 1px;
+}
+
+.pl-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #1c1b3a;
+  overflow-wrap: anywhere;
+}
+
+.pl-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #8b8aa0;
+}
+
+.pl-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8a4b00;
+  background: #ffe6bf;
+}
+
+/* Equalizer bars (shared by the header chip and the playing row) */
+.eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 14px;
+  height: 12px;
+}
+
+.eq i {
+  flex: 1;
+  height: 100%;
+  border-radius: 1px;
+  background: #e07b00;
+  transform-origin: bottom;
+  animation: now-playing-bar 1s ease-in-out infinite;
+}
+
+.eq i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.eq i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.viewer-accordion .accordion-body {
+  padding: 8px 12px 14px;
+}
+
+.viewer-accordion .video-list {
+  gap: 8px;
+}
+
+.viewer-accordion .video-item {
+  gap: 14px;
+  padding: 10px 14px 10px 8px;
+}
+
+.video-index {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #9a9aa8;
+}
+
+.viewer-accordion .video-item.is-playing .video-index {
+  color: #e07b00;
+}
+
+/* Viewers have no per-row actions (share lives in Now Playing) */
+.viewer-accordion .thumbnail-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .video-index {
+    display: none;
+  }
+
+  .viewer-accordion .video-item {
+    padding: 10px;
+  }
+
+  .pl-live {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq i {
+    animation: none;
+    transform: scaleY(0.7);
+  }
+}
+
+/* Content panel: no outline; everything shares the same left/right edge
+   (player, breadcrumb, Now Playing, accordion). `div.output` outranks the
+   older .output rule in CategoryAccordion.css regardless of load order. */
+div.output {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  min-height: 0;
+  padding: 0 4px 32px;
+}
+
+.output > .crumbs {
+  margin: 4px 0 14px;
+}
+
+.output .now-playing {
+  margin: 16px 0 0;
+}
+
+.output .thumbnail-grid {
+  padding-left: 0;
+  padding-right: 0;
 }

@@ -1,20 +1,23 @@
 import React from "react";
-import logo from '../Assets/images/mywebsite.png'
+import logo from "../Assets/images/nonon.png";
 
 function Footer() {
   return (
     <footer>
       <div className="container footer-container">
-        <p>
-          <a href="#">
-            <img src={logo} alt="logo" width="100" hight="100" />
-          </a>
-        </p>
-        <p>
-          <strong>
-            Powered by <a href="https://infrabyte.com.au/">Infrabyte</a>
-          </strong>
-        </p>
+        <a
+          href="https://infrabyte.com.au/"
+          className="footer-logo"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="InfraByte"
+        >
+          <img src={logo} alt="InfraByte" />
+        </a>
+
+        <div className="footer-meta">
+          <span>© {new Date().getFullYear()} InfraByte</span>
+        </div>
       </div>
     </footer>
   );

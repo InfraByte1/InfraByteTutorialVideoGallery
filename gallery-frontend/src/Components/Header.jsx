@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { FiSearch } from "react-icons/fi";
 import logo from "../Assets/images/nonon.png";
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 import {
   getHeaders,
   isAuthenticated,
   isAuthenticatedUser,
-  removeAllCookies,
 } from "../services/auth";
 import UserDropdown from "./UserDropdown";
+import { signOut } from "../services/session";
 // import { useAuth } from "oidc-react";
 import { jwtDecode } from "jwt-decode";
 import {
@@ -35,39 +36,9 @@ function Header() {
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setLoading(true);
-    // auth.signOut();
-    // window.location.href = `${getAuthorizationUrl}?client_id=${oidcConfig.clientId}&redirect_uri=${oidcConfig.redirectUri}&response_type=${oidcConfig.response_type}&scope=${oidcConfig.scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
-    const idTokenFound = localStorage.getItem("id_token");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("token");
-    const logoutUrl = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
-    // if (idTokenFound) {
-
-    //   window.location.href = `${oidcConfig.authority}/connect/endsession?id_token=${idTokenFound}&post_logout_redirect_uri=${oidcConfig.postLogoutRedirectUri}`;
-    // } else {
-    //   window.location.href = oidcConfig.postLogoutRedirectUri;
-    // }
-    // navigate("/", { replace: true });
-
-    const iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    iframe.src = logoutUrl;
-    document.body.appendChild(iframe);
-
-    iframe.onload = () => {
-      document.body.removeChild(iframe);
-      localStorage.clear();
-      removeAllCookies();
-
-      navigate("/", { state: { isLoggedOut: true } });
-    };
-    setLoading(false);
-    // navigate("/", { replace: true });
-
-    // window.location.href = "/";
+    signOut();
   };
 
   const getUserName = () => {
@@ -138,9 +109,9 @@ function Header() {
 
   return (
     <div className="nav-bottom">
-      <Navbar bg="white" variant="#201f41" className="container" expand="lg">
+      <Navbar className="container" expand="xl">
         <Navbar.Brand as={Link} to="/videos">
-          <img src={logo} alt="logo" width="100" hight="100" />
+          <img src={logo} alt="InfraByte" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -151,7 +122,7 @@ function Header() {
               courses
             </Nav.Link>
           </Nav> */}
-          <Nav className="navbar-item navbar-item-centered">
+          <Nav className="navbar-item ms-xl-4">
             <Nav.Link as={NavLink} to="/videos" end>
               Home
             </Nav.Link>
@@ -162,22 +133,20 @@ function Header() {
               Mobile
             </Nav.Link>
           </Nav>
-          <div className="navbar-right-group d-flex align-items-center ms-lg-auto">
-            <Form
-              className="d-flex justify-content-end mt-2 mb-2"
-              noValidate
-              onSubmit={handleSubmit}
-            >
+          <div className="navbar-right-group d-flex align-items-center ms-xl-auto">
+            <Form className="nav-search" noValidate onSubmit={handleSubmit}>
+              <FiSearch className="nav-search-icon" aria-hidden="true" />
               <Form.Control
                 type="text"
-                placeholder="Search infrabyte videos . . . "
-                className="search-container"
+                placeholder="Search InfraByte videos"
+                aria-label="Search videos"
+                className="nav-search-input"
                 onChange={(e) => {
                   setSearchKeyword(e.target.value);
                 }}
               />
-              <Button type="submit" variant="" className="button-container">
-                Search{" "}
+              <Button type="submit" variant="" className="nav-search-btn">
+                Search
               </Button>
               {loading && (
                 <span>

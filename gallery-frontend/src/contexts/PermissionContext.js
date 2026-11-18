@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getRolesPermissionsByUserId } from "../services/auth";
+import {
+  ALL_ACCESS_ROLES,
+  getTokenRoleNames,
+  hasAllAccessRole,
+} from "../services/permissions";
 import { category } from "../data/category";
 import { mobileCategory } from "../data/mobile_category";
 import { jwtDecode } from "jwt-decode";
@@ -9,10 +14,67 @@ import { oidcConfig } from "../config/config";
 // Create context
 const PermissionContext = createContext(undefined);
 
+const CACHE_KEY = "globalPermissions";
+
+/**
+ * Roles for the user, ready for filtering.
+ *
+ * Roles in ALL_ACCESS_ROLES (Super Admin, System Admin) see every video
+ * category. Everyone else only sees what their role permissions allow. The role
+ * list from the API is normally enough, but the access token carries the same
+ * role names, so an all-access role found only there still counts.
+ */
+export const loadRoles = async (userId, token) => {
+  const apiRoles = await getRolesPermissionsByUserId(userId);
+  if (!Array.isArray(apiRoles)) return apiRoles; // caller reports bad format
+
+  // A role without a permissions list must stay visible so its name still counts.
+  const roles = apiRoles.map((role) =>
+    role && typeof role === "object"
+      ? { ...role, permissions: Array.isArray(role.permissions) ? role.permissions : [] }
+      : role
+  );
+
+  const known = new Set(roles.map((role) => role && role.roleName));
+  getTokenRoleNames(token)
+    .filter((name) => ALL_ACCESS_ROLES.includes(name) && !known.has(name))
+    .forEach((name) =>
+      roles.push({ roleId: `token-${name}`, roleName: name, permissions: [] })
+    );
+
+  return roles;
+};
+
+// The cache is tied to the user so one person's permissions are never reused
+// for another account signed in on the same tab.
+const readCache = (userId) => {
+  const cached = sessionStorage.getItem(CACHE_KEY);
+  if (!cached) return null;
+  try {
+    const bytes = CryptoJS.AES.decrypt(cached, oidcConfig.secretCrypt);
+    const parsed = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    if (parsed && parsed.userId === userId && Array.isArray(parsed.roles)) {
+      return parsed.roles;
+    }
+  } catch (err) {
+    console.error("Failed to decrypt cached permissions:", err);
+  }
+  // Old format, other user or unreadable: drop it and fetch fresh.
+  sessionStorage.removeItem(CACHE_KEY);
+  return null;
+};
+
+const writeCache = (userId, roles) => {
+  const encrypted = CryptoJS.AES.encrypt(
+    JSON.stringify({ userId, roles }),
+    oidcConfig.secretCrypt
+  ).toString();
+  sessionStorage.setItem(CACHE_KEY, encrypted);
+};
+
 // Utility function to check if user has any permission for an item
 const hasItemPermission = (roles, categoryKey, categoryKey2) => {
-  const isSuperAdmin = roles.some((role) => role.roleName === "Super Admin");
-  if (isSuperAdmin) return true;
+  if (hasAllAccessRole(roles.map((role) => role.roleName))) return true;
 
   return roles.some(
     (role) =>
@@ -24,7 +86,7 @@ const hasItemPermission = (roles, categoryKey, categoryKey2) => {
 };
 
 // Utility function to filter categories based on permissions
-const filterCategoriesByPermissions = (categories, roles) => {
+export const filterCategoriesByPermissions = (categories, roles) => {
   return categories
     .map((cat) => ({
       ...cat,
@@ -54,7 +116,6 @@ export const PermissionProvider = ({ children }) => {
     try {
       let data;
       // Check sessionStorage and JWT expiration
-      const cachedPermissions = sessionStorage.getItem("globalPermissions");
       const token = localStorage.getItem("access_token");
       let isTokenValid = false;
 
@@ -68,21 +129,8 @@ export const PermissionProvider = ({ children }) => {
         }
       }
 
-      if (cachedPermissions && isTokenValid) {
-        try {
-          // Decrypt cached permissions
-          const bytes = CryptoJS.AES.decrypt(
-            cachedPermissions,
-            oidcConfig.secretCrypt
-          );
-          const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-          data = decryptedData;
-          // console.log("API Persisted from sessionStorage (decrypted):", data);
-        } catch (err) {
-          console.error("Failed to decrypt cached permissions:", err);
-          // Clear invalid cached data to avoid repeated errors
-          sessionStorage.removeItem("globalPermissions");
-        }
+      if (isTokenValid) {
+        data = readCache(userId);
       }
 
       const fetchedFresh = !data;
@@ -90,7 +138,7 @@ export const PermissionProvider = ({ children }) => {
         // Fetch permissions from the API; only cache them once we know
         // the shape is valid, so a malformed/error response never gets
         // persisted as if it were a good cache entry.
-        data = await getRolesPermissionsByUserId(userId);
+        data = await loadRoles(userId, token);
       }
 
       // Validate data is an array
@@ -99,11 +147,7 @@ export const PermissionProvider = ({ children }) => {
       }
 
       if (fetchedFresh) {
-        const encrypted = CryptoJS.AES.encrypt(
-          JSON.stringify(data),
-          oidcConfig.secretCrypt
-        ).toString();
-        sessionStorage.setItem("globalPermissions", encrypted);
+        writeCache(userId, data);
       }
 
       // Validate each role has a permissions array
@@ -155,8 +199,7 @@ export const PermissionProvider = ({ children }) => {
 
   const hasPermission = (permission) => {
     // Check for Super Admin role to grant full access
-    const isSuperAdmin = roles.some((role) => role.roleName === "Super Admin");
-    if (isSuperAdmin) return true;
+    if (hasAllAccessRole(roles.map((role) => role.roleName))) return true;
 
     return roles.some(
       (role) =>

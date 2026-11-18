@@ -2,6 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!--
+      Content-Security-Policy: the main real defense against XSS - even if
+      an attacker manages to inject a script, the browser refuses to run
+      anything not explicitly allowed here. Notes:
+      - script-src has no 'unsafe-inline' because INLINE_RUNTIME_CHUNK=false
+        (see .env) keeps CRA's runtime chunk in an external file instead of
+        inlining it into this page.
+      - style-src still needs 'unsafe-inline' because several UI libraries
+        (react-toastify, react-bootstrap) inject <style> tags at runtime;
+        CSS can't execute script directly, so this is a much smaller
+        concession than allowing inline script would be.
+      - img-src/media-src allow any https: host since video/thumbnail URLs
+        come from Azure Blob Storage accounts that differ per environment.
+      - frame-ancestors is deliberately NOT here: browsers only honor that
+        directive from a real HTTP response header, not a <meta> tag, so
+        clickjacking protection (frame-ancestors / X-Frame-Options) needs
+        to be configured at the hosting/server level instead.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+        img-src 'self' data: blob: https:;
+        media-src 'self' blob: https:;
+        connect-src 'self' https://api.infrabyte.com.au https://api.staging.infrabyte.com.au https://security.infrabyte.com.au https://security.staging.infrabyte.com.au;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';"
+    />
     <link rel="icon" href="Screenshot_1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />

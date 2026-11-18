@@ -6,6 +6,45 @@ import { getHeaders } from "../../services/auth";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  FiArchive,
+  FiBarChart2,
+  FiCalendar,
+  FiFolder,
+  FiGrid,
+  FiPackage,
+  FiSettings,
+  FiTruck,
+} from "react-icons/fi";
+import { FaCarSide } from "react-icons/fa";
+
+// Picks an icon from the category name; unknown categories get a folder.
+const categoryIcon = (name = "") => {
+  const n = name.toLowerCase();
+  if (n.includes("dashboard")) return FiGrid;
+  if (n.includes("off") && n.includes("inventory")) return FiArchive;
+  if (n.includes("inventory") && !n.includes("vehicle")) return FiPackage;
+  if (n.includes("booking")) return FiCalendar;
+  if (n.includes("report")) return FiBarChart2;
+  if (n.includes("vehicle") || n.includes("inspection")) return FaCarSide;
+  if (n.includes("scrap") || n.includes("collection") || n.includes("driver"))
+    return FiTruck;
+  if (n.includes("setting")) return FiSettings;
+  return FiFolder;
+};
+
+const CategoryLabel = ({ name, count }) => {
+  const Icon = categoryIcon(name);
+  return (
+    <span className="cat-label">
+      <span className="cat-icon" aria-hidden="true">
+        <Icon size={18} />
+      </span>
+      <span className="cat-name">{name}</span>
+      {count > 0 && <span className="cat-count">{count}</span>}
+    </span>
+  );
+};
 
 const CategoryAccordion = ({
   data,
@@ -112,7 +151,7 @@ const CategoryAccordion = ({
 
   if (yourVideosData != null) {
     return (
-      <Accordion defaultActiveKey="default">
+      <Accordion defaultActiveKey="default" className="category-accordion">
         {isMobile && <ToastContainer />}
         {yourVideosData.map((category) => (
           <Accordion.Item
@@ -126,11 +165,14 @@ const CategoryAccordion = ({
                   : ""
               }
               id={category.category}
-              onClick={(e) => {
-                setSelectedCategory(e.target.textContent);
+              onClick={() => {
+                setSelectedCategory(category.category);
               }}
             >
-              {category.category}
+              <CategoryLabel
+                name={category.category}
+                count={category.subCategories.length}
+              />
             </Accordion.Header>
             <Accordion.Body>
               {category.subCategories.map((subcategory) => (
@@ -159,7 +201,7 @@ const CategoryAccordion = ({
     );
   }
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="0" className="category-accordion">
       {isMobile && <ToastContainer />}
       {data.map((category) => (
         <Accordion.Item
@@ -175,14 +217,20 @@ const CategoryAccordion = ({
                 : ""
             }
             id={category.categoryName}
-            onClick={(e) => {
-              setSelectedCategory(e.target.textContent);
+            onClick={() => {
+              setSelectedCategory(category.categoryName);
               if (setCategorySelected != null) {
-                setCategorySelected(e.target.textContent);
+                setCategorySelected(category.categoryName);
               }
             }}
           >
-            {category.categoryName}
+            <CategoryLabel
+              name={category.categoryName}
+              count={category.subcategories.reduce(
+                (total, sub) => total + sub.items.length,
+                0,
+              )}
+            />
           </Accordion.Header>
           <Accordion.Body>
             {category.subcategories.map((subcategory) => (
