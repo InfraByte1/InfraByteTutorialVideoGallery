@@ -57,6 +57,8 @@
 .landing-topbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   padding: 28px clamp(20px, 5vw, 64px);
 }
 
@@ -116,10 +118,10 @@
 
 .landing-title {
   margin-top: 22px;
-  font-size: clamp(36px, 5.4vw, 66px);
+  font-size: clamp(36px, 5.2vw, 62px);
   font-weight: 800;
   line-height: 1.06;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .landing-title-accent {
@@ -182,33 +184,86 @@
 }
 
 /* ---------- Feature chips ---------- */
+/* ---------- Feature cards ---------- */
 .landing-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  max-width: 640px;
   margin-top: 40px;
   padding: 0;
   list-style: none;
 }
 
 .landing-feature {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 15px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
   color: var(--l-text);
   background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.landing-feature svg {
-  color: var(--l-orange);
+.landing-feature-icon {
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: #1a1100;
+  background: linear-gradient(135deg, var(--l-orange-soft), var(--l-orange));
+  box-shadow: 0 8px 16px -8px rgba(255, 157, 0, 0.8);
+}
+
+.landing-feature-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.landing-feature-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.landing-feature-sub {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--l-muted);
+}
+
+/* ---------- Sign in (top bar) ---------- */
+.landing-signin {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--l-text);
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.landing-signin:hover {
+  color: var(--l-orange-soft);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--l-orange);
+}
+
+.landing-signin:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
 }
 
 /* ---------- Decorative player preview ---------- */
@@ -384,6 +439,7 @@
     justify-content: center;
   }
   .landing-features {
+    grid-template-columns: 1fr;
     margin-top: 32px;
   }
 }

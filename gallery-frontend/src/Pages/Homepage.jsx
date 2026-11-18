@@ -107,6 +107,13 @@ function Homepage() {
         <span className="landing-logo">
           <img src={logo} alt="InfraByte" />
         </span>
+        <button
+          type="button"
+          className="landing-signin"
+          onClick={() => login()}
+        >
+          Sign in
+        </button>
       </div>
 
       <main className="landing-main">
@@ -128,16 +135,41 @@ function Homepage() {
 
           <ul className="landing-features">
             <li className="landing-feature">
-              <FiPlayCircle size={16} aria-hidden="true" />
-              Step-by-step tutorials
+              <span className="landing-feature-icon" aria-hidden="true">
+                <FiPlayCircle size={20} />
+              </span>
+              <span className="landing-feature-text">
+                <span className="landing-feature-title">
+                  Step-by-step tutorials
+                </span>
+                <span className="landing-feature-sub">
+                  Follow along at your own pace
+                </span>
+              </span>
             </li>
             <li className="landing-feature">
-              <FiMonitor size={16} aria-hidden="true" />
-              Watch on any device
+              <span className="landing-feature-icon" aria-hidden="true">
+                <FiMonitor size={20} />
+              </span>
+              <span className="landing-feature-text">
+                <span className="landing-feature-title">
+                  Watch on any device
+                </span>
+                <span className="landing-feature-sub">
+                  Web and mobile friendly
+                </span>
+              </span>
             </li>
             <li className="landing-feature">
-              <FiSearch size={16} aria-hidden="true" />
-              Search by topic
+              <span className="landing-feature-icon" aria-hidden="true">
+                <FiSearch size={20} />
+              </span>
+              <span className="landing-feature-text">
+                <span className="landing-feature-title">Search by topic</span>
+                <span className="landing-feature-sub">
+                  Find the answer quickly
+                </span>
+              </span>
             </li>
           </ul>
         </section>

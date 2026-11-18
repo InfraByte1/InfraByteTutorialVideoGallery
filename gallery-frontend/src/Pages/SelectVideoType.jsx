@@ -1,58 +1,29 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Assets/Css/Homepage.css";
+import "../Assets/Css/Hub.css";
 import { useNavigate } from "react-router-dom";
+import { FiArrowRight, FiMonitor, FiSearch, FiSmartphone } from "react-icons/fi";
 import UserDropdown from "../Components/UserDropdown";
+import SettingsMenu from "../Components/SettingsMenu";
 import { isAuthenticatedUser } from "../services/auth";
 import { toast } from "react-toastify";
-import { Form, Button } from "react-bootstrap";
 import logo from "../Assets/images/nonon.png";
 
 import { signOut } from "../services/session";
+
 function SelectVideoType() {
-  let navigate = useNavigate();
-  // const auth = useAuth();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("Username");
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const getUserName = () => {
+  useEffect(() => {
     const userName = localStorage.getItem("userName");
     if (userName != null) {
       setUsername(userName);
-    } else {
     }
-  };
-  const openWebVideos = async () => {
-    navigate(`/videos/web`);
-  };
-
-  const openMobileVideos = async () => {
-    navigate(`/videos/mobile`);
-
-    // window.location.href = `/videos/mobile`;
-  };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!searchKeyword) {
-      toast.info("Please enter any search keyword");
-      return;
-    }
-    setIsLoading(true);
-
-    try {
-      setIsLoading(false);
-      window.location.href = `/search-result/${searchKeyword}`;
-      // navigate(`/search-result/${searchKeyword}`);
-    } catch (err) {
-      // console.error("fetch failed:", err);
-      toast.info("Error fetching data: " + err.message);
-      setIsLoading(false);
-    }
-  };
-  useEffect(() => {
-    getUserName();
-  });
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticatedUser()) {
@@ -60,82 +31,100 @@ function SelectVideoType() {
     }
   }, []);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const keyword = searchKeyword.trim();
+    if (!keyword) {
+      toast.info("Please enter any search keyword");
+      return;
+    }
+    setIsLoading(true);
+    // Encoded so keywords containing "/" or "?" can't break the route.
+    window.location.href = `/search-result/${encodeURIComponent(keyword)}`;
+  };
+
   const handleLogout = () => {
     signOut();
   };
-  return (
-    <div className="home-container ">
-      <div className="home-page home-bg-container">
-        <div className="overlay">
-          <div className="inner-container ">
-            <div className="">
-              <h6 className="heading1 mb-2">
-                Welcome to <span className="title-color">InfraByte</span> Videos
-              </h6>
-              <h1 className="heading2 mt-3 mb-5">
-                <span>
-                  <img src={logo} alt="logo" width="100" hight="100" />
-                </span>{" "}
-                videos are ready to play .
-              </h1>
-              <Form
-                className="d-flex justify-content-end w-100 mt-2 mb-2"
-                noValidate
-                onSubmit={handleSubmit}
-              >
-                <Form.Control
-                  type="text"
-                  placeholder="Search infrabyte videos . . . "
-                  className="landing-search"
-                  onChange={(e) => {
-                    setSearchKeyword(e.target.value);
-                  }}
-                />
-                <Button type="submit" variant=" mx-2 button-container">
-                  Search{" "}
-                </Button>
-                {isLoading && (
-                  <span>
-                    <div className="loading-spinner"></div>
-                  </span>
-                )}
-              </Form>
-              <h1 className="heading2 mt-3 mb-3">
-                Watch video about InfraByte web or mobile.
-              </h1>
-              <button
-                className="button-container  mx-0"
-                onClick={openWebVideos}
-              >
-                <i className="fas fa-globe"></i> {"  "}
-                Web
-              </button>
-              <button
-                className="button-container  mx-3"
-                onClick={openMobileVideos}
-              >
-                <i className="fa fa-mobile"></i> {"  "}
-                Mobile
-              </button>
-            </div>
-          </div>
 
-          <p className="my-5 poweredby ">
-            <UserDropdown
-              username={username}
-              onLogout={handleLogout}
-              drop="up"
-            />
-            {/* <strong style={{ color: "orange" }}>
-              Powered by{" "}
-              <a href="https://infrabyte.com.au/" style={{ color: "white" }}>
-                Infrabyte
-              </a>
-            </strong> */}
-          </p>
+  return (
+    <div className="hub">
+      <div className="hub-topbar">
+        <span className="hub-logo">
+          <img src={logo} alt="InfraByte" />
+        </span>
+        <div className="hub-user">
+          <SettingsMenu />
+          <UserDropdown username={username} onLogout={handleLogout} />
         </div>
       </div>
-      {/* <LoginPage /> */}
+
+      <main className="hub-main">
+        <section className="hub-content">
+          <span className="hub-eyebrow">Tutorial Video Gallery</span>
+          <h1 className="hub-title">
+            Welcome to <span className="hub-title-accent">InfraByte</span>{" "}
+            Videos
+          </h1>
+          <p className="hub-subtitle">
+            Your tutorials are ready to play. Search the library, or choose a
+            platform to start watching.
+          </p>
+
+          <form className="hub-search" noValidate onSubmit={handleSubmit}>
+            <FiSearch className="hub-search-icon" aria-hidden="true" />
+            <input
+              type="text"
+              className="hub-search-input"
+              placeholder="Search InfraByte videos"
+              aria-label="Search videos"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+            />
+            <button type="submit" className="hub-search-btn">
+              Search
+            </button>
+            {isLoading && <span className="loading-spinner" />}
+          </form>
+
+          <div className="hub-choices">
+            <button
+              type="button"
+              className="hub-choice"
+              onClick={() => navigate("/videos/web")}
+            >
+              <span className="hub-choice-icon" aria-hidden="true">
+                <FiMonitor size={22} />
+              </span>
+              <span className="hub-choice-text">
+                <span className="hub-choice-title">Web</span>
+                <span className="hub-choice-sub">
+                  Tutorials for the InfraByte web app
+                </span>
+              </span>
+              <FiArrowRight className="hub-choice-arrow" aria-hidden="true" />
+            </button>
+
+            <button
+              type="button"
+              className="hub-choice"
+              onClick={() => navigate("/videos/mobile")}
+            >
+              <span className="hub-choice-icon" aria-hidden="true">
+                <FiSmartphone size={22} />
+              </span>
+              <span className="hub-choice-text">
+                <span className="hub-choice-title">Mobile</span>
+                <span className="hub-choice-sub">
+                  Tutorials for the InfraByte mobile app
+                </span>
+              </span>
+              <FiArrowRight className="hub-choice-arrow" aria-hidden="true" />
+            </button>
+          </div>
+        </section>
+      </main>
+
       <div className={isLoading ? "loading-bar" : "d-none"}></div>
     </div>
   );
