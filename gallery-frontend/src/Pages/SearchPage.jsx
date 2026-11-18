@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getHeaders } from "../services/auth";
 import { enableSeekFromCache } from "../services/seekableVideo";
-import { getJobsTutorialById, getJobsTutorialByTags } from "../config/config";
+import {
+  getAllJobTutorials,
+  getJobsTutorialById,
+  getJobsTutorialByTags,
+} from "../config/config";
+import { findTutorialById } from "../services/tutorials";
 import axios from "axios";
 import ThumbnailGrid from "../Components/category/ThumbnailGrid";
 import noThumbnail from "../Assets/images/no_thumbnail.jpg";
@@ -63,13 +68,29 @@ const SearchPage = ({ isFromShare }) => {
             decodeURIComponent(query),
             oidcConfig.secretCrypt
           ).toString(CryptoJS.enc.Utf8);
-          const response = await axios.get(
-            `${getJobsTutorialById}/${videoId}`,
-            {
-              headers: getHeaders(),
+          try {
+            const response = await axios.get(
+              `${getJobsTutorialById}/${videoId}`,
+              {
+                headers: getHeaders(),
+              }
+            );
+            responseData = response.data;
+          } catch (byIdError) {
+            // GetJobTutorialById answers 500 for every video on the live API,
+            // which broke all shared links. The full list has the same data, so
+            // look the video up there. If the list fails too (e.g. signed out),
+            // the original error is reported as before.
+            try {
+              const all = await axios.get(getAllJobTutorials, {
+                headers: getHeaders(),
+              });
+              const found = findTutorialById(all.data, videoId);
+              responseData = found ? [found] : [];
+            } catch (listError) {
+              throw byIdError;
             }
-          );
-          responseData = response.data;
+          }
         } else {
           const response = await axios.get(
             `${getJobsTutorialByTags}?tags=${query}`,
