@@ -914,3 +914,101 @@ div.output {
   padding-left: 0;
   padding-right: 0;
 }
+
+/* ---------- Floating mini player (viewers) ---------- */
+/* The slot reserves the player's normal size so the page doesn't jump when
+   the video leaves it. Same sizing as .video-player in PlayButtonOverlay.css. */
+.player-slot {
+  width: 100%;
+  height: 70vh;
+  max-height: 480px;
+  min-height: 260px;
+}
+
+.player-slot .video-player {
+  height: 100%;
+  max-height: none;
+  min-height: 0;
+}
+
+.player-slot .video-player.is-floating {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1050;
+  width: clamp(220px, 60vw, 380px);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.65);
+  animation: mini-player-in 0.22s ease-out both;
+}
+
+/* absolute so the video fills the box whatever the aspect-ratio resolves to */
+.player-slot .video-player.is-floating video {
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes mini-player-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.float-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.is-floating:hover .float-actions,
+.is-floating:focus-within .float-actions {
+  opacity: 1;
+}
+
+/* No hover on touch screens: keep the buttons visible there */
+@media (hover: none) {
+  .float-actions {
+    opacity: 1;
+  }
+}
+
+.float-actions button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: #ffffff;
+  cursor: pointer;
+  background: rgba(15, 14, 30, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.15s ease;
+}
+
+.float-actions button:hover {
+  background: #ff9d00;
+  color: #1a1100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player-slot .video-player.is-floating {
+    animation: none;
+  }
+}

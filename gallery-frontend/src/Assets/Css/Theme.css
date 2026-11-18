@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Theme layer. Dark is the default (matches infrabyte.com.au: near-black
+   navy surfaces, orange accent, white text); light is the viewer's option.
+
+   - :root holds the LIGHT tokens (the app's original look).
+   - html[data-theme="dark"] swaps the tokens and restyles the components
+     whose colours are hard-coded in their own stylesheets. Each override
+     mirrors the original selector with the html[data-theme] prefix so it
+     wins regardless of stylesheet load order.
+   - data-bs-theme (set together with data-theme) switches Bootstrap's own
+     components (dropdowns, accordions, modals, form controls).
+   The landing page is a self-contained dark hero and ignores the theme.
+   ========================================================================== */
+
+:root {
+  --t-bg: #ffffff;
+  --t-surface: #ffffff;
+  --t-surface-2: #fbfbfd;
+  --t-border: #ececf2;
+  --t-text: #1c1b3a;
+  --t-muted: #6b6b80;
+  --t-tint: rgba(28, 27, 58, 0.06);
+  --t-accent: #ff9d00;
+  --t-accent-text: #8a4b00;
+  --t-switch-off: #c9c9d8;
+  --font-display: Georgia, "Times New Roman", serif;
+}
+
+html[data-theme="dark"] {
+  --t-bg: #0b0c1a;
+  --t-surface: #14152b;
+  --t-surface-2: #1a1c36;
+  --t-border: rgba(255, 255, 255, 0.1);
+  --t-text: #f5f4fb;
+  --t-muted: #a3a3ba;
+  --t-tint: rgba(255, 255, 255, 0.08);
+  --t-accent-text: #ffc46b;
+  --t-switch-off: rgba(255, 255, 255, 0.25);
+}
+
+/* ---------- Page ---------- */
+html[data-theme="dark"] body {
+  color: var(--t-text);
+  background-color: var(--t-bg);
+  background-image: radial-gradient(
+      900px 480px at 88% -8%,
+      rgba(255, 157, 0, 0.09),
+      transparent 62%
+    ),
+    linear-gradient(180deg, #0b0c1a 0%, #0f0e1e 100%);
+  background-attachment: fixed;
+}
+
+/* Serif display headings, like the marketing site. The app-wide `*` font rule
+   sets a font on every element, so children are targeted explicitly. */
+.landing-title,
+.landing-title *,
+.search-title {
+  font-family: var(--font-display);
+}
+
+/* ---------- Navbar ---------- */
+html[data-theme="dark"] .nav-bottom {
+  background: rgba(11, 12, 26, 0.97);
+  box-shadow: 0 10px 28px -16px rgba(0, 0, 0, 0.9);
+}
+
+/* The logo's lettering is dark, so it sits on a light pill */
+html[data-theme="dark"] .nav-bottom .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+html[data-theme="dark"] .nav-bottom .navbar-brand img {
+  width: 92px;
+}
+
+html[data-theme="dark"] .navbar-item > a {
+  color: var(--t-text) !important;
+}
+
+html[data-theme="dark"] .navbar-item > a:hover {
+  color: var(--t-accent-text) !important;
+  background: rgba(255, 157, 0, 0.14);
+}
+
+html[data-theme="dark"] .navbar-item > a.active {
+  color: var(--t-accent-text) !important;
+  background: rgba(255, 157, 0, 0.18);
+}
+
+html[data-theme="dark"] .nav-search {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--t-border);
+}
+
+html[data-theme="dark"] .nav-search:focus-within {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--t-accent);
+}
+
+html[data-theme="dark"] .nav-search .nav-search-input {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .nav-search .nav-search-input::placeholder,
+html[data-theme="dark"] .nav-search-icon {
+  color: #8d8da6;
+}
+
+html[data-theme="dark"] .nav-bottom .navbar-toggler {
+  border-color: var(--t-border);
+}
+
+html[data-theme="dark"] .nav-bottom .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+@media (max-width: 1199px) {
+  html[data-theme="dark"] .nav-bottom .navbar-collapse,
+  html[data-theme="dark"] .navbar-right-group {
+    border-top-color: var(--t-border);
+  }
+}
+
+/* ---------- User menu ---------- */
+html[data-theme="dark"] .user-dropdown .dropdown-toggle-custom {
+  color: var(--t-text);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--t-border);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .user-dropdown .dropdown-menu {
+  background: var(--t-surface-2);
+  border: 1px solid var(--t-border);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.8);
+}
+
+html[data-theme="dark"] .user-dropdown .dropdown-item {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .user-dropdown .dropdown-item:hover,
+html[data-theme="dark"] .user-dropdown .dropdown-item:focus {
+  background-color: rgba(255, 157, 0, 0.14);
+  color: var(--t-accent-text);
+}
+
+/* ---------- Accordions (shared bits) ---------- */
+html[data-theme="dark"] .accordion-item {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+}
+
+html[data-theme="dark"] .accordion-button {
+  color: var(--t-text);
+  background: var(--t-surface);
+}
+
+html[data-theme="dark"] .accordion-button:hover {
+  background: rgba(255, 157, 0, 0.08);
+}
+
+html[data-theme="dark"] .accordion-button:not(.collapsed) {
+  color: var(--t-text);
+  background: rgba(255, 157, 0, 0.1);
+}
+
+html[data-theme="dark"] .accordion-body {
+  background: var(--t-surface);
+  border-top-color: var(--t-border);
+}
+
+/* ---------- Sidebar categories ---------- */
+html[data-theme="dark"] .category-accordion .accordion-item {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+  box-shadow: 0 8px 22px -16px rgba(0, 0, 0, 0.9);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-item:hover {
+  border-color: rgba(255, 157, 0, 0.45);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-button {
+  background: var(--t-surface);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-button:hover {
+  background: rgba(255, 157, 0, 0.08);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-button:not(.collapsed) {
+  background: rgba(255, 157, 0, 0.1);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-button::after {
+  background-color: var(--t-tint);
+}
+
+html[data-theme="dark"]
+  .category-accordion
+  .accordion-button:not(.collapsed)::after {
+  background-color: rgba(255, 157, 0, 0.22);
+}
+
+html[data-theme="dark"] .cat-icon {
+  color: var(--t-text);
+  background: var(--t-tint);
+}
+
+html[data-theme="dark"] .cat-count {
+  color: var(--t-muted);
+  background: var(--t-tint);
+}
+
+html[data-theme="dark"] .accordion-button:not(.collapsed) .cat-count {
+  color: var(--t-accent-text);
+  background: rgba(255, 157, 0, 0.2);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-body {
+  background: var(--t-surface);
+  border-top-color: var(--t-border);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-body ul li {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .category-accordion .accordion-body ul li::before {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+html[data-theme="dark"] .accordion-body ul li:hover {
+  color: var(--t-accent-text);
+  background: rgba(255, 157, 0, 0.12);
+}
+
+html[data-theme="dark"] .accordion-body ul li.active {
+  color: #ffffff;
+  background: rgba(255, 157, 0, 0.2);
+  border-left-color: var(--t-accent);
+}
+
+html[data-theme="dark"] .sidebar-sticky {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* ---------- Content: breadcrumb, Now Playing, playlist ---------- */
+html[data-theme="dark"] .crumbs {
+  background: var(--t-surface-2);
+  border-color: var(--t-border);
+}
+
+html[data-theme="dark"] .crumb,
+html[data-theme="dark"] .crumb svg {
+  color: var(--t-muted);
+}
+
+html[data-theme="dark"] .crumb-current {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .crumb + .crumb::before {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+html[data-theme="dark"] .section-description {
+  color: var(--t-muted);
+}
+
+/* the card is already navy: lift it off the dark page with a hairline */
+html[data-theme="dark"] .now-playing {
+  background: linear-gradient(135deg, #1e2042 0%, #15162d 100%);
+  border-top: 1px solid var(--t-border);
+  border-right: 1px solid var(--t-border);
+  border-bottom: 1px solid var(--t-border);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-item {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+  box-shadow: 0 8px 22px -16px rgba(0, 0, 0, 0.9);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-item:hover {
+  border-color: rgba(255, 157, 0, 0.45);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-button {
+  background: var(--t-surface);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-button:not(.collapsed) {
+  background: rgba(255, 157, 0, 0.1);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-button::after {
+  background-color: var(--t-tint);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-button:not(.collapsed)::after {
+  background-color: rgba(255, 157, 0, 0.22);
+}
+
+html[data-theme="dark"] .thumbnail-grid .accordion-body {
+  background: var(--t-surface);
+  border-top-color: var(--t-border);
+}
+
+html[data-theme="dark"] .pl-icon {
+  color: var(--t-text);
+  background: var(--t-tint);
+}
+
+html[data-theme="dark"] .pl-title,
+html[data-theme="dark"] .accordion-title {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .pl-count {
+  color: var(--t-muted);
+}
+
+html[data-theme="dark"] .pl-live {
+  color: var(--t-accent-text);
+  background: rgba(255, 157, 0, 0.2);
+}
+
+html[data-theme="dark"] .eq i {
+  background: var(--t-accent);
+}
+
+html[data-theme="dark"] .thumbnail-grid .video-item {
+  background: var(--t-surface-2);
+  border-color: var(--t-border);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .thumbnail-grid .video-item:hover {
+  border-color: rgba(255, 157, 0, 0.5);
+}
+
+html[data-theme="dark"] .thumbnail-grid .video-item.is-playing {
+  background: rgba(255, 157, 0, 0.12);
+  border-color: var(--t-accent);
+  box-shadow: 0 0 0 3px rgba(255, 157, 0, 0.16);
+}
+
+html[data-theme="dark"] .video-details h2,
+html[data-theme="dark"] .thumbnail-title {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .video-details p {
+  color: var(--t-muted);
+}
+
+html[data-theme="dark"] .video-index {
+  color: var(--t-muted);
+}
+
+html[data-theme="dark"] .viewer-accordion .video-item.is-playing .video-index {
+  color: var(--t-accent-text);
+}
+
+/* management grid on "Your videos" */
+html[data-theme="dark"] .thumbnail-container {
+  background: var(--t-surface);
+  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- Search results ---------- */
+html[data-theme="dark"] .search-title {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .search-sub {
+  color: var(--t-muted);
+}
+
+html[data-theme="dark"] .search-query {
+  color: var(--t-accent-text);
+}
+
+html[data-theme="dark"] .search-count {
+  color: var(--t-accent-text);
+  background: rgba(255, 157, 0, 0.16);
+}
+
+html[data-theme="dark"] .search-page .search-results .video-item {
+  background: var(--t-surface);
+}
+
+html[data-theme="dark"] .search-page .search-results .video-item.is-playing {
+  background: rgba(255, 157, 0, 0.12);
+}
+
+html[data-theme="dark"] .search-empty {
+  color: var(--t-muted);
+  background: var(--t-surface-2);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html[data-theme="dark"] .search-empty h2 {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .search-empty svg {
+  color: var(--t-accent-text);
+  background: rgba(255, 157, 0, 0.16);
+}
+
+/* ---------- Footer ---------- */
+html[data-theme="dark"] footer {
+  background: linear-gradient(135deg, #0d0e20 0%, #08091a 100%);
+}
+
+/* ---------- "Your videos" toolbar ---------- */
+html[data-theme="dark"] .your-videos-toolbar {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .your-videos-toolbar label,
+html[data-theme="dark"] .your-videos-title {
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .your-videos-toolbar select.form-control {
+  color: var(--t-text);
+  border-color: var(--t-border);
+}
+
+/* ---------- Add / edit video form ---------- */
+html[data-theme="dark"] .video-form-page {
+  --vf-navy: var(--t-text);
+  --vf-border: var(--t-border);
+  --vf-muted: var(--t-muted);
+  --vf-bg: transparent;
+  --vf-danger: #ff6b5e;
+}
+
+html[data-theme="dark"] .vf-card,
+html[data-theme="dark"] .video-card,
+html[data-theme="dark"] .tag-input,
+html[data-theme="dark"] .btn-ghost,
+html[data-theme="dark"] .video-form input[type="text"],
+html[data-theme="dark"] .video-form select,
+html[data-theme="dark"] .video-form textarea {
+  background: var(--t-surface);
+  border-color: var(--t-border);
+}
+
+html[data-theme="dark"] .video-form input:disabled,
+html[data-theme="dark"] .video-form select:disabled,
+html[data-theme="dark"] .video-form textarea:disabled,
+html[data-theme="dark"] .video-card.removed,
+html[data-theme="dark"] .btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="dark"] .segmented,
+html[data-theme="dark"] .thumb-box,
+html[data-theme="dark"] .btn-soft,
+html[data-theme="dark"] .vf-progress-bar {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--t-text);
+}
+
+html[data-theme="dark"] .btn-soft:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="dark"] .segmented button.active {
+  background: rgba(255, 157, 0, 0.22);
+  color: var(--t-text);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .tag-chip {
+  background: rgba(255, 157, 0, 0.18);
+  color: var(--t-accent-text);
+}
+
+html[data-theme="dark"] .video-dropzone {
+  background: var(--t-surface-2);
+}
+
+html[data-theme="dark"] .video-dropzone.dragging {
+  background: rgba(255, 157, 0, 0.1);
+}
+
+html[data-theme="dark"] .video-dropzone.is-invalid,
+html[data-theme="dark"] .video-card.has-error,
+html[data-theme="dark"] .vf-alert.error,
+html[data-theme="dark"] .btn-danger-soft {
+  background: rgba(255, 107, 94, 0.12);
+}
+
+html[data-theme="dark"] .vf-alert.error {
+  color: #ffb4ac;
+}
+
+html[data-theme="dark"] .vf-alert.warn {
+  background: rgba(255, 157, 0, 0.12);
+  color: var(--t-accent-text);
+}
+
+html[data-theme="dark"] .vf-actions {
+  background: rgba(11, 12, 26, 0.96);
+  border-top-color: var(--t-border);
+}

@@ -4,7 +4,8 @@ import "../../Assets/Css/CategoryAccordion.css";
 import { getJobTutorialsByCategorySubCategory } from "../../config/config";
 import { getHeaders } from "../../services/auth";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import ThemedToastContainer from "../ThemedToastContainer";
 import "react-toastify/dist/ReactToastify.css";
 import {
   FiArchive,
@@ -152,7 +153,7 @@ const CategoryAccordion = ({
   if (yourVideosData != null) {
     return (
       <Accordion defaultActiveKey="default" className="category-accordion">
-        {isMobile && <ToastContainer />}
+        {isMobile && <ThemedToastContainer />}
         {yourVideosData.map((category) => (
           <Accordion.Item
             eventKey={category.category.toString()}
@@ -202,7 +203,7 @@ const CategoryAccordion = ({
   }
   return (
     <Accordion defaultActiveKey="0" className="category-accordion">
-      {isMobile && <ToastContainer />}
+      {isMobile && <ThemedToastContainer />}
       {data.map((category) => (
         <Accordion.Item
           eventKey={category.categoryId.toString()}

@@ -6,6 +6,8 @@ import { BrowserRouter, useNavigate } from "react-router-dom";
 import { AuthProvider } from "oidc-react";
 import { oidcConfig } from "./config/config";
 import { consumeTokenFromUrl } from "./services/auth";
+import { PreferencesProvider } from "./contexts/PreferencesContext";
+import "./Assets/Css/Theme.css";
 
 // Must run before the tree mounts: a ?token= handoff can arrive on any
 // route, and PermissionProvider's own mount effect needs the token already
@@ -16,9 +18,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <AuthProvider {...oidcConfig} autoSignIn={false}> */}
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PreferencesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PreferencesProvider>
     {/* </AuthProvider> */}
   </React.StrictMode>
 );

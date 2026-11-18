@@ -9,6 +9,7 @@ import {
   isAuthenticatedUser,
 } from "../services/auth";
 import UserDropdown from "./UserDropdown";
+import SettingsMenu from "./SettingsMenu";
 import { signOut } from "../services/session";
 // import { useAuth } from "oidc-react";
 import { jwtDecode } from "jwt-decode";
@@ -155,6 +156,7 @@ function Header() {
               )}
             </Form>
 
+            <SettingsMenu />
             <UserDropdown username={username} onLogout={handleLogout} />
           </div>
         </Navbar.Collapse>

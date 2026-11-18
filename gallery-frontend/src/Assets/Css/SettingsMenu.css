@@ -1,0 +1,177 @@
+/* Navbar Settings (gear) menu. Colours come from the theme tokens in Theme.css. */
+
+.settings-menu {
+  position: relative;
+}
+
+.settings-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--t-border);
+  border-radius: 50%;
+  color: var(--t-text);
+  cursor: pointer;
+  background: var(--t-surface);
+  box-shadow: 0 4px 14px -8px rgba(0, 0, 0, 0.35);
+  transition: background-color 0.18s ease, color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.settings-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.settings-toggle:hover,
+.settings-toggle.show {
+  color: #1a1100;
+  border-color: transparent;
+  background: linear-gradient(135deg, #ffc46b, #ff9d00);
+}
+
+.settings-toggle:hover svg,
+.settings-toggle.show svg {
+  transform: rotate(60deg);
+}
+
+.settings-toggle:focus-visible {
+  outline: 2px solid #ff9d00;
+  outline-offset: 3px;
+}
+
+.settings-panel.dropdown-menu {
+  width: min(330px, calc(100vw - 32px));
+  margin-top: 10px;
+  padding: 14px 16px 6px;
+  color: var(--t-text);
+  background: var(--t-surface);
+  border: 1px solid var(--t-border);
+  border-radius: 16px;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55);
+}
+
+.settings-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+  padding-bottom: 6px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--t-border);
+}
+
+.settings-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.settings-label {
+  font-weight: 600;
+  color: var(--t-text);
+}
+
+.settings-hint {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--t-muted);
+}
+
+/* Dark / Light segmented choice */
+.theme-choice {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--t-tint);
+}
+
+.theme-choice button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--t-muted);
+  cursor: pointer;
+  background: transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.theme-choice button:hover {
+  color: var(--t-text);
+}
+
+.theme-choice button.is-active {
+  color: #1a1100;
+  background: linear-gradient(135deg, #ffc46b, #ff9d00);
+}
+
+.theme-choice button:focus-visible,
+.settings-switch:focus-visible {
+  outline: 2px solid #ff9d00;
+  outline-offset: 2px;
+}
+
+/* On/off switch */
+.settings-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 46px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--t-switch-off);
+  transition: background-color 0.18s ease;
+}
+
+.settings-switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease;
+}
+
+.settings-switch.is-on {
+  background: #ff9d00;
+}
+
+.settings-switch.is-on::after {
+  transform: translateX(20px);
+}
+
+@media (max-width: 1199px) {
+  .navbar-right-group .settings-menu {
+    align-self: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settings-toggle svg,
+  .settings-switch,
+  .settings-switch::after {
+    transition: none;
+  }
+}

@@ -8,13 +8,17 @@ import React, {
 import { Accordion, Button, Container } from "react-bootstrap";
 import {
   FaDesktop,
+  FaExpandAlt,
   FaListUl,
   FaMobileAlt,
   FaPlay,
   FaShareAlt,
+  FaTimes,
 } from "react-icons/fa";
+import { usePreferences } from "../../contexts/PreferencesContext";
 import CryptoJS from "crypto-js";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import ThemedToastContainer from "../ThemedToastContainer";
 import { useNavigate } from "react-router-dom";
 import noThumbnail from "../../Assets/images/no_thumbnail.jpg";
 import "../../Assets/Css/ThumbnailGrid.css";
@@ -89,6 +93,7 @@ const VideoPlayer = ({
   description,
   shareable,
   onShare,
+  floatable,
 }) => {
   const videoRef = useRef(null);
   // Video URLs can contain raw spaces/special characters (e.g. folder names
@@ -141,24 +146,95 @@ const VideoPlayer = ({
   // Do not render player if no video URL
   // if (!videoUrl) return null;
 
+  // ---- Floating mini player (viewers) -------------------------------------
+  // The slot keeps the player's space in the page. When it scrolls out of
+  // view, the *same* .video-player element is switched to a small fixed
+  // window by CSS only, so the video keeps playing without reloading.
+  const slotRef = useRef(null);
+  const [pastPlayer, setPastPlayer] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  // On/off lives in the navbar's Settings menu (PreferencesContext).
+  const { floatingPlayer: floatEnabled } = usePreferences();
+
+  useEffect(() => {
+    const el = slotRef.current;
+    if (!floatable || !el || typeof IntersectionObserver === "undefined") {
+      setPastPlayer(false);
+      return undefined;
+    }
+    // -100px: the sticky navbar covers the top of the viewport
+    const observer = new IntersectionObserver(
+      ([entry]) =>
+        setPastPlayer(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      { rootMargin: "-100px 0px 0px 0px", threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [floatable]);
+
+  // Closing the mini player lasts until the player is back in view or a new
+  // video is picked.
+  useEffect(() => {
+    if (!pastPlayer) setDismissed(false);
+  }, [pastPlayer]);
+  useEffect(() => {
+    setDismissed(false);
+  }, [videoUrl]);
+
+  const floating =
+    floatable && floatEnabled && !!videoUrl && pastPlayer && !dismissed;
+
+  const backToPlayer = () => {
+    const el = slotRef.current;
+    if (!el) return;
+    window.scrollTo({
+      top: window.scrollY + el.getBoundingClientRect().top - 110,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
-      <div className="video-player">
-        <video
-          ref={videoRef}
-          key={encodedVideoUrl || "empty"} // Use "empty" key when no URL to ensure unique key
-          controls
-          autoPlay
-          muted
-          preload="metadata" // Changed to metadata to load initial data faster, then buffer as needed
-          onSeeking={handleSeeking}
-          onSeeked={handleSeeked}
-          onError={handleError}
-          onLoadedMetadata={handleLoadedMetadata} // Added to debug metadata
-        >
-          {encodedVideoUrl && <source src={encodedVideoUrl} type="video/mp4" />}
-          Your browser does not support the video tag.
-        </video>
+      <div className="player-slot" ref={slotRef}>
+        <div className={`video-player${floating ? " is-floating" : ""}`}>
+          <video
+            ref={videoRef}
+            key={encodedVideoUrl || "empty"} // Use "empty" key when no URL to ensure unique key
+            controls
+            autoPlay
+            muted
+            preload="metadata" // Changed to metadata to load initial data faster, then buffer as needed
+            onSeeking={handleSeeking}
+            onSeeked={handleSeeked}
+            onError={handleError}
+            onLoadedMetadata={handleLoadedMetadata} // Added to debug metadata
+          >
+            {encodedVideoUrl && (
+              <source src={encodedVideoUrl} type="video/mp4" />
+            )}
+            Your browser does not support the video tag.
+          </video>
+          {floating && (
+            <div className="float-actions">
+              <button
+                type="button"
+                onClick={backToPlayer}
+                title="Back to full player"
+                aria-label="Back to full player"
+              >
+                <FaExpandAlt aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setDismissed(true)}
+                title="Close mini player"
+                aria-label="Close mini player"
+              >
+                <FaTimes aria-hidden="true" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       {videoTitle && (
         <div className="now-playing" role="status">
@@ -420,7 +496,7 @@ const ThumbnailGrid = ({
 
   return (
     <>
-      <ToastContainer />
+      <ThemedToastContainer />
       {!showUpdate && breadcrumb}
       <VideoPlayer
         videoUrl={videoUrl}
@@ -429,6 +505,8 @@ const ThumbnailGrid = ({
         // Viewers (not "Your videos") share from here; private videos can't be.
         shareable={!showUpdate && !!videoMeta.id && !videoMeta.isPrivate}
         onShare={() => copyUrlToClipboard(videoMeta.id)}
+        // Mini player is a viewer feature; "Your videos" is unchanged.
+        floatable={!showUpdate}
       />
       {/* {videoTitle && <h5 className="p-3">Now Playing: {videoTitle}</h5>} */}
 
@@ -485,7 +563,7 @@ const ThumbnailGrid = ({
               defaultActiveKey="default"
               className={showUpdate ? undefined : "viewer-accordion"}
             >
-              {isMobile && <ToastContainer />}
+              {isMobile && <ThemedToastContainer />}
               {loadingData && (
                 <span>
                   <div className="loading-spinner"></div>

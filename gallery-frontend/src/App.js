@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { isAuthenticatedUser } from "./services/auth";
 
 import Loading from "./Components/Loading";
-import { ToastContainer } from "react-toastify";
+import ThemedToastContainer from "./Components/ThemedToastContainer";
 import "react-toastify/dist/ReactToastify.css";
 import { PermissionProvider } from "./contexts/PermissionContext";
 
@@ -28,7 +28,7 @@ function App() {
     <>
       {/* {!hideHeader && <Header />} */}
       <PermissionProvider>
-        <ToastContainer />
+        <ThemedToastContainer />
         <AppRoute />
         {!hideFooter && <Footer />}
       </PermissionProvider>
