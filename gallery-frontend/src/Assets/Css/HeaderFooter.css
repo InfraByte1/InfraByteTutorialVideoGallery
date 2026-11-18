@@ -38,8 +38,9 @@ header h1 {
 }
 
 .nav-bottom .navbar-brand img {
-  width: 104px;
-  height: auto;
+  display: block;
+  height: 42px;
+  width: auto;
   transition: transform 0.18s ease;
 }
 
@@ -164,18 +165,15 @@ footer {
 }
 
 /* The logo has dark lettering, so it sits on a light pill */
+/* White-lettered logo sits directly on the dark footer */
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  padding: 8px 14px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.7);
 }
 
 .footer-logo img {
   display: block;
-  height: 24px;
+  height: 40px;
   width: auto;
 }
 

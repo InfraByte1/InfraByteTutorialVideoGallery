@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../Assets/images/nonon.png";
+import BrandLogo from "./BrandLogo";
 
 function Footer() {
   return (
@@ -12,7 +12,7 @@ function Footer() {
           rel="noopener noreferrer"
           aria-label="InfraByte"
         >
-          <img src={logo} alt="InfraByte" />
+          <BrandLogo surface="dark" />
         </a>
 
         <div className="footer-meta">

@@ -7,7 +7,7 @@ import UserDropdown from "../Components/UserDropdown";
 import SettingsMenu from "../Components/SettingsMenu";
 import { isAuthenticatedUser } from "../services/auth";
 import { toast } from "react-toastify";
-import logo from "../Assets/images/nonon.png";
+import BrandLogo from "../Components/BrandLogo";
 
 import { signOut } from "../services/session";
 
@@ -51,7 +51,7 @@ function SelectVideoType() {
     <div className="hub">
       <div className="hub-topbar">
         <span className="hub-logo">
-          <img src={logo} alt="InfraByte" />
+          <BrandLogo surface="dark" />
         </span>
         <div className="hub-user">
           <SettingsMenu />

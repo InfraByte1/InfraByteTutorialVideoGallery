@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 import LoginPage from "./LoginPage";
 // import { useAuth } from "oidc-react";
-import logo from "../Assets/images/nonon.png";
+import BrandLogo from "../Components/BrandLogo";
 import { getAuthorizationUrl, loginUrl, oidcConfig } from "../config/config";
 import Cookies from "js-cookie";
 import { generateCodeChallenge, generateCodeVerifier } from "../config/pkce";
@@ -105,7 +105,7 @@ function Homepage() {
     <div className="landing">
       <div className="landing-topbar">
         <span className="landing-logo">
-          <img src={logo} alt="InfraByte" />
+          <BrandLogo surface="dark" />
         </span>
         <button
           type="button"
@@ -201,7 +201,7 @@ function Homepage() {
           rel="noopener noreferrer"
           aria-label="Powered by InfraByte"
         >
-          <img src={logo} alt="InfraByte" />
+          <BrandLogo surface="dark" />
         </a>
       </div>
 

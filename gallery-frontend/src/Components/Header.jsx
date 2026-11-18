@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
-import logo from "../Assets/images/nonon.png";
+import BrandLogo from "./BrandLogo";
 import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
 import {
   getHeaders,
@@ -112,7 +112,7 @@ function Header() {
     <div className="nav-bottom">
       <Navbar className="container" expand="xl">
         <Navbar.Brand as={Link} to="/videos">
-          <img src={logo} alt="InfraByte" />
+          <BrandLogo />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
